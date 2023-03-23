@@ -1,0 +1,11 @@
+{
+  "name": "vecoelo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.java",
+  "scripts": {
+    "start": "echo 'Server started'"
+},
+  "author": "",
+  "license": "ISC"
+}
