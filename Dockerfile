@@ -1,31 +1,24 @@
-FROM debian:latest
+# Utiliser l'image officielle OpenJDK avec Java 11
+FROM openjdk:11
 
-# Install Java
+# Installer MariaDB
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk
+    apt-get install -y mariadb-server
 
-# Install Node.js
-RUN apt-get update && \
-    apt-get install -y curl && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs
+# Installer JavaFX via le gestionnaire de paquets Maven
+COPY pom.xml /
+RUN apt-get install -y maven && \
+    mvn dependency:go-offline
 
-# Install MySQL
-RUN apt-get update && apt-get install -y mariadb-server && service mariadb start && mysql -u root -e "CREATE DATABASE velovert"
+# Copier les sources de l'application Java
+COPY src /main.java
+WORKDIR /
 
-# Set working directory
-WORKDIR /app
+# Compiler l'application avec Maven
+RUN mvn package
 
-# Copy package.json and package-lock.json to container
-COPY ./app/package*.json ./
+# Exposer le port MariaDB (MySQL)
+EXPOSE 3306
 
-# Install dependencies
-RUN npm install
-
-COPY . /app
-
-# Expose port
-EXPOSE 3000
-
-# Start server
-CMD ["java", "main"]
+# Définir la commande de démarrage
+CMD ["bash", "-c", "service mariadb start && java -jar target/mon_application-1.0-SNAPSHOT.jar"]

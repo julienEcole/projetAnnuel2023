@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    image: veloeco
+    ports:
+      - "3307:3306"
+    command: ["bash", "-c", "service mariadb start && java -jar target/mon_application-1.0-SNAPSHOT.jar"]
