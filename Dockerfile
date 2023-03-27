@@ -1,24 +1,16 @@
-# Utiliser l'image officielle OpenJDK avec Java 11
-FROM openjdk:11
+FROM openjdk:11-jdk 
 
-# Installer MariaDB
+WORKDIR /app
+COPY /src/pom.xml .
+COPY src ./src
 RUN apt-get update && \
-    apt-get install -y mariadb-server
+    apt-get install -y maven && \
+    apt-get install -y default-mysql-client && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Installer JavaFX via le gestionnaire de paquets Maven
-COPY pom.xml /
-RUN apt-get install -y maven && \
-    mvn dependency:go-offline
+RUN mvn dependency:copy-dependencies package && mvn install && mvn package
 
-# Copier les sources de l'application Java
-COPY src /main.java
-WORKDIR /
+CMD ["java", "./src/app/main.java"]
 
-# Compiler l'application avec Maven
-RUN mvn package
-
-# Exposer le port MariaDB (MySQL)
-EXPOSE 3306
-
-# Définir la commande de démarrage
-CMD ["bash", "-c", "service mariadb start && java -jar target/mon_application-1.0-SNAPSHOT.jar"]
+# CMD [ "java", "--module-path", "./target/", "--add-modules", "javafx.controls,javafx.fxml","./src/app/main.java" ]
