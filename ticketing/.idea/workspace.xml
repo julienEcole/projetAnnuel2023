@@ -7,7 +7,6 @@
     <list default="true" id="ecd7a21c-797e-430f-87c8-127e48b6a2f9" name="Changes" comment="feature : a new constructor for the TicketKey.java using the Enumeration to simplify the construction of the object.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKey.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKeyEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKeyEnum.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,15 +16,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="setup/docker/java" />
+        <entry key="$PROJECT_DIR$/.." value="feature/java/foreignKey" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -60,6 +59,14 @@
       <option name="presentableId" value="Default" />
       <updated>1680021078591</updated>
     </task>
+    <task id="LOCAL-00001" summary="feature : a new constructor for the TicketKey.java using the Enumeration to simplify the construction of the object.">
+      <created>1680275597025</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680275597025</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

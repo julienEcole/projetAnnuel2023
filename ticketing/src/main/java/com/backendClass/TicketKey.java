@@ -5,7 +5,7 @@ public class TicketKey {
     protected String table;
     protected String description;
 
-    /*public TicketKey(TicketKeyEnum nomTable,String table) {
+    /*public TicketKey(TicketKeyEnum nomTable,String titre) {
         //TODO
         //trouver un moyen de questionner bdd pour trouver la description automatiquement si elle existe
     }*/
