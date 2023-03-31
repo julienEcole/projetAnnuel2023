@@ -1,18 +1,46 @@
 package com.backendClass;
 
-public abstract class TicketKey {
+public class TicketKey {
     protected String titre;
     protected String table;
     protected String description;
 
-    public TicketKey(TicketKeyEnum nomTable,String table, String description) {
+    /*public TicketKey(TicketKeyEnum nomTable,String table) {
+        //TODO
+        //trouver un moyen de questionner bdd pour trouver la description automatiquement si elle existe
+    }*/
 
+    public TicketKey(String titre, TicketKeyEnum nomTable, String description) {
+        this.titre = titre;
+        this.description = description;
+        String nomTableActual = nomtableToString(nomTable);
+        try{
+            this.table = nomTableActual;
+        }
+        catch (IllegalArgumentException err){
+            System.out.println(err.getMessage());
+        }
     }
 
     public TicketKey(String titre, String table, String description) {
         this.titre = titre;
         this.table = table;
         this.description = description;
+    }
+
+    private String nomtableToString(TicketKeyEnum nomTableArg){
+        switch (nomTableArg){
+            case ETAT :
+                return "etat";
+            case ROLE:
+                return "role";
+            case TYPE:
+                return "type";
+            case URGENCE:
+                return "urgence";
+            default:
+                throw new IllegalArgumentException("le nom de table dans l\'enumeration n\'existe pas ou n\'as pas été implemente.");
+        }
     }
 
     public String getTable() {

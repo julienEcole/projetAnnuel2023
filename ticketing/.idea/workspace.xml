@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ecd7a21c-797e-430f-87c8-127e48b6a2f9" name="Changes" comment="">
+    <list default="true" id="ecd7a21c-797e-430f-87c8-127e48b6a2f9" name="Changes" comment="feature : a new constructor for the TicketKey.java using the Enumeration to simplify the construction of the object.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKeyEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/backendClass/TicketKeyEnum.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,5 +61,9 @@
       <updated>1680021078591</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feature : a new constructor for the TicketKey.java using the Enumeration to simplify the construction of the object." />
+    <option name="LAST_COMMIT_MESSAGE" value="feature : a new constructor for the TicketKey.java using the Enumeration to simplify the construction of the object." />
   </component>
 </project>
