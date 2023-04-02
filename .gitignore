@@ -12,8 +12,14 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+# data
+data
+
 # AWS User-specific
 .idea/**/aws.xml
+
+#data
+data
 
 # Generated files
 .idea/**/contentModel.xml
@@ -550,3 +556,5 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,intellij,visualstudiocode,visualstudio
+/.metadata/
+target
