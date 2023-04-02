@@ -1,7 +1,7 @@
-FROM openjdk:11-jdk 
+FROM openjdk:11
 
 WORKDIR /app
-COPY /src/pom.xml .
+COPY pom.xml .
 COPY src ./src
 RUN apt-get update && \
     apt-get install -y maven && \
@@ -9,8 +9,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mvn dependency:copy-dependencies package && mvn install && mvn package
+RUN  mvn package && mvn install
 
-CMD ["java", "./src/app/main.java"]
 
 # CMD [ "java", "--module-path", "./target/", "--add-modules", "javafx.controls,javafx.fxml","./src/app/main.java" ]
