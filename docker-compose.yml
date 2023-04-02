@@ -5,15 +5,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb
+      MYSQL_TCP_PORT: 3308
     ports:
       - "3308:3308"
+
     volumes:
       - ./data:/var/lib/mysql
+      - ./bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: db
-      PMA_PORT: 3306
+      PMA_PORT: 3308
     ports:
       - "8080:80"
     depends_on:
@@ -21,4 +24,3 @@ services:
   app:
     image: application
     build: .
-
