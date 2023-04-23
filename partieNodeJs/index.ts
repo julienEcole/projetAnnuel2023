@@ -5,21 +5,7 @@ config({ path: '../.env' });
 const app = express();
 
 async function startServer():Promise<void> {
-    // const connexion = await mongoose.connect(process.env.MONGODB_URI as string,{
-    //     auth:{
-    //         username: process.env.MONGODB_USER as string,
-    //         password: process.env.MONGODB_PASSWORD as string
-    //     },
-    //     authSource: "admin"
-    // });
-    // console.log(connexion);
-
-    // const temp = await AnimalModel.create({
-    //     isFemale:false,
-    //     name:"viceix",
-    //     type: "gobgonlin",
-    //     birthDate:new Date()
-    // });
+    
     console.log("TODO startup server")
 }
 
