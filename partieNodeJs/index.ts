@@ -1,11 +1,13 @@
 import {config} from "dotenv";
-import * as express from "express"
+import * as express from "express";
 config({ path: '../.env' });
+
+
 
 const app = express();
 
 async function startServer():Promise<void> {
-    
+
     console.log("TODO startup server")
 }
 
