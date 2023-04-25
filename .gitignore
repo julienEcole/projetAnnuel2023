@@ -9,7 +9,7 @@
 src\main
 
 #.env perso
-./.env.dev
+.env.dev
 
 # User-specific stuff
 .idea/**/workspace.xml
