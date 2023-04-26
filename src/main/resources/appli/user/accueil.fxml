@@ -23,7 +23,7 @@
             </menus>
         </MenuBar>
         <TableView fx:id="tbl" layoutX="43.0" layoutY="100.0" onMouseClicked="#onSelIntem" prefHeight="253.0" prefWidth="399.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-        <Label alignment="CENTER" layoutX="21.0" layoutY="24.0" text="Gestion des Tickets" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="19.0">
+        <Label alignment="CENTER" layoutX="21.0" layoutY="24.0" text="Gestion des utilisateurs" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="19.0">
             <font>
                 <Font size="24.0" />
             </font>

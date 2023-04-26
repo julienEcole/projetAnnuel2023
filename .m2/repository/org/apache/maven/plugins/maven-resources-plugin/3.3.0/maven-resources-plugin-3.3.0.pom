@@ -209,7 +209,7 @@ under the License.
         </pluginManagement>
         <plugins>
           <!--
-           ! The following is used within the src/it/user-filters test.
+           ! The following is used within the src/it/appli.user-filters test.
           -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>

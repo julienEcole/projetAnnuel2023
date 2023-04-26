@@ -34,7 +34,7 @@
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven Install Plugin</name>
-  <description>Copies the project artifacts to the user's local repository.</description>
+  <description>Copies the project artifacts to the appli.user's local repository.</description>
   <inceptionYear>2004</inceptionYear>
 
   <prerequisites>

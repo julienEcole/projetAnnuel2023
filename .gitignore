@@ -174,7 +174,7 @@ $RECYCLE.BIN/
 # User-specific files
 *.rsuser
 *.suo
-*.user
+*.appli.user
 *.userosscache
 *.sln.docstates
 
@@ -298,7 +298,7 @@ $tf/
 # ReSharper is a .NET coding add-in
 _ReSharper*/
 *.[Rr]e[Ss]harper
-*.DotSettings.user
+*.DotSettings.appli.user
 
 # TeamCity is a build add-in
 _TeamCity*
