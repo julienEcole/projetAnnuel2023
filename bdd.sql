@@ -1,3 +1,5 @@
+USE vecoleo;
+
 CREATE TABLE role_utilisateur (
     role_utilisateur_id INT PRIMARY KEY NOT NULL,
     titre TEXT NOT NULL,
