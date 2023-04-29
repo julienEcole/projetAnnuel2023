@@ -4,8 +4,7 @@
   "description": "ici la partie de l'api pour la connexion a la bdd.",
   "main": "index.ts",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && node dist/index.js",
+    "start": "npx tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "julienEcole",
