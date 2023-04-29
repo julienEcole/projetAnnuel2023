@@ -32,24 +32,25 @@ async function startServer():Promise<void> {
             else
             {
                 console.log("Connection established with the database.");
+                const app = express();
+                app.get('/', (req, res) => {
+                    res.send("What's up doc ?!");
+                });
+
+                app.get('/ping', function(req, res) {
+                    res.send("pong");
+                });
+                //queryDatabase();
+                app.listen(process.env.API_NODEJS_PORT,function(){
+                    console.log(`server running : http://${process.env.API_NODEJS_BACK_HOST}:${process.env.API_NODEJS_PORT}`);
+                });
             }
         }
     );
-    console.log(db);
+    console.log(db);    
 }
 
-const app = express();
-app.get('/', (req, res) => {
-    res.send("What's up doc ?!");
-});
 
-app.get('/ping', function(req, res) {
-    res.send("pong");
-});
-//queryDatabase();
-app.listen(process.env.API_NODEJS_PORT,function(){
-    console.log(`server running : http://${process.env.API_NODEJS_BACK_HOST}:${process.env.API_NODEJS_PORT}`);
-});
 startServer().catch(function(err):void{
     console.log(err);
 });
