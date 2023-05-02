@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="591.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -17,14 +17,11 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <TableView fx:id="tbl" layoutX="43.0" layoutY="100.0" onMouseClicked="#onSelIntem" prefHeight="253.0" prefWidth="399.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
         <Label alignment="CENTER" layoutX="21.0" layoutY="36.0" text="Gestion des tickets" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="19.0">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
         <Button fx:id="btnAdd" layoutX="20.0" layoutY="89.0" mnemonicParsing="false" onAction="#AddAction" text="Ajouter" />
-        <Button fx:id="btnModif" disable="true" layoutX="270.0" layoutY="89.0" mnemonicParsing="false" onAction="#editAction" text="Modifier" />
-        <Button fx:id="btnDelete" disable="true" layoutX="508.0" layoutY="89.0" mnemonicParsing="false" onAction="#delAction" text="Supprimer" />
     </children>
 </AnchorPane>
