@@ -1,11 +1,9 @@
-import * as express from "express";
-import {config} from "dotenv";
-config({ path: '../.env' });    //.env var
-import loggin from './controllers/loggin';
-import bodyParser = require('body-parser');
-import utilisateur from './controllers/utilisateur';
-import * as http from "http"
-
+import http from 'http';
+import bodyParser from 'body-parser';
+import express from 'express';
+import logging from './config/logging';
+import config from './config/config';
+import bookRoutes from './routes/book';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -13,11 +11,11 @@ const router = express();
 /** Log the request */
 router.use((req, res, next) => {
     /** Log the req */
-    loggin.info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
+    logging.info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - IP: [${req.socket.remoteAddress}]`);
 
     res.on('finish', () => {
         /** Log the res */
-        loggin.info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}] - IP: [${req.socket.remoteAddress}]`);
+        logging.info(NAMESPACE, `METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}] - IP: [${req.socket.remoteAddress}]`);
     })
     
     next();
@@ -41,7 +39,7 @@ router.use((req, res, next) => {
 });
 
 /** Routes go here */
-router.use('/utilisateur', utilisateur.getAllUtilisateur);
+router.use('/books', bookRoutes);
 
 /** Error handling */
 router.use((req, res, next) => {
@@ -54,4 +52,4 @@ router.use((req, res, next) => {
 
 const httpServer = http.createServer(router);
 
-httpServer.listen(process.env.API_NODEJS_PORT, () => loggin.info(NAMESPACE, `Server is running ${process.env.API_NODEJS_BACK_HOST}:${process.env.API_NODEJS_PORT}`));
+httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
