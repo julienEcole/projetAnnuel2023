@@ -1,11 +1,11 @@
-import dotenv from 'dotenv';
+import * as dotenv from "dotenv";
 
-dotenv.config({path:"../../../.env"});
+dotenv.config({ path: "../.env" }); //un autre mystere de l'univers, un trou de verre est présent dans ce dossier visiblement
 
-const MYSQL_HOST = process.env.MYSQL_HOST || 'localhost';
-const MYSQL_DATABASE = process.env.MYSQL_DATABASE || 'vecoleo';
-const MYSQL_USER = process.env.MYSQL_HOST || 'root';
-const MYSQL_PASS = process.env.MYSQL_HOST || 'root';
+const MYSQL_HOST = process.env.MYSQLDB_HOST_SERVER || "localhost";
+const MYSQL_DATABASE = process.env.MYSQLDB_DATABASE || "vecoleo";
+const MYSQL_USER = process.env.MYSQLDB_USER || "root";
+const MYSQL_PASS = process.env.MYSQLDB_ROOT_PASSWORD || "root";
 
 const MYSQL = {
     host: MYSQL_HOST,
@@ -14,8 +14,8 @@ const MYSQL = {
     pass: MYSQL_PASS
 };
 
-const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
-const SERVER_PORT = process.env.SERVER_PORT || 1337;
+const SERVER_HOSTNAME = process.env.API_NODEJS_BACK_HOST || 'localhost';
+const SERVER_PORT = process.env.API_NODEJS_PORT || 1337;
 
 const SERVER = {
     hostname: SERVER_HOSTNAME,
