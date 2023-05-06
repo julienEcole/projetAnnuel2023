@@ -4,5 +4,5 @@ export default interface IUser {
     utilisateur_id: number;
     mdp: string;
     mail: string;
-    role_utilisateur: IRoleUser
+    role_utilisateur: IRoleUser | number
 }
