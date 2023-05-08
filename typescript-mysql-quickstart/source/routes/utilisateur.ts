@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/create/utilisateur', express.json(), controller.createUser);
 router.get('/get/utilisateur', controller.getAllUsers);
-router.get("/get/utilisateur/:idUser", controller.getOneUser)
+router.get("/get/utilisateur/id/:idUser", controller.getOneUserById);
+router.get("/get/utilisateur/mail/:mailUser", controller.getOneUserByMail);
 
 export = router;
