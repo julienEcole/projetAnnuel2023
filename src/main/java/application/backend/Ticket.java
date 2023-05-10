@@ -1,4 +1,4 @@
-package application.backend;
+/* package application.backend;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -136,3 +136,4 @@ public class Ticket {
         this.description = description;
     }
 }
+*/
