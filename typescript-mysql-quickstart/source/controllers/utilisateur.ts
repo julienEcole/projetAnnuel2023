@@ -254,4 +254,91 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
         });
 };
 
-export default { createUser, getAllUsers, getOneUserById, getOneUserByMail,updateOneUserById };
+const deleteOneUserById = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Getting one user by id.');
+    if(!req.params.idUser){
+        res.status(400);
+        res.send("erreur, les arguments doivent être l'id de l'utilisateur");
+        return;
+    }
+    const query = `DELETE * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.idUser}`;
+
+    
+
+    Connect()
+        .then((connection) => {
+            Query(connection, query)
+                .then((results) => {
+                    logging.info(NAMESPACE, 'deleted users: ', results);
+
+                    return res.status(200).json({
+                        results
+                    });
+                })
+                .catch((error) => {
+                    logging.error(NAMESPACE, error.message, error);
+                    return res.status(200).json({
+                        message: error.message,
+                        error
+                    });
+                })
+                .finally(() => {
+                    logging.info(NAMESPACE, 'Closing connection.');
+                    connection.end();
+                });
+        })
+        .catch((error) => {
+            logging.error(NAMESPACE, error.message, error);
+
+            return res.status(200).json({
+                message: error.message,
+                error
+            });
+        });
+};
+
+const deleteOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Getting one user by id.');
+    if(!(req.params && req.params.mailUser && typeof req.params.mailUser === "string")){
+        res.status(400);
+        res.send("erreur, les arguments doivent être le mail de l'utilisateur");
+        return;
+    }
+    const query = `DELETE * FROM utilisateur WHERE utilisateur.mail = '${req.params.mailUser}'`;
+    logging.info(NAMESPACE,"ma query = ", query);
+
+    
+
+    Connect()
+        .then((connection) => {
+            Query(connection, query)
+                .then((results) => {
+                    logging.info(NAMESPACE, 'deleted users: ', results);
+
+                    return res.status(200).json({
+                        results
+                    });
+                })
+                .catch((error) => {
+                    logging.error(NAMESPACE, error.message, error);
+                    return res.status(200).json({
+                        message: error.message,
+                        error
+                    });
+                })
+                .finally(() => {
+                    logging.info(NAMESPACE, 'Closing connection.');
+                    connection.end();
+                });
+        })
+        .catch((error) => {
+            logging.error(NAMESPACE, error.message, error);
+
+            return res.status(200).json({
+                message: error.message,
+                error
+            });
+        });
+};
+
+export default { createUser, getAllUsers, getOneUserById, getOneUserByMail,updateOneUserById, deleteOneUserById, deleteOneUserByMail };

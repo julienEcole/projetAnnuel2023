@@ -2,30 +2,30 @@ USE vecoleo;
 
 CREATE TABLE role_utilisateur (
     role_utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    titre TEXT NOT NULL,
+    titre VARCHAR(255) NOT NULL UNIQUE,
     description TEXT
 );
 CREATE TABLE utilisateur (
     utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     mdp TEXT NOT NULL,
-    mail TEXT NOT NULL,
+    mail VARCHAR(255) NOT NULL UNIQUE,
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
 );
 CREATE TABLE type_ticket (
     type_ticket_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    titre TEXT NOT NULL,
+    titre VARCHAR(255) NOT NULL UNIQUE,
     description TEXT
 );
 
 CREATE TABLE urgence (
     urgence_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    titre TEXT NOT NULL,
+    titre VARCHAR(255) NOT NULL UNIQUE,
     description TEXT
 );
 
 CREATE TABLE etat (
     etat_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    titre TEXT NOT NULL,
+    titre VARCHAR(255) NOT NULL UNIQUE,
     description TEXT
 );
 
@@ -41,5 +41,5 @@ CREATE TABLE image (
     image_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     fichier_image BLOB NOT NULL,
     description TEXT,
-    nom TEXT NOT NULL
+    nom VARCHAR(255) NOT NULL UNIQUE
 );
