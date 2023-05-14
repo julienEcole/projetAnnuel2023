@@ -1,0 +1,49 @@
+main{
+    padding: 1rem;
+    max-width: 150rem;
+    margin: 1rem auto;
+}
+h2{
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+}
+figure{
+    margin: 1rem auto;
+    border: solid .1rem #ccc;
+    padding: 2rem;
+    display: flex;
+    border-radius: .5rem;
+}
+figure img{
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+}
+figure figcaption{
+    padding: 2rem;
+    line-height: 2.5rem;
+}
+figure figcaption h2{
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: start;
+    margin: 1rem auto;
+}
+figure figcaption time{
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: start;
+    margin: 1rem auto;
+} 
+figure figcaption a{
+    font-size: 2rem;
+    display: inline-block;
+    font-weight: bold;
+    padding: 2rem 1rem;
+    margin: 1rem auto;
+    border-radius: .5rem;
+    background-color: #f7f7f7;
+    color: rgb(18, 173, 57);
+    padding: 1rem 2rem;
+}

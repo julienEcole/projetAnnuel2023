@@ -5,6 +5,13 @@ main{
     align-items:center;
 
 }
+button{
+    margin: 1rem;
+}
+button:first-child{
+    padding: 1rem 2rem;
+    border-right: solid .3rem #000000;
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -26,6 +33,14 @@ main{
     border: none;
     padding: 1.5rem 3rem;
     border-radius: .4rem;
+    cursor: pointer;
+  }
+  .btn-forum{
+    text-decoration:none;
+    font-size:2rem;
+    font-weight: bold;
+    cursor: pointer;
+
   }
   
   /* Styles pour le contenu principal */
