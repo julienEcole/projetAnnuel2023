@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="application.docker.Accueil"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="639.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.docker.Accueil">
+   <children>
+      <BorderPane prefHeight="639.0" prefWidth="910.0">
+         <left>
+            <VBox prefHeight="639.0" prefWidth="214.0" style="-fx-background-color: #6F5CC2;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7">
+                     <graphic>
+                        <Icon content="HELP_OUTLINE" prefHeight="18.0" prefWidth="18.0" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <HBox prefHeight="83.0" prefWidth="910.0" style="-fx-background-color: #52438F;" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>

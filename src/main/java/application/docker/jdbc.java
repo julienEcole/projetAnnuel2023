@@ -9,7 +9,9 @@ public class jdbc
     Connection connection;
 
     public Connection getConnection() {
-        try
+
+
+       /* try
         {
             Class.forName(Credentials.getDriverClassName());
             connection = DriverManager.getConnection(Credentials.getUrl(), Credentials.getUser(), Credentials.getPassword());
@@ -25,6 +27,6 @@ public class jdbc
         {
             System.out.println(e);
             return null;
-        }
+        }*/
     }
 }
