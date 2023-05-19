@@ -62,6 +62,30 @@
     -fx-border-widht: 0px 0px 0px 3px;
 }
 
+.button2{
+    -fx-background-color: #52438F;
+    -fx-backgrounf-radius : 1em;
+    -fx-fill-color: #FFFFFF;
+}
+
+.button2:hover{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #CDD1D6;
+    -fx-border-widht: 1px;
+}
+
+.button2:pressed{
+    -fx-background-color: #6F5CC2;
+}
+
+.button2:focused{
+    -fx-background-color: #6F5CC2;
+    -fx-backgrounf-radius : 1em;
+    -fx-fill-color: #FFFFFF;
+
+
+}
+
 .table-view .colim-header, .table-view .column-header-background .filler{
     -fx-cell-size: 20;
     -fx-background-color: #7156DD;
