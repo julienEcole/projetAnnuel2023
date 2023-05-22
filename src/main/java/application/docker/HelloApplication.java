@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
     private static Stage stage;
     private static FXMLLoader fxmlLoader;
     @Override
-    public void start(Stage stage) throws IOException {
+    /*public void start(Stage stage) throws IOException {
         try {
             Class.forName(Credentials.getDriverClassName());
             Connection connection = DriverManager.getConnection(Credentials.getUrl(), Credentials.getUser(), Credentials.getPassword());
@@ -34,22 +34,35 @@ public class HelloApplication extends Application {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }*/
+    public void start(Stage firstStage) throws IOException {
+
+        stage = firstStage;
+        fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/application/docker/Login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("TicTacToe!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {
         launch();
     }
 
-    public static void changeScene(String fxml, Object controller){
+    public static void changeScene(String fxml,Object controller) {
+        // Step 1
         stage.close();
-        try{
+        try {
+            // Step 2
             fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(fxml+".fxml"));
+            // Step 4
             fxmlLoader.setController(controller);
+            // Step 5
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }catch(IOException e){
+        } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
     }

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.docker.LoginController">
    <children>
       <VBox layoutY="100.0" prefHeight="400.0" prefWidth="200.0" styleClass="login-container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -17,7 +17,7 @@
             <TextField fx:id="tname" styleClass="input_field" />
             <Label text="Mot de passe" />
             <PasswordField fx:id="tpass" styleClass="input_field" />
-            <Button fx:id="btnConn" mnemonicParsing="false" text="Connexion" />
+            <Button fx:id="btnConn" onAction="#seConnecterAction" mnemonicParsing="false" text="Connexion" />
          </children>
       </VBox>
    </children>

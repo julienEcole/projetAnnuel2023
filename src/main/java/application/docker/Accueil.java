@@ -10,6 +10,6 @@ public class Accueil {
 
 
     public Accueil(User u) {
-        this.user=u;
+        this.user = u;
     }
 }

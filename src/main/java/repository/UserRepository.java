@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class UserRepository {
     private jdbc coBdd;
-    private String table = "utilisateur";
+    private String table = "Utilisateur";
 
 
 
@@ -30,7 +30,7 @@ public class UserRepository {
             pstm.setString(2, mdp);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                user = new User(rs.getInt("utilisateur_id"), rs.getString("mail"), rs.getString("mdp"), rs.getInt("1"));
+                user = new User(rs.getInt("id"), rs.getString("mail"), rs.getString("mdp"), rs.getBoolean("admin"));
             }
         } catch (SQLException e) {
 // TODO Auto-generated catch block

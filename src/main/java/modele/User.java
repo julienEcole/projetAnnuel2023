@@ -3,32 +3,32 @@ package modele;
 
 public class User{
 
-    private int idUser;
+    private int id;
     private String mail;
     private String mdp;
-    private int roleuser;
+    private boolean estadmin;
 
-    public User(int idUser, String mail, String mdp, int roleuser) {
-        this.idUser = idUser;
+    public User(int id, String mail, String mdp, boolean role) {
+        this.id = id;
         this.mail = mail;
         this.mdp = mdp;
-        this.roleuser = roleuser;
+        this.estadmin = estadmin;
     }
 
-    public User(String mail, String mdp, int roleuser) {
+    public User(String mail, String mdp, String role) {
         this.mail = mail;
         this.mdp = mdp;
-        this.roleuser = roleuser;
+        this.estadmin = estadmin;
     }
 
     public User() {}
 
-    public int getIdUser() {
-        return idUser;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMail() {
@@ -47,11 +47,11 @@ public class User{
         this.mdp = mdp;
     }
 
-    public int getRoleuser() {
-        return roleuser;
+    public boolean isEstadmin() {
+        return estadmin;
     }
 
-    public void setRoleuser(int roleuser) {
-        this.roleuser = roleuser;
+    public void setEstadmin(boolean estadmin) {
+        this.estadmin = estadmin;
     }
 }
