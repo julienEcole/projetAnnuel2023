@@ -16,15 +16,8 @@
     -fx-fill: #ECF39E;
 }
 
-.login_form_container {
-    -fx-spacing: 15;
-    -fx-alignment: top_left;
-}
 
-.login_form_container Label{
-    -fx-font-size: 1.1em;
-    -fx-font-weight: bold;
-}
+
 .input_field{
     -fx-background-color: #FFFFFF;
     -fx-pref-height: 35;
