@@ -36,7 +36,7 @@ public class UserRepository {
 // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println(sql);
+        //System.out.println(sql);
 
         return user;
 

@@ -28,8 +28,8 @@ public class LoginController {
 
      @FXML
      void seConnecterAction(ActionEvent event){
-         System.out.println(tname.getText());
-         System.out.println(tpass.getText());
+         //System.out.println(tname.getText());
+         //System.out.println(tpass.getText());
          UserRepository userRepository = new UserRepository();
          User u = userRepository.connexion(tname.getText(),tpass.getText());
          if(u != null){
@@ -40,12 +40,5 @@ public class LoginController {
 
          }
          }
-    private void handleButtonClick(ActionEvent event) {
-        if (event.getSource() == btndiscon) {
-            // Charger la nouvelle page depuis un fichier FXML
-            HelloApplication.changeScene("/application/docker/login");
-        }else {
-            System.out.println("erreur");
-        }
-    }
+
 }

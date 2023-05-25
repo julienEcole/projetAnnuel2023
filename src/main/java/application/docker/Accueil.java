@@ -35,16 +35,10 @@ public class Accueil implements Initializable {
 
     private void handleButtonClick(ActionEvent event) {
         if (event.getSource() == btndiscon) {
-            try {
-                // Charger la nouvelle page depuis un fichier FXML
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/docker/login.fxml"));
-                Node nouvellePage = loader.load();
-
-                // Remplacer le contenu de la scène actuelle par la nouvelle page
-                rootPane.getChildren().setAll(nouvellePage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/login");
+        }else {
+            System.out.println("erreur");
         }
     }
 }

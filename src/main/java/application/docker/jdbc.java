@@ -38,8 +38,8 @@ public class jdbc
 
         try {
             Connection cnx = DriverManager.getConnection(this.url,this.user,this.password);
-            System.out.print("Etat de la connexion :");
-            System.out.print(cnx.isClosed()?"fermée":"ouverte \r\n");
+            //System.out.print("Etat de la connexion :");
+            //System.out.print(cnx.isClosed()?"fermée":"ouverte \r\n");
             return cnx;
 
         } catch (SQLException e) {
