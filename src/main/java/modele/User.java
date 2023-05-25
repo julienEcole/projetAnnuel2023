@@ -8,20 +8,24 @@ public class User{
     private String mdp;
     private boolean estadmin;
 
-    public User(int id, String mail, String mdp, boolean role) {
+    public User(int id, String mail, String mdp, boolean estadmin) {
         this.id = id;
         this.mail = mail;
         this.mdp = mdp;
         this.estadmin = estadmin;
     }
 
-    public User(String mail, String mdp, String role) {
+    public User(String mail, String mdp, boolean estadmin) {
         this.mail = mail;
         this.mdp = mdp;
         this.estadmin = estadmin;
     }
 
     public User() {}
+
+    public int getUser() {
+        return id;
+    }
 
     public int getId() {
         return id;

@@ -22,7 +22,7 @@ public class UserRepository {
 
     public User connexion(String mail, String mdp){
         User user = null;
-        String sql = "SELECT * FROM " + table + " WHERE mail=? and mdp=md5(?)";
+        String sql = "SELECT * FROM " + table + " WHERE mail=? and mdp=?";
         PreparedStatement pstm;
         try {
             pstm = coBdd.getConnection().prepareStatement(sql);
@@ -30,14 +30,36 @@ public class UserRepository {
             pstm.setString(2, mdp);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("mail"), rs.getString("mdp"), rs.getBoolean("admin"));
+                user = new User(rs.getInt("id"), rs.getString("mail"), rs.getString("mdp"), rs.getBoolean("est_admin"));
+            }
+        } catch (SQLException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println(sql);
+
+        return user;
+
+    }
+
+
+    public ArrayList<User> getUsers() {
+        ArrayList<User> users = new ArrayList<User>();
+        User user;
+        String sql = "SELECT * FROM "+table;
+        PreparedStatement pstm;
+        try {
+            pstm = coBdd.getConnection().prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                user = new User(rs.getInt("id"), rs.getString("mail"),  rs.getString("mdp"),  rs.getBoolean("est_admin"));
+                users.add(user);
             }
         } catch (SQLException e) {
 // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        return user;
-
+        return users;
     }
 }

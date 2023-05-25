@@ -3,11 +3,17 @@ package application.docker;
 import application.docker.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import modele.User;
 import repository.UserRepository;
+
+import java.io.IOException;
 
 
 public class LoginController {
@@ -15,6 +21,9 @@ public class LoginController {
     private TextField tname;
     @FXML
     private PasswordField tpass;
+
+    @FXML
+    private Button btndiscon;
 
 
      @FXML
@@ -31,4 +40,12 @@ public class LoginController {
 
          }
          }
+    private void handleButtonClick(ActionEvent event) {
+        if (event.getSource() == btndiscon) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/login");
+        }else {
+            System.out.println("erreur");
+        }
+    }
 }

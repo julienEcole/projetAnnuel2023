@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="639.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <BorderPane prefHeight="639.0" prefWidth="910.0">
+            <left>
+                <VBox prefHeight="639.0" prefWidth="214.0" style="-fx-background-color: #6F5CC2;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button fx:id="btnprof" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7" />
+                        <Button  fx:id="btnuse" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Users" textFill="#f7f7f7" />
+                        <Button  fx:id="btntick" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Tickets" textFill="#f8f7f7" />
+                        <Button  fx:id="btndiscon" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7" />
+                    </children>
+                </VBox>
+            </left>
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="910.0" style="-fx-background-color: #52438F;" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets left="42.0" />
+                    </padding>
+                </HBox>
+            </top>
+            <center>
+                <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                    <tabs>
+                        <Tab text="Tickets">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <BorderPane prefHeight="43.0" prefWidth="696.0">
+                                            <top>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="495.0" BorderPane.alignment="CENTER">
+                                                    <padding>
+                                                        <Insets left="42.0" />
+                                                    </padding>
+                                                    <children>
+                                                        <Label prefHeight="17.0" prefWidth="61.0" text="Tickets" />
+                                                        <Button mnemonicParsing="false" styleClass="button2" stylesheets="@../../Css/Style.css" text="Add new" textFill="WHITE" />
+                                                    </children>
+                                                </HBox>
+                                            </top>
+                                            <bottom>
+                                                <TableView prefHeight="455.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+                                                    <columns>
+                                                        <TableColumn prefWidth="75.0" text="ID" />
+                                                        <TableColumn prefWidth="136.0" text="Crée par" />
+                                                        <TableColumn prefWidth="115.0" text="Etat" />
+                                                        <TableColumn prefWidth="285.0" text="Description" />
+                                                        <TableColumn prefWidth="84.0" text="Attribuer à" />
+                                                    </columns>
+                                                </TableView>
+                                            </bottom>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Users">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <BorderPane prefHeight="43.0" prefWidth="696.0">
+                                            <top>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="495.0" BorderPane.alignment="CENTER">
+                                                    <padding>
+                                                        <Insets left="42.0" />
+                                                    </padding>
+                                                    <children>
+                                                        <Label prefHeight="17.0" prefWidth="61.0" text="Users" />
+                                                        <Button lineSpacing="10.0" mnemonicParsing="false" styleClass="button2" stylesheets="@../../Css/Style.css" text="Add new" textFill="WHITE" />
+                                                    </children>
+                                                </HBox>
+                                            </top>
+                                            <bottom>
+                                                <TableView prefHeight="455.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+                                                    <columns>
+                                                        <TableColumn prefWidth="140.0" text="Nom" />
+                                                        <TableColumn prefWidth="184.0" text="Prenom" />
+                                                        <TableColumn prefWidth="264.0" text="mail" />
+                                                        <TableColumn prefWidth="105.0" text="Role" />
+                                                    </columns>
+                                                </TableView>
+                                            </bottom>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
