@@ -13,7 +13,7 @@
                   <Button fx:id="btnprof" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7" />
                   <Button  fx:id="btnuse" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Users" textFill="#f7f7f7" />
                   <Button  fx:id="btntick" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Tickets" textFill="#f8f7f7" />
-                  <Button  fx:id="btndiscon" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7" />
+                  <Button  fx:id="btndiscon" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7"/>
                </children>
             </VBox>
          </left>

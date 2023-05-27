@@ -2,6 +2,7 @@ package repository;
 
 import application.docker.jdbc;
 import modele.User;
+import modele.Tickets;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 public class UserRepository {
     private jdbc coBdd;
     private String table = "Utilisateur";
+    private String table1 = "Tickets";
+
 
 
 
@@ -62,4 +65,28 @@ public class UserRepository {
 
         return users;
     }
+
+
+    public  ArrayList<Tickets> getTicket() {
+        ArrayList<Tickets> ticket = new ArrayList<Tickets>();
+        Tickets tickets;
+        String sql = "SELECT * FROM "+table1;
+        PreparedStatement pstm;
+        try {
+            pstm = coBdd.getConnection().prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                tickets = new Tickets(rs.getInt("id"), rs.getString("nom"),  rs.getString("description"),  rs.getString("etat"), rs.getString("traite"));
+                ticket.add(tickets);
+            }
+        } catch (SQLException e) {
+// TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println(ticket);
+        return ticket;
+    }
+
+
+
 }
