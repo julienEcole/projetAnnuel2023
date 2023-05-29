@@ -18,10 +18,10 @@
             <left>
                 <VBox prefHeight="639.0" prefWidth="214.0" style="-fx-background-color: #6F5CC2;" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="btnprof" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7" />
-                        <Button fx:id="btnuse" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Users" textFill="#f7f7f7" />
-                        <Button fx:id="btntick" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Tickets" textFill="#f8f7f7" />
-                        <Button fx:id="btndiscon" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7" />
+                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7" />
+                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Users" textFill="#f7f7f7" />
+                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Tickets" textFill="#f8f7f7" />
+                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7" />
                     </children>
                 </VBox>
             </left>
@@ -55,10 +55,10 @@
                                                 <TableView fx:id="tblTickets" prefHeight="455.0" prefWidth="696.0" BorderPane.alignment="CENTER">
                                                     <columns>
                                                         <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                                                        <TableColumn fx:id="createbyColumn" prefWidth="136.0" text="Crée par" />
-                                                        <TableColumn fx:id="StatusColumn" prefWidth="115.0" text="Etat" />
-                                                        <TableColumn fx:id="descriptioColumn" prefWidth="285.0" text="Description" />
-                                                        <TableColumn fx:id="assignedColumn" prefWidth="84.0" text="Attribuer à" />
+                                                        <TableColumn fx:id="createByColumn" prefWidth="136.0" text="Crée par" />
+                                                        <TableColumn fx:id="statusColumn" prefWidth="115.0" text="Etat" />
+                                                        <TableColumn fx:id="descriptionColumn" prefWidth="285.0" text="Description" />
+                                                        <TableColumn fx:id="assignedToColumn" prefWidth="84.0" text="Attribuer à" />
                                                     </columns>
                                                 </TableView>
                                             </bottom>

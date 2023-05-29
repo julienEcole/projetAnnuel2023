@@ -68,24 +68,34 @@ public class UserRepository {
 
 
     public  ArrayList<Tickets> getTicket() {
-        ArrayList<Tickets> ticket = new ArrayList<Tickets>();
-        Tickets tickets;
+        ArrayList<Tickets> ticketList = new ArrayList<>();
         String sql = "SELECT * FROM "+table1;
         PreparedStatement pstm;
         try {
             pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                tickets = new Tickets(rs.getInt("id"), rs.getString("nom"),  rs.getString("description"),  rs.getString("etat"), rs.getString("traite"));
-                ticket.add(tickets);
+
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String description = rs.getString("description");
+                String etat = rs.getString("etat");
+                String traite = rs.getString("traite");
+
+                // Créer un objet Tickets et l'ajouter à la liste
+                modele.Tickets ticket = new modele.Tickets(id, nom, description, etat, traite);
+                ticketList.add(ticket);
             }
         } catch (SQLException e) {
 // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println(ticket);
-        return ticket;
+        System.out.println(ticketList);
+        return ticketList;
     }
+
+
+
 
 
 

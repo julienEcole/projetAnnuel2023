@@ -9,4 +9,6 @@ module application.docker {
 
     opens application.docker to javafx.fxml;
     exports application.docker;
+    exports application;
+    opens application to javafx.fxml;
 }

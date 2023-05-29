@@ -1,17 +1,13 @@
 package application.docker;
 
-import application.docker.HelloApplication;
+import application.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modele.User;
 import repository.UserRepository;
 
-import java.io.IOException;
 import java.util.Optional;
 
 
@@ -32,7 +28,7 @@ public class LoginController {
          UserRepository userRepository = new UserRepository();
          User u = userRepository.connexion(tname.getText(),tpass.getText());
          if(u != null){
-             HelloApplication.changeScene("/application/docker/Accueil",new Accueil(u));
+             HelloApplication.changeScene("/application/docker/accueil",new Accueil(u));
              System.out.println("User connecte");
     }else {
              System.out.println("erreur");
