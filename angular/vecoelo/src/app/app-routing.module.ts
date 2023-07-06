@@ -6,6 +6,7 @@ import { ReparateurProcheComponent } from './pages/reparateur-proche/reparateur-
 import { ForumComponent } from './components/forum/forum.component';
 import { ConnexionComponent } from './components/connexion/connexion.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
+import { PostComponent } from './pages/post-probleme/post/post.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'post-probleme', component: PostProblemeComponent },
   { path: 'reparateur-proche', component: ReparateurProcheComponent },
   { path: 'forum', component: ForumComponent },
+  { path: 'post/:id', component: PostComponent },
+  { path: '', redirectTo: '/forum', pathMatch: 'full' },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
 ];

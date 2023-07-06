@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { ForumComponent } from './components/forum/forum.component';
 import { ConnexionComponent } from './components/connexion/connexion.component';
 import { InscriptionComponent } from './components/inscription/inscription.component';
+import { PostComponent } from './pages/post-probleme/post/post.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { InscriptionComponent } from './components/inscription/inscription.compo
     ForumComponent,
     ConnexionComponent,
     InscriptionComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,

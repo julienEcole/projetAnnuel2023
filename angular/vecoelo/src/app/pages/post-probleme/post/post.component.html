@@ -1,0 +1,30 @@
+<main>
+    <h2>Post</h2>
+  
+    <figure>
+      <img src="{{ post.image }}" alt="">
+      <figcaption>
+        <h2>{{ post.autreProbleme ? post.autreProbleme : post.objet }}</h2>
+        <time>{{ post.date }}</time>
+        <p>{{ post.resume }}</p>
+      </figcaption>
+    </figure>
+  
+    <h3>Réponses</h3>
+    <ul>
+        <li *ngFor="let reply of post.replies">
+          <div>{{ reply.message }}</div>
+          <div>
+            <time>{{ formatDateTime(reply.timestamp) }}</time>
+          </div>
+          <button (click)="deleteReply(reply)">Supprimer</button>
+        </li>
+    </ul>
+  
+    <form (ngSubmit)="submitReply()" #replyForm="ngForm">
+        <textarea [(ngModel)]="replyMessage" name="replyMessage" required></textarea>
+        <button type="submit" [disabled]="replyForm.invalid">Envoyer</button>
+      </form>
+      
+  </main>
+  

@@ -1,10 +1,16 @@
 import { Component } from '@angular/core';
+import { ForumService } from './forum.service';
 
 @Component({
-  selector: 'app-forum',
-  templateUrl: './forum.component.html',
-  styleUrls: ['./forum.component.css']
+  selector: 'forum',
+  templateUrl: 'forum.component.html',
+  styleUrls: ['forum.component.css']
 })
-export class ForumComponent {
 
+export class ForumComponent {
+  constructor(private forumService: ForumService) {}
+
+  get posts() {
+    return this.forumService.getProblems();
+  }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ForumService } from 'src/app/components/forum/forum.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-probleme',
@@ -6,17 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./post-probleme.component.css']
 })
 export class PostProblemeComponent {
-  probleme: string; // Déclaration de la propriété probleme
+  problem: any = {
+    objet: '',
+    autreProbleme: '',
+    image: '',
+    resume: ''
+  };
 
-  constructor() {
-    this.probleme = ''; // Assigner une valeur à la propriété probleme dans le constructeur
+  constructor(private forumService: ForumService, private router: Router) {}
+
+  submitProblem() {
+    this.forumService.addProblem(this.problem);
+    this.router.navigate(['/forum']);
+    
   }
 
-  submitForm() {
-    // Logique de soumission du formulaire
-    console.log(this.probleme); // Utilisation de la propriété probleme
-  }
-  
   onFileChange(event: any) {
     // Logique pour gérer le changement de fichier
   }

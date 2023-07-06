@@ -4,29 +4,23 @@
     <hr>
   </section>
   <figure class="form" role="form">
-    <form method="get">
+    <form (ngSubmit)="submitProblem()">
       <fieldset>
-        <!-- <label>Pseudo :</label>
-        <input type="text" id="submitted-nom" placeholder="Nom" aria-required="true">
-        
-        <label>E-Mail :</label>
-        <input type="email" id="submitted-mail" placeholder="E-Mail" aria-required="true">
-         -->
         <label for="objet">Quel est le problème rencontré sur votre vélo ?</label>
-        <select name="objet" id="objet" aria-required="true" required>
+        <select name="objet" id="objet" [(ngModel)]="problem.objet" required>
           <option value="">- Choisissez le problème -</option>
           <option value="roue">Roue</option>
           <option value="frein">Frein</option>
           <option value="chaine">Chaine</option>
           <option value="pedale">Pédale</option>
           <option value="autre">Autre</option>
-      </select>
-      <label for="">Si "Autre" </label>
-      <input type="text" name="" id="" >
+        </select>
+        <label *ngIf="problem.objet === 'autre'" for="autreProbleme">Si "Autre" :</label>
+        <input *ngIf="problem.objet === 'autre'" type="text" name="autreProbleme" id="autreProbleme" [(ngModel)]="problem.autreProbleme">
         <label for="image">Photo du problème :</label>
-        <input type="file" name="" id="">
+        <input type="file" name="image" id="image" [(ngModel)]="problem.image">
         <label for="probleme">Résumé du problème :</label>
-        <textarea name="" id="" cols="20" rows="10"></textarea>
+        <textarea name="probleme" id="probleme" cols="20" rows="10" [(ngModel)]="problem.resume"></textarea>
         <input type="submit" aria-label="Valider" value="Valider">
       </fieldset>
     </form>
