@@ -33,9 +33,10 @@ export class ForumService {
         post.replies = [];
       }
       post.replies.push(reply);
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(problems));
+      this.saveProblems(problems);
     }
   }
+
   deleteReplyFromPost(postId: string, reply: any) {
     const problems = this.getProblems();
     const post = problems.find(p => p.id === postId);
@@ -47,9 +48,19 @@ export class ForumService {
       }
     }
   }
+
+  deletePost(postId: string) {
+    const problems = this.getProblems();
+    const index = problems.findIndex((post: any) => post.id === postId);
+    if (index !== -1) {
+      problems.splice(index, 1);
+      this.saveProblems(problems);
+    }
+  }
   private saveProblems(problems: any[]) {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(problems));
   }
+
   private generateUniqueId(): string {
     return '_' + Math.random().toString(36).substr(2, 9);
   }

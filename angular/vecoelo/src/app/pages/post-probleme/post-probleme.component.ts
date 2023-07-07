@@ -12,7 +12,8 @@ export class PostProblemeComponent {
     objet: '',
     autreProbleme: '',
     image: '',
-    resume: ''
+    resume: '',
+    date: new Date()
   };
 
   constructor(private forumService: ForumService, private router: Router) {}

@@ -3,6 +3,7 @@ main{
     display:flex;
     justify-content:space-around;
     align-items:center;
+    max-width: 130rem;
 
 }
 button{
@@ -21,6 +22,9 @@ button:first-child{
     margin: 1rem;
     border-radius: .5rem;
   }
+  button{
+    background:transparent;
+  }
   .navbar a{
     color:black;
     text-decoration:none;
@@ -29,7 +33,7 @@ button:first-child{
     padding-left: 1rem;
   } 
   .btn-connexion {
-    background-color: #2c9c15;
+    background-color: #1e3799;
     color: #fff;
     border: none;
     padding: 1.5rem 3rem;
@@ -76,7 +80,7 @@ button:first-child{
   }
   
   .btn-poster{
-    background-color: #2c9c15;
+    background-color: #1e3799;
     color: #fff;
     cursor: pointer;
     border: none;
@@ -85,7 +89,7 @@ button:first-child{
     border-radius: 5px;
   }
   .btn-rechercher {
-    color: #2c9c15;
+    color: #1e3799;
     font-weight:600;
     cursor: pointer;
     border: none;
