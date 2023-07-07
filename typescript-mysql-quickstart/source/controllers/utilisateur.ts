@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
+import { executeSQLCommand } from './shared/executeCommand';
 
 const NAMESPACE = 'Utilisateur';
 
@@ -23,38 +24,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     }
     let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id})`;
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((result) => {
-                    logging.info(NAMESPACE, 'user created: ', result);
-
-                    return res.status(200).json({
-                        result
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
@@ -62,37 +32,7 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
 
     let query = 'SELECT * FROM utilisateur';
 
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'Retrieved users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved users: ');
 };
 
 const getOneUserById = async (req: Request, res: Response, next: NextFunction) => {
@@ -105,37 +45,7 @@ const getOneUserById = async (req: Request, res: Response, next: NextFunction) =
     const query = `SELECT * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.idUser}`;
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'Retrieved users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user: ');
 };
 
 const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response, next: NextFunction) => {
@@ -149,37 +59,7 @@ const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response
     logging.info(NAMESPACE,"ma query = ", query);
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'Retrieved users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user: ');
 };
 
 const updateOneUserById = async (req: Request, res: Response, next: NextFunction) => {
@@ -220,38 +100,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     
     logging.info(NAMESPACE,"ma query = ", query);
 
-    
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'updating users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'updating users: ');
 };
 
 const deleteOneUserById = async (req: Request, res: Response, next: NextFunction) => {
@@ -264,37 +113,7 @@ const deleteOneUserById = async (req: Request, res: Response, next: NextFunction
     const query = `DELETE * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.idUser}`;
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'deleted users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'deleted users: ');
 };
 
 const deleteOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response, next: NextFunction) => {
@@ -308,37 +127,7 @@ const deleteOneUserByMail = async (req: Request<{ mailUser: string}>, res: Respo
     logging.info(NAMESPACE,"ma query = ", query);
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'deleted users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'deleted users: ');
 };
 
 export default { createUser, getAllUsers, getOneUserById, getOneUserByMail,updateOneUserById, deleteOneUserById, deleteOneUserByMail };

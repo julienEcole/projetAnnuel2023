@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
+import { executeSQLCommand } from './shared/executeCommand';
 
 const NAMESPACE = 'Ticket';
 
@@ -9,37 +10,7 @@ const getAllTicket = async (req: Request, res: Response, next: NextFunction) => 
 
     let query = 'SELECT * FROM ticket';
 
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'Retrieved ticket: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved ticket: ');
 };
 
 const createTicket = async (req: Request, res: Response, next: NextFunction) => {
@@ -62,41 +33,11 @@ const createTicket = async (req: Request, res: Response, next: NextFunction) => 
     }
     let query = `INSERT INTO ticket (etat_id, urgence_id, type_ticket_id, description_bug) VALUES (${etat_id}, ${urgence_id}, ${type_ticket_id}, "${description_bug}")`;
     
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((result) => {
-                    logging.info(NAMESPACE, 'ticket created: ', result);
-
-                    return res.status(200).json({
-                        result
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'ticket created: ');
 };
 
 const getOneTicketById = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'Getting one user by id.');
+    logging.info(NAMESPACE, 'Getting one ticket by id.');
     if(!req.params.idTicket){
         res.status(400);
         res.send("erreur, les arguments doivent être l'id du ticket");
@@ -105,37 +46,7 @@ const getOneTicketById = async (req: Request, res: Response, next: NextFunction)
     const query = `SELECT * FROM ticket WHERE ticket.ticket_id = ${req.params.idTicket}`;
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'Retrieved ticket : ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved ticket : ');
 };
 
 const updateOneTicketById = async (req: Request, res: Response, next: NextFunction) => {
@@ -173,40 +84,10 @@ const updateOneTicketById = async (req: Request, res: Response, next: NextFuncti
 
     query += `WHERE utilisateur.utilisateur_id = ${req.params.idTicket}`
     
-    logging.info(NAMESPACE,"ma query = ", query);
+    //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'updating users: ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, "updating tickets: ");
 };
 
 const DeleteOneTicketById = async (req: Request, res: Response, next: NextFunction) => {
@@ -219,37 +100,7 @@ const DeleteOneTicketById = async (req: Request, res: Response, next: NextFuncti
     const query = `DELETE * FROM ticket WHERE ticket.ticket_id = ${req.params.idTicket}`;
 
     
-
-    Connect()
-        .then((connection) => {
-            Query(connection, query)
-                .then((results) => {
-                    logging.info(NAMESPACE, 'delete ticket : ', results);
-
-                    return res.status(200).json({
-                        results
-                    });
-                })
-                .catch((error) => {
-                    logging.error(NAMESPACE, error.message, error);
-                    return res.status(200).json({
-                        message: error.message,
-                        error
-                    });
-                })
-                .finally(() => {
-                    logging.info(NAMESPACE, 'Closing connection.');
-                    connection.end();
-                });
-        })
-        .catch((error) => {
-            logging.error(NAMESPACE, error.message, error);
-
-            return res.status(200).json({
-                message: error.message,
-                error
-            });
-        });
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete ticket : ');
 };
 
-export default {getAllTicket, createTicket, getOneTicketById, updateOneTicketById};
+export default {getAllTicket, createTicket, getOneTicketById, updateOneTicketById, DeleteOneTicketById};
