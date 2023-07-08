@@ -1,14 +1,21 @@
 main{
-    padding: 3rem;
-    max-width: 90rem;
+    padding: 1rem;
+    max-width: 110rem;
     margin: 2rem auto;
-    background-color: #fff;
-    border-radius: .75rem;
-
-    box-shadow:  .5rem .5rem 1rem #0000003d,
-                -.5rem -.5rem 1rem #ffffff31;
 }
-main h2{
+section{
+   
+        padding: 3rem;
+        max-width: 90rem;
+        margin: 2rem auto;
+        background-color: #fff;
+        border-radius: .75rem;
+    
+        box-shadow:  .5rem .5rem 1rem #0000003d,
+                    -.5rem -.5rem 1rem #ffffff31;
+    
+}
+section h2{
     font-size: 4rem;
     color: #000;
     margin: 1rem auto;
@@ -30,18 +37,7 @@ section form fieldset select{
     border: 1px solid #ccc;
     box-shadow: inset 0 0 .3rem #ccc;
 }
-main a{
-    font-size: 1.8rem;
-    display: block;
-    margin: 1rem auto;
-    font-weight: bold;
-    padding: 2rem 1rem;
-    margin: 1rem auto;
-    color: #000;
-    border-radius: .5rem;
-    text-align: center;
-    padding: 1rem 2rem;
-}
+
 section form fieldset input option{
     padding: 1rem;
     border-radius: .5rem;

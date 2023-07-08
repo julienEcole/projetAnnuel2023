@@ -6,12 +6,33 @@ main{
     max-width: 130rem;
 
 }
+a img{
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+}
 button{
     margin: 1rem;
 }
 button:first-child{
     padding: 1rem 2rem;
     border-right: solid .3rem #000000;
+}
+.connexion{
+  display: flex;
+  align-items: center;
+}
+.connexion h3{
+  margin-right: 1rem;
+  text-decoration: underline;
+  font-size: 2rem;
+  font-weight: bold;
+
+}
+.connexion i{
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
 }
 .navbar {
     display: flex;
@@ -32,6 +53,8 @@ button:first-child{
     color:black;
     text-decoration:none;
     font-size:2rem;
+    display: flex;
+    align-items: center;
     font-weight: bold;
     padding-left: 1rem;
   } 
@@ -48,6 +71,7 @@ button:first-child{
     font-size:2rem;
     font-weight: bold;
     cursor: pointer;
+    
 
   }
   

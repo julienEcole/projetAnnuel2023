@@ -8,9 +8,10 @@ import { PostProblemeComponent } from './pages/post-probleme/post-probleme.compo
 import { ReparateurProcheComponent } from './pages/reparateur-proche/reparateur-proche.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ForumComponent } from './components/forum/forum.component';
-import { ConnexionComponent } from './components/connexion/connexion.component';
-import { InscriptionComponent } from './components/inscription/inscription.component';
+import { ConnexionComponent } from './components/login/connexion/connexion.component';
+import { InscriptionComponent } from './components/login/inscription/inscription.component';
 import { PostComponent } from './pages/post-probleme/post/post.component';
+
 
 
 @NgModule({

@@ -5,6 +5,8 @@ main{
 }
 main h2{
     font-size: 4rem;
+    color: #fff;
+    margin: 2rem auto;
     font-weight: bold;
     text-align: center;
 }
@@ -24,8 +26,17 @@ figure{
     align-items: center;
     border-radius: .5rem;
 }
+h3{
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1.5rem auto auto;
+    color: #000;
+}
+h3 span{
+    font-weight: normal;
+}
 .post{
-    padding: 4rem 3rem;
+    padding:3rem;
     background-color: #fff;
     border-radius: .75rem;
 
@@ -50,6 +61,7 @@ figure figcaption h2{
     text-transform: capitalize;
     text-align: start;
     margin: 1rem auto;
+    color: #000;
 }
 main ul{
     flex-direction: column;
@@ -64,6 +76,9 @@ main ul li{
     margin: 1rem auto;
     border-radius: .5rem;
     background-color: #eeeeee;
+}
+main ul li div span{
+    font-weight: bold;
 }
 main ul li:nth-child(2n+1){
     background-color: #f3f3f3;
@@ -89,9 +104,15 @@ main ul li button{
 }
 main button{
     padding: 1rem 2rem;
-    margin: 1rem auto;
-    border-radius: .5rem;
-    
-    background-color: #f7f7f7;
+    margin: 0 1rem auto auto;
+    border-radius: 0.5rem;
     cursor: pointer;
 }
+.btn-forum{
+    text-decoration:none;
+    font-size:1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #1e3799;
+    color: #fff;
+  }
