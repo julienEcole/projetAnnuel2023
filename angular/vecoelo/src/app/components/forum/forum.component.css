@@ -1,10 +1,14 @@
+
 main{
     padding: 1rem;
     max-width: 140rem;
     margin: 1rem auto;
+    
 }
-h2{
+main h2{
     font-size: 4rem;
+    color: #fff;
+    margin: 2rem auto;
     font-weight: bold;
     text-align: center;
 }
@@ -12,9 +16,15 @@ figure{
     margin: 2rem auto;
     box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.179);
     padding: 1rem 2rem;
+    background-color: #fff;
+    border-radius: .75rem;
+
+    box-shadow:  .5rem .5rem 1rem #0000003d,
+                -.5rem -.5rem 1rem #ffffff31;
     align-items: center;
     display: flex;
-    border-radius: .5rem;
+    position: relative;
+
 }
 figure img{
     width: 15rem;
@@ -24,12 +34,14 @@ figure img{
 figure figcaption{
     padding: 1rem;
     margin: 0rem 2rem;
+    
 }
 figure figcaption p{
     padding: 1rem 0;
 }
 figure figcaption h2{
     font-size: 3rem;
+    color: #000;
     font-weight: bold;
     text-transform: capitalize;
     text-align: start;
@@ -37,9 +49,9 @@ figure figcaption h2{
 }
 time{
     font-size: 1.8rem !important;
-    font-weight: 400 !important;
+    font-weight: regular !important;
     text-align: start;
-    color: #0c2461;
+    color: #001343;
 }
 .filter-section{
     display: flex;
@@ -91,14 +103,20 @@ figure figcaption a:hover{
     padding: 1rem 2rem;
     border-radius: 5px;
   }
-figure figcaption button{
-    font-size: 1.8rem;
-    display: inline-block;
-    background-color: #fff;
-    padding: 2rem 1rem;
-    margin: 1rem auto;
+figure button{
+    display: flex;
+    background-color: #1e3799;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
     border-radius: .5rem;
-    padding: 1rem 2rem;
-    border: none;
+    padding: 1.5rem;
     cursor: pointer;
+    transition: all .4s ease-in-out;
+}
+figure button:hover{
+   color: rgb(255, 255, 255);
+   background-color: red;
 }

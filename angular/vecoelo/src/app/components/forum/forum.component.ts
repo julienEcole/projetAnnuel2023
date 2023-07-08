@@ -90,6 +90,7 @@ export class ForumComponent {
     }
     return formatter.format(date);
   }
+  
 
 
 }

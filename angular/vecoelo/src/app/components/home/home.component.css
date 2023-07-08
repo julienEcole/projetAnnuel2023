@@ -35,7 +35,8 @@ main{
     flex-direction: column;
     align-items: flex-start;
     margin: 2rem;
-    padding: 2rem;
+    padding: 2rem 4rem;
+    
     max-width: 70rem;
   }
   
@@ -53,7 +54,6 @@ main{
 
     
   }
-  
   .buttons {
     display: flex;
     gap: 10px;
@@ -72,6 +72,11 @@ main{
   .btn-rechercher {
     color: #1e3799;
     font-weight:600;
+    background-color: #fff;
+    border-radius: .75rem;
+
+    box-shadow:  .5rem .5rem 1rem #0000001d,
+                -.5rem -.5rem 1rem #ffffff31;
     cursor: pointer;
     border: none;
     padding: 1.5rem 3rem;

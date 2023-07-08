@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <main>
   <h2>FORUM</h2>
   <section class="filter-section">
@@ -22,7 +24,10 @@
         </div>
       </div>
       <a [routerLink]="['/post', post.id]">Voir la publication</a>
-      <button (click)="deletePost(post.id)">Supprimer</button>
+          
     </figcaption>
+    <button class="delete-button" (click)="deletePost(post.id)">
+      <i class="material-icons">delete</i>
+    </button>  
   </figure>
 </main>

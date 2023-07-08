@@ -17,10 +17,13 @@ button:first-child{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #fff;
+    border-radius: .75rem;
+
+    box-shadow:  .5rem .5rem 1rem #0000003d,
+                -.5rem -.5rem 1rem #ffffff31;
     padding: 1rem;
     margin: 1rem;
-    border-radius: .5rem;
   }
   button{
     background:transparent;

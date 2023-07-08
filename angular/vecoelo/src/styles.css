@@ -8,6 +8,8 @@ html {
 body {
     font: 1.6rem 'Inter', sans-serif;
     margin: 0;
+    background: rgb(125,174,255);
+    background: radial-gradient(circle, rgba(125,174,255,1) 0%, rgba(175,212,255,1) 100%);
 
 }
 
@@ -34,3 +36,4 @@ button {
 * {
     box-sizing: border-box;
 }
+

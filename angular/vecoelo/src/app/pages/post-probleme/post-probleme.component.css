@@ -5,7 +5,22 @@ main{
 }
 .rhr h2{
     font-size: 5rem;
+    color: #fff;
     text-align: center;
+    margin: 2rem auto;
+}
+.rhr hr{
+    margin: 2rem auto;
+    width: 100%;
+    border: .1rem solid #ffffff;
+}
+figure{
+    padding: 4rem 3rem;
+    background-color: #fff;
+    border-radius: .75rem;
+
+    box-shadow:  .5rem .5rem 1rem #0000003d,
+                -.5rem -.5rem 1rem #ffffff31;
 }
 figure form fieldset{
     display: flex;
