@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
-import { Connect, Query } from '../config/mysql';
 import { executeSQLCommand } from './shared/executeCommand';
 
 const NAMESPACE = 'Ticket';

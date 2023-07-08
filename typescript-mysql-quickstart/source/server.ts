@@ -6,6 +6,7 @@ import config from './config/config';
 // import bookRoutes from './routes/book';
 import userRoutes from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
+import atelierRoute from "./routes/vecoleo/atelier"
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -43,7 +44,8 @@ router.use((req, res, next) => {
 /** Routes go here */
 // router.use('/books', bookRoutes);
 router.use("/Utilisateur", userRoutes);
-router.use("/ticket", ticketRoute)
+router.use("/Ticket", ticketRoute)
+router.use("/Atelier", atelierRoute)
 
 /** Error handling */
 router.use((req, res, next) => {
