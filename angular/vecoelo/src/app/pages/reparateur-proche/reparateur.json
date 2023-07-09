@@ -1,0 +1,302 @@
+[
+    {
+      "Nom": "Husqvarna- HVR 77",
+      "Adresse": "2 Ter rue Epinette 77340 Pontault Combault",
+      "Téléphone": "01 78 76 55 56"
+    },
+    {
+      "Nom": "Gas Gas - HVR 91",
+      "Adresse": "58 route d'Orléans 91310 Montlhéry",
+      "Téléphone": "01 84 80 24 00"
+    },
+    {
+      "Nom": "Cycles Jacquot",
+      "Adresse": "14 rue Carnot 78000 Versailles",
+      "Téléphone": "01 39 50 06 17"
+    },
+    {
+      "Nom": "Pur Vélo",
+      "Adresse": "avenue St Cloud 78000 Versailles",
+      "Téléphone": "01 39 66 01 99"
+    },
+    {
+      "Nom": "CityMoov",
+      "Adresse": "12 rue Arthur Brière 75017 Paris",
+      "Téléphone": "06 51 31 51 42"
+    },
+    {
+      "Nom": "Patrice DELCAYRE",
+      "Adresse": "1 rue Plaine 75020 Paris",
+      "Téléphone": "01 43 73 06 10"
+    },
+    {
+      "Nom": "3R Cycles",
+      "Adresse": "43 avenue René Minier 95250 Beauchamp",
+      "Téléphone": "06 59 66 82 70"
+    },
+    {
+      "Nom": "Husqvana - HRV Paris",
+      "Adresse": "17 boulevard Beaumarchais 75004 Paris",
+      "Téléphone": "01 45 32 46 45"
+    },
+    {
+      "Nom": "La Chapelle du Vélo",
+      "Adresse": "26 rue Cheminots 75018 Paris",
+      "Téléphone": "07 81 31 24 72"
+    },
+    {
+      "Nom": "Urban Moov",
+      "Adresse": "69 rue Henri Barbusse 92110 Clichy",
+      "Téléphone": "01 42 70 40 64"
+    },
+    {
+      "Nom": "Sos Trottinettes Réparation de Trottinettes Electriques",
+      "Adresse": "22 rue Godefroy 92800 Puteaux",
+      "Téléphone": "09 80 94 55 56"
+    },
+    {
+      "Nom": "SOS Trotinettes- Aubervilliers",
+      "Adresse": "12 rue Landy 93300 Aubervilliers",
+      "Téléphone": "06 05 76 03 63"
+    },
+    {
+      "Nom": "Absolute Scooters",
+      "Adresse": "40 avenue St Ouen 75018 Paris",
+      "Téléphone": "01 58 60 24 11"
+    },
+    {
+      "Nom": "Gas Gas - HVR 77",
+      "Adresse": "2 Ter rue Epinette 77340 Pontault Combault",
+      "Téléphone": "01 78 76 55 56"
+    },
+    {
+      "Nom": "Joce",
+      "Adresse": "92 rue St Spire 91100 Corbeil Essonnes",
+      "Téléphone": "01 60 89 18 74"
+    },
+    {
+      "Nom": "Cycles Aubry",
+      "Adresse": "3 Bis rue Neuve St Gilles 91150 Etampes",
+      "Téléphone": "01 64 94 02 71"
+    },
+    {
+      "Nom": "VELO MONDE",
+      "Adresse": "2 rue Ménard 78000 Versailles",
+      "Téléphone": "01 30 21 32 62"
+    },
+    {
+      "Nom": "Benjamin Dubois",
+      "Adresse": "4 rue St Laurent 75010 Paris",
+      "Téléphone": "09 53 12 07 86"
+    },
+    {
+      "Nom": "Les Cyclistes Branchés",
+      "Adresse": "47 avenue Versailles 75016 Paris",
+      "Téléphone": "09 80 85 62 04"
+    },
+    {
+      "Nom": "Le Comptoir du Vélo",
+      "Adresse": "10 avenue Gambetta 75020 Paris",
+      "Téléphone": "01 40 31 21 50"
+    },
+    {
+      "Nom": "Multi Cycles",
+      "Adresse": "26 avenue République 94700 Maisons Alfort",
+      "Téléphone": "01 43 75 31 43"
+    },
+    {
+      "Nom": "L'Atelier de la Bicyclette",
+      "Adresse": "495 rue Vallée 78410 Bouafle",
+      "Téléphone": "06 68 12 33 82"
+    },
+    {
+      "Nom": "PM 2&3 Roues",
+      "Adresse": "6 rue Tilleuls 78960 Voisins le Bretonneux",
+      "Téléphone": "01 30 43 50 12"
+    },
+    {
+      "Nom": "L'Encyclo",
+      "Adresse": "2 rue St Nicolas 78600 Maisons Laffitte",
+      "Téléphone": "01 39 62 05 34"
+    },
+    {
+      "Nom": "GTE • Go Trottinette Electrique",
+      "Adresse": "45 Bis voie Latérale Sud 78310 Coignières",
+      "Téléphone": "01 30 51 00 10"
+    },
+    {
+      "Nom": "Vélo Services SAS",
+      "Adresse": "25 rue Crozatier 75012 Paris",
+      "Téléphone": "01 43 07 39 05"
+    },
+    {
+      "Nom": "Bicloune",
+      "Adresse": "65 avenue Daumesnil 75012 Paris",
+      "Téléphone": "01 48 05 47 75"
+    },
+    {
+      "Nom": "Atelier Cour Cyclette",
+      "Adresse": "40 rue Marat 94200 Ivry sur Seine",
+      "Téléphone": "09 54 76 94 65"
+    },
+    {
+      "Nom": "Cycle Lorant",
+      "Adresse": "23 rue Robert Dupont 92600 Asnières sur Seine",
+      "Téléphone": "06 51 84 96 87"
+    },
+    {
+      "Nom": "Ridy",
+      "Adresse": "59 rue Victor Hugo 93170 Bagnolet",
+      "Téléphone": "09 83 33 25 66"
+    },
+    {
+      "Nom": "Atelier Renov'velo",
+      "Adresse": "6 allée Bernard Palissy 95200 Sarcelles",
+      "Téléphone": "09 73 25 02 18"
+    },
+    {
+      "Nom": "Versao",
+      "Adresse": "84 avenue Georges Clemenceau 94700 Maisons Alfort",
+      "Téléphone": "01 43 76 27 46"
+    },
+    {
+      "Nom": "A La Petite Reine",
+      "Adresse": "14 rue Paroisse 77300 Fontainebleau",
+      "Téléphone": "01 60 74 57 57"
+    },
+    {
+      "Nom": "BO BICLOU Velo Electrique",
+      "Adresse": "9 rue Rome 77144 Montévrain",
+      "Téléphone": "01 64 44 34 10"
+    },
+    {
+      "Nom": "Colombes Cycles",
+      "Adresse": "10 rue Indépendance 92700 Colombes",
+      "Téléphone": "01 42 42 66 02"
+    },
+    {
+      "Nom": "Addict Cycling",
+      "Adresse": "60 grande rue Charles de Gaulle 94130 Nogent sur Marne",
+      "Téléphone": "01 41 95 23 40"
+    },
+    {
+      "Nom": "Smartinette",
+      "Adresse": "51 rue Ordener 75018 Paris",
+      "Téléphone": "07 55 66 70 78"
+    },
+    {
+      "Nom": "Cycles Jacky",
+      "Adresse": "1 rue Cutesson 78125 Gazeran",
+      "Téléphone": "01 30 88 74 39"
+    },
+    {
+      "Nom": "Cycles Evolution",
+      "Adresse": "36 Ter rue Paris 94470 Boissy Saint Léger",
+      "Téléphone": "01 45 69 69 46"
+    },
+    {
+      "Nom": "Alltricks Store Issy-les-Moulineaux",
+      "Adresse": "9 rue Auguste Gervais 92130 Issy les Moulineaux",
+      "Téléphone": "01 30 48 52 82"
+    },
+      {
+        "nom": "MS 2Roues",
+        "adresse": "192 rue Jean Jaurès, 93230 Romainville",
+        "telephone": ["01 48 40 32 38", "06 75 07 79 19"]
+      },
+      {
+        "nom": "Réparation Trottinette Electrique Essonne",
+        "adresse": "bis 37 rue Bac, 94480 Ablon sur Seine",
+        "telephone": ["06 61 61 51 00", "07 66 60 97 49"]
+      },
+      {
+        "nom": "Mobilityurban",
+        "adresse": "3 boulevard Victor, 75015 Paris",
+        "telephone": ["05 87 72 08 50"]
+      },
+      {
+        "nom": "Tof-Bike-Services",
+        "adresse": "2 rue République, 95270 Chaumontel",
+        "telephone": ["01 34 68 52 13"]
+      },
+      {
+        "nom": "Quai des cycles",
+        "adresse": "Gare De Nogent Le Perreux 1 place Thêatre, 94130 Nogent sur Marne",
+        "telephone": ["07 67 04 23 04"]
+      },
+      {
+        "nom": "Cyclable Châtenay-Malabry",
+        "adresse": "18 rue Jean Longuet, 92290 Châtenay Malabry",
+        "telephone": ["01 40 94 08 27"]
+      },
+      {
+        "nom": "CULTURE VELO PARIS 12",
+        "adresse": "90 avenue Daumesnil, 75012 Paris",
+        "telephone": ["01 43 14 47 17"]
+      },
+      {
+        "nom": "CYCLABLE E.T.'S BIKE",
+        "adresse": "5 avenue Gabriel Péri, 92500 Rueil Malmaison",
+        "telephone": ["09 50 13 66 17"]
+      },
+      {
+        "nom": "Velo Time Paris",
+        "adresse": "41 boulevard Ménilmontant, 75011 Paris",
+        "telephone": ["01 45 67 12 30"]
+      },
+      {
+        "nom": "Veloactif",
+        "adresse": "159 rue Verdun, 92150 Suresnes",
+        "telephone": ["09 81 12 21 16"]
+      },
+      {
+        "nom": "Culture Vélo",
+        "adresse": "Zac Champlys 575 avenue André Ampère, 77190 Dammarie les Lys",
+        "telephone": ["01 64 37 62 22"]
+      },
+      {
+        "nom": "Bouticycle",
+        "adresse": "2 rue Albert Priolet, 78100 Saint Germain en Laye",
+        "telephone": ["01 34 51 25 16"]
+      },
+      {
+        "nom": "Rénov Cycle",
+        "adresse": "84 chemin Rambouillet, 78450 Villepreux",
+        "telephone": ["06 58 49 15 43"]
+      },
+      {
+        "nom": "Cycle Naturel",
+        "adresse": "2 avenue Jean Jaurès, 78500 Sartrouville",
+        "telephone": ["01 30 86 01 00"]
+      },
+      {
+        "nom": "Solex At The BHV Marais",
+        "adresse": "40 rue Verrerie, 75004 Paris",
+        "telephone": ["01 42 74 97 23"]
+      },
+      {
+        "nom": "Cycl'emouv",
+        "adresse": "22 avenue Léon Bollée, 75013 Paris",
+        "telephone": ["01 83 92 94 54"]
+      },
+      {
+        "nom": "Samt'rot Eden",
+        "adresse": "zone d'aménagement concerté Noyer aux Perdrix, 77170 Servon",
+        "telephone": ["01 85 53 97 15"]
+      },
+      {
+        "nom": "Vanmoof",
+        "adresse": "157 avenue France, 75013 Paris",
+        "telephone": ["01 86 26 42 58"]
+      },
+      {
+        "nom": "Vélo Electrique France",
+        "adresse": "33 avenue Secrétan, 75019 Paris",
+        "telephone": ["01 48 43 51 31"]
+      },
+      {
+        "nom": "NéoVélec",
+        "adresse": "2 rue Joseph Lemarchand, 78114 Magny les Hameaux",
+        "telephone": ["01 30 47 74 62"]
+      }
+    ]
