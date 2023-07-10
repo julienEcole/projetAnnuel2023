@@ -8,6 +8,8 @@ module application.docker {
     requires java.sql;
 
     opens application.docker to javafx.fxml;
+    opens modele to javafx.base; // Ajout de cette ligne
+
     exports application.docker;
     exports application;
     opens application to javafx.fxml;

@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="639.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -18,10 +10,10 @@
             <left>
                 <VBox prefHeight="639.0" prefWidth="214.0" style="-fx-background-color: #6F5CC2;" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7" />
-                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Users" textFill="#f7f7f7" />
-                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Tickets" textFill="#f8f7f7" />
-                        <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7" />
+                        <Button fx:id="ButtonProfil" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Profil" textFill="#f8f7f7" />
+                        <Button fx:id="ButtonUser" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Users" textFill="#f7f7f7" />
+                        <Button fx:id="ButtonTickets" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Tickets" textFill="#f8f7f7" />
+                        <Button fx:id="ButtonDisco" mnemonicParsing="false" prefHeight="54.0" prefWidth="213.0" stylesheets="@../../Css/Style.css" text="Disconnect" textFill="#f8f7f7" />
                     </children>
                 </VBox>
             </left>
@@ -52,7 +44,7 @@
                                                 </HBox>
                                             </top>
                                             <bottom>
-                                                <TableView fx:id="tblTickets" prefHeight="455.0" prefWidth="696.0" BorderPane.alignment="CENTER">
+                                                <TableView fx:id="tblTickets" prefHeight="455.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                                                     <columns>
                                                         <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
                                                         <TableColumn fx:id="createByColumn" prefWidth="136.0" text="Crée par" />

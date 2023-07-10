@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 public class Accueil implements Initializable {
 
     private User user;
-    private Tickets tickets;
+    private TicketsController tickets;
 
     @FXML
     private Button btnprof;
@@ -50,11 +50,11 @@ public class Accueil implements Initializable {
     private void handleButtonClick(ActionEvent event) {
         if (event.getSource() == btndiscon) {
             // Charger la nouvelle page depuis un fichier FXML
-            HelloApplication.changeScene("/application/docker/login");
+           HelloApplication.changeScene("/application/docker/login");
         } else if (event.getSource() == btntick) {
             // Charger la nouvelle page depuis un fichier FXML
 
-            HelloApplication.changeScene("/application/docker/tickets");
+            HelloApplication.changeScene("/application/docker/tickets", new TicketsController(this.tickets));
         }
     }
 }

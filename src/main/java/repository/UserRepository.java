@@ -55,7 +55,10 @@ public class UserRepository {
             pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("mail"),  rs.getString("mdp"),  rs.getBoolean("est_admin"));
+                user = new User(rs.getInt("id"),
+                        rs.getString("mail"),
+                        rs.getString("mdp"),
+                        rs.getBoolean("est_admin"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -69,7 +72,7 @@ public class UserRepository {
 
     public  ArrayList<Tickets> getTicket() {
         ArrayList<Tickets> ticketList = new ArrayList<>();
-        String sql = "SELECT * FROM "+table1;
+        String sql = "SELECT * FROM "+ table1;
         PreparedStatement pstm;
         try {
             pstm = coBdd.getConnection().prepareStatement(sql);

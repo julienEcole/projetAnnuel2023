@@ -30,9 +30,9 @@ public class jdbc
 
 
 
-    private String url = "jdbc:mysql://localhost/projetAnnuel?serverTimezone=UTC";
+    private String url = "jdbc:mysql://localhost:8889/projetAnnuel?serverTimezone=UTC";
     private String user = "root";
-    private String password = "";
+    private String password = "root";
 
     public Connection getConnection() {
 

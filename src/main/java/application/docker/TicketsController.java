@@ -13,23 +13,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import modele.Tickets;
 import repository.UserRepository;
 //import repository.TicketsRepository;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class Tickets implements Initializable{
+public class TicketsController implements Initializable{
 
 
-    private ObservableList<modele.Tickets> ticketList = FXCollections.observableArrayList();
+    private ObservableList<Tickets> ticketList = FXCollections.observableArrayList();
     @FXML
-    private TableView<modele.Tickets> tblTickets;
+    private TableView<Tickets> tblTickets;
 
     @FXML
     private Button btnAdd;
 
-    private Tickets tickets;
+    private TicketsController tickets;
 
 
     @FXML
@@ -43,15 +44,25 @@ public class Tickets implements Initializable{
     @FXML
     private TableColumn<Tickets, String> assignedToColumn;
 
+    @FXML
+    private Button ButtonDisco;
+    @FXML
+    private Button ButtonTickets;
+    @FXML
+    private Button ButtonProfil;
+    @FXML
+    private Button ButtonUser;
 
 
 
-    public Tickets(Tickets t){
+
+
+
+    public TicketsController(TicketsController t){
         this.tickets = t;
     }
 
     private void loadTicketsFromDatabase() {
-
         UserRepository ticketsRepository = new UserRepository();
         ticketList.addAll(ticketsRepository.getTicket());
 
@@ -66,8 +77,10 @@ public class Tickets implements Initializable{
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
         assignedToColumn.setCellValueFactory(new PropertyValueFactory<>("traite"));
 
-        //btndiscon2.setOnAction(this::handleButtonClick);
-       // btntick2.setOnAction(this::handleButtonClick);
+        ButtonDisco.setOnAction(this::handleDisconnectButtonAction);
+        ButtonTickets.setOnAction(this::handleDisconnectButtonAction);
+        ButtonProfil.setOnAction(this::handleDisconnectButtonAction);
+        ButtonUser.setOnAction(this::handleDisconnectButtonAction);
 
         loadTicketsFromDatabase();
         tblTickets.setItems(ticketList);
@@ -78,18 +91,21 @@ public class Tickets implements Initializable{
 
 @FXML
     private void handleDisconnectButtonAction(ActionEvent event) {
-        HelloApplication.changeScene("/application/docker/login");
 
-        /* if (event.getSource() == btndiscon2) {
+         if (event.getSource() == ButtonDisco) {
             // Charger la nouvelle page depuis un fichier FXML
             HelloApplication.changeScene("/application/docker/login");
             System.out.println("test");
-        } else if (event.getSource() == btntick2) {
+        } else if (event.getSource() == ButtonTickets) {
             // Charger la nouvelle page depuis un fichier FXML
             HelloApplication.changeScene("/application/docker/tickets");
-        }else {
-            System.out.println("test");
-        }*/
+        } else if (event.getSource() == ButtonProfil) {
+             // Charger la nouvelle page depuis un fichier FXML
+             HelloApplication.changeScene("/application/docker/accueil");
+         } else if (event.getSource() == ButtonUser) {
+             // Charger la nouvelle page depuis un fichier FXML
+             HelloApplication.changeScene("/application/docker/User");
+         }
     }
 }
 
