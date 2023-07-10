@@ -98,8 +98,9 @@ CREATE TABLE IF NOT EXISTS atelier (
 );
 
 CREATE TABLE IF NOT EXISTS utilisateur_atelier (
-    utilisateur_id INT PRIMARY KEY NOT NULL REFERENCES utilisateur(utilisateur_id),
-    atelier_id INT PRIMARY KEY NOT NULL REFERENCES atelier(atelier_id)
+    utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
+    atelier_id INT NOT NULL REFERENCES atelier(atelier_id),
+    PRIMARY KEY(utilisateur_id,atelier_id)
 );
 
 CREATE TABLE IF NOT EXISTS service (
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS service (
     prix int NOT NULL,
     `description` TEXT NOT NULL,
     titreService TEXT NOT NULL,
-    reparation_type_id INT PRIMARY KEY NOT NULL REFERENCES reparation_type(reparation_type_id)
+    reparation_type_id INT NOT NULL REFERENCES reparation_type(reparation_type_id)
 );
 
 CREATE TABLE IF NOT EXISTS reparation_type (
@@ -127,16 +128,16 @@ CREATE TABLE IF NOT EXISTS critique (
     critique_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `message` TEXT NOT NULL,
     note INT
-)
+);
 
 CREATE TABLE IF NOT EXISTS critique_utilisateur (
     critique_id INT NOT NULL REFERENCES critique(critique_id),
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
-    PRIMARY KEY(service_id,probleme_id)
+    PRIMARY KEY(critique_id,utilisateur_id)
 );
 
 CREATE TABLE IF NOT EXISTS critique_atelier (
     critique_id INT NOT NULL REFERENCES critique(critique_id),
     atelier_id INT NOT NULL REFERENCES atelier(atelier_id),
-    PRIMARY KEY(service_id,probleme_id)
+    PRIMARY KEY(critique_id,atelier_id)
 );
