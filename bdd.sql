@@ -84,7 +84,6 @@ CREATE TABLE IF NOT EXISTS probleme_service (
 CREATE TABLE IF NOT EXISTS probleme_reparation_type (
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     reparation_type_id INT NOT NULL REFERENCES reparation_type(reparation_type_id),
-    
     PRIMARY KEY(reparation_type_id,probleme_id)
 );
 
@@ -124,12 +123,20 @@ CREATE TABLE IF NOT EXISTS notification (
     PRIMARY KEY(service_id,probleme_id)
 );
 
-CREATE TABLE IF NOT EXISTS Posts (
-    post_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL UNIQUE,
-    content TEXT,
-    image_url TEXT,
-    date_created DATETIME,
-    date_last_updated DATETIME,
-    user_id INT PRIMARY KEY NOT NULL REFERENCES utilisateur(utilisateur_id)
+CREATE TABLE IF NOT EXISTS critique (
+    critique_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `message` TEXT NOT NULL,
+    note INT
 )
+
+CREATE TABLE IF NOT EXISTS critique_utilisateur (
+    critique_id INT NOT NULL REFERENCES critique(critique_id),
+    utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
+    PRIMARY KEY(service_id,probleme_id)
+);
+
+CREATE TABLE IF NOT EXISTS critique_atelier (
+    critique_id INT NOT NULL REFERENCES critique(critique_id),
+    atelier_id INT NOT NULL REFERENCES atelier(atelier_id),
+    PRIMARY KEY(service_id,probleme_id)
+);
