@@ -1,44 +1,27 @@
 <main>
     <h2>Rechercher votre réparateur</h2>
-
-<section>
-    <h2>Indiquez où vous habitez</h2>
-    <div class="google">
+  
+    <!-- <section>
+      <h2>Indiquez où vous habitez</h2>
+      <div class="google">
         <script src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API&libraries=places"></script>
+      </div>
+    </section> -->
+    <hr>
+  
+    <div class="reparateur">
+      <figure *ngFor="let repairShop of displayedRepairShops">
+        <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/2425518-homme-avec-cle-reparateur-avec-chapeau-logo-caractere-illustrationle-gratuit-vectoriel.jpg" alt="">
+        <figcaption>
+          <h3>{{ repairShop.Nom }}</h3> <br>
+          <p><strong>Adresse :</strong> {{ repairShop.Adresse }}</p> <br>
+          <p><strong>Téléphone :</strong> {{ repairShop.Telephone }}</p> <br>
+          <p><strong>Distance :</strong> {{ repairShop.distance.toFixed(1) }} km</p>
+          <a [routerLink]="['/profil-reparateur']">Lien vers le réparateur</a>
+        </figcaption>
+      </figure>
     </div>
-</section>
-<hr>
-<div class="reparateur">
-    <figure>
-        <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/2425518-homme-avec-cle-reparateur-avec-chapeau-logo-caractere-illustrationle-gratuit-vectoriel.jpg" alt="">
-        <figcaption>
-            <h3>M. Richard</h3>
-            <p>prix : 10 €</p>
-            <time>11h00 - 18h00 </time>
-            <p>distance : 2km</p>
-            <a href="#">Lien vers le réparateur</a>
-        </figcaption>
-    </figure>
-    <figure>
-        <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/2425518-homme-avec-cle-reparateur-avec-chapeau-logo-caractere-illustrationle-gratuit-vectoriel.jpg" alt="">
-        <figcaption>
-            <h3>M. Richard</h3>
-            <p>prix : 10 €</p>
-            <time>11h00 - 18h00 </time>
-            <p>distance : 2km</p>
-            <a href="#">Lien vers le réparateur</a>
-        </figcaption>
-    </figure>
-    <figure>
-        <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/2425518-homme-avec-cle-reparateur-avec-chapeau-logo-caractere-illustrationle-gratuit-vectoriel.jpg" alt="">
-        <figcaption>
-            <h3>M. Richard</h3>
-            <p>prix : 10 €</p>
-            <time>11h00 - 18h00 </time>
-            <p>distance : 2km</p>
-            <a href="#">Lien vers le réparateur</a>
-        </figcaption>
-    </figure>
-</div>
-
-</main>
+  
+    <button *ngIf="!showMore && displayedRepairShops.length !== nearestRepairShops.length" (click)="showMoreRepairShops()">Afficher plus</button>
+  </main>
+  

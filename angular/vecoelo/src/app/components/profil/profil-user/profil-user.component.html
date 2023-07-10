@@ -1,0 +1,34 @@
+<main>
+    <figure>
+      <img src="" alt="">
+      <figcaption>
+        <h2>{{ pseudo }}</h2>
+        <section>
+          <h2>Info</h2>
+          <ul>
+            <li>Mail : {{ mail }}</li>
+            <li>Membre depuis : {{ formatDateTime(dateInscription) }} ({{ joursInscription }} jours)</li>
+          </ul>
+        </section>
+        <ng-container *ngIf="!modifierProfil; else modifierProfilTemplate">
+          <button (click)="changerProfil()">Changer le profil</button>
+        </ng-container>
+        <ng-template #modifierProfilTemplate>
+          <div>
+            <label for="pseudo">Nouveau pseudo :</label>
+            <input type="text" id="pseudo" [(ngModel)]="pseudoModifie">
+          </div>
+          <div>
+            <label for="mail">Nouveau mail :</label>
+            <input type="email" id="mail" [(ngModel)]="mailModifie">
+          </div>
+          <div>
+            <label for="password">Nouveau mot de passe :</label>
+            <input type="password" id="password" [(ngModel)]="passwordModifie">
+          </div>
+          <button (click)="changerProfil()">Valider les modifications</button>
+        </ng-template>
+      </figcaption>
+    </figure>
+  </main>
+  

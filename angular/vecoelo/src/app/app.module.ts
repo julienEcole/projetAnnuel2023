@@ -11,8 +11,18 @@ import { ForumComponent } from './components/forum/forum.component';
 import { ConnexionComponent } from './components/login/connexion/connexion.component';
 import { InscriptionComponent } from './components/login/inscription/inscription.component';
 import { PostComponent } from './pages/post-probleme/post/post.component';
+import { ProfilUserComponent } from './components/profil/profil-user/profil-user.component';
+import { ProfilReparateurComponent } from './components/profil/profil-reparateur/profil-reparateur.component';
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  let footer = document.querySelector("header footer");
+  if (footer) {
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    footer.innerHTML = `Véco-Elo - Trouvez les meilleurs réparateurs de vélos près de chez vous. © ${currentYear}`;
+  }
+});
 
 @NgModule({
   declarations: [
@@ -26,6 +36,8 @@ import { PostComponent } from './pages/post-probleme/post/post.component';
     ConnexionComponent,
     InscriptionComponent,
     PostComponent,
+    ProfilUserComponent,
+    ProfilReparateurComponent,
   ],
   imports: [
     BrowserModule,

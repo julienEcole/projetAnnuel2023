@@ -26,7 +26,12 @@ export class UserService {
       console.log("L'email est déjà utilisé.");
       return false;
     } else {
-      const user: User = { pseudo, email, password };
+      const user: User = {
+        pseudo,
+        email,
+        password,
+        dateCreation: new Date().toISOString() // Ajouter la date de création
+      };
       this.users.push(user);
       // Enregistrer les utilisateurs dans le localStorage
       localStorage.setItem('users', JSON.stringify(this.users));
@@ -65,4 +70,5 @@ interface User {
   pseudo: string;
   email: string;
   password: string;
+  dateCreation?: string;
 }
