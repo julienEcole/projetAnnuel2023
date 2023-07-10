@@ -4,9 +4,10 @@ import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
 // import bookRoutes from './routes/book';
-import userRoutes from './routes/utilisateur'
+import userRoutes, { route } from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
-import atelierRoute from "./routes/vecoleo/atelier"
+import atelierRoute from "./routes/vecoleo/prodetionnel/atelier"
+import utilisateur_atelierRoute from './routes/vecoleo/prodetionnel/utilisateur_atelier';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -43,9 +44,10 @@ router.use((req, res, next) => {
 
 /** Routes go here */
 // router.use('/books', bookRoutes);
-router.use("/Utilisateur", userRoutes);
-router.use("/Ticket", ticketRoute)
-router.use("/Atelier", atelierRoute)
+router.use("/utilisateur", userRoutes);
+router.use("/ticket", ticketRoute)
+router.use("/atelier", atelierRoute)
+router.use("/utilisateur_atelier",utilisateur_atelierRoute)
 
 /** Error handling */
 router.use((req, res, next) => {

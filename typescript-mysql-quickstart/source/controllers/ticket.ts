@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import { executeSQLCommand } from './shared/executeCommand';
 
-const NAMESPACE = 'Ticket';
+const NAMESPACE = 'ticket';
 
 const getAllTicket = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all ticket.');

@@ -65,8 +65,9 @@ CREATE TABLE IF NOT EXISTS assignation (
 CREATE TABLE IF NOT EXISTS probleme (
     probleme_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     adresse TEXT NOT NULL,
-    `description` TEXT NOT NULL,
-    utilisateur INT NOT NULL REFERENCES utilisateur(utilisateur_id)
+    titre TEXT NOT NULL,
+    `description` TEXT,
+    utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id)
 );
 
 CREATE TABLE IF NOT EXISTS ticket_image (

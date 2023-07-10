@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import logging from '../../config/logging';
-import { executeSQLCommand } from '../shared/executeCommand';
+import logging from '../../../config/logging';
+import { executeSQLCommand } from '../../shared/executeCommand';
 
 //atelier = nom de la table
 
-const NAMESPACE = 'Atelier';
+const NAMESPACE = 'atelier';
 
 const getAllAtelier = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all atelier.');
@@ -51,16 +51,11 @@ const updateOneAtelierById = async (req: Request, res: Response, next: NextFunct
     const isInt : RegExp = new RegExp("[0-9]*")
     if(!req.params || !req.body || !req.params.idatelier || !isInt.test(req.params.idatelier)){
         res.status(400);
-        res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.idatelier = ${req.params.idatelier}
-        return;
-    }
-    if(!req.body.etat_id && !req.body.urgence_id && !req.body.type_atelier_id && !req.body.description_bug){
-        res.status(400);
-        res.send(`erreur, le body doit contenir les informations a mettre a jours`); //\n req.params.idatelier = ${req.params.idatelier}
+        res.send(`erreur, les arguments doivent être le mail ou l'id de l'atelier`); //\n req.params.idatelier = ${req.params.idatelier}
         return;
     }
     
-    const atelier_id : number = req.body.atelier_id;
+    const atelier_id : number = parseInt(req.params.idatelier);
     const nomAtelier : string = req.body.nomAtelier;
     const adresse : string = req.body.adresse;
     const horaire_ouverture:Date = req.body.horaire_ouverture;
@@ -76,7 +71,7 @@ const updateOneAtelierById = async (req: Request, res: Response, next: NextFunct
         query += `adresse = \"${adresse}\" ,`
     }
     if(horaire_ouverture){
-        query += `horaire_ouverture = ${horaire_ouverture} `
+        query += `horaire_ouverture = ${horaire_ouverture} ,`
     }
     if(horaire_fermeture){
         query += `horaire_fermeture = ${horaire_fermeture} `
@@ -95,7 +90,7 @@ const DeleteOneAtelierById = async (req: Request, res: Response, next: NextFunct
     logging.info(NAMESPACE, 'DELETE one atelier by id.');
     if(!req.params.idatelier){
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id du atelier");
+        res.send("erreur, les arguments doivent être l'id de l'atelier");
         return;
     }
     const query = `DELETE * FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;

@@ -3,7 +3,7 @@ import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
 import { executeSQLCommand } from './shared/executeCommand';
 
-const NAMESPACE = 'Utilisateur';
+const NAMESPACE = 'utilisateur';
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting utilisateurs');
