@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS probleme (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id)
 );
 
-CREATE TABLE IF NOT EXISTS ticket_image (
+CREATE TABLE IF NOT EXISTS probleme_image (
     image_id INT PRIMARY KEY NOT NULL REFERENCES image(image_id),
     probleme_id INT PRIMARY KEY NOT NULL REFERENCES probleme(probleme_id),
     PRIMARY KEY(image_id,probleme_id)
