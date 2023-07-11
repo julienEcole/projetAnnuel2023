@@ -21,6 +21,23 @@ services:
       - "8080:80"
     depends_on:
       - db
-  app:
-    image: application
-    build: .
+  api:
+    image: node:latest
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    command: npm start
+    ports:
+      - 1337:1337
+
+  application_web:
+    image: node:latest
+    volumes:
+      - ./angular/vecoelo:/app
+    working_dir: /app
+    command: >
+      /bin/sh -c "cd /app && npm install -g @angular/cli && npm install && ng serve --host 0.0.0.0"
+    ports:
+      - 4200:4200
+    depends_on:
+      - api
