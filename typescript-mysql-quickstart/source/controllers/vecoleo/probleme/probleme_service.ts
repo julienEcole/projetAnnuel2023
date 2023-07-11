@@ -4,20 +4,12 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../../../config/logging';
 import { executeSQLCommand } from '../../shared/executeCommand';
 
-//utilisateur_atelier = nom de la table
+//
 
-const NAMESPACE = 'utilisateur_atelier';
+const NAMESPACE = 'probleme_service';
 
-// const getAllUtilisateur_Atelier = async (req: Request, res: Response, next: NextFunction) => {
-//     logging.info(NAMESPACE, 'Getting all Utilisateur_Atelier.');
-
-//     let query = 'SELECT * FROM utilisateur_atelier';
-
-//     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved Utilisateur_Atelier: ');
-// };
-
-const createUtilisateur_Atelier = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'Inserting Utilisateur_Atelier');
+const createProbleme_Service = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Inserting Probleme_Service');
 
     if(!req.body || !req.body.utilisateur_id || !req.body.atelier_id){
         res.status(400);
@@ -29,41 +21,47 @@ const createUtilisateur_Atelier = async (req: Request, res: Response, next: Next
 
     let query = `INSERT INTO utilisateur_atelier (utilisateur_id, atelier_id) VALUES (${utilisateur_id}, ${atelier_id})`;
     
-    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Utilisateur_Atelier created: ');
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Probleme_Service created: ');
 };
 
-const getAllAtelierFromUtilisateur = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'Getting all Utilisateur_Atelier by utilisateur_id.');
-    if(!req.params.utilisateur_id){
+// CREATE TABLE IF NOT EXISTS probleme_service (
+//     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
+//     service_id INT NOT NULL REFERENCES service(service_id),
+//     PRIMARY KEY(service_id,probleme_id)
+// );
+
+const getAllServiceFromProbleme = async (req: Request, res: Response, next: NextFunction) => {   //TODO
+    logging.info(NAMESPACE, 'Getting all Service by probleme_id.');
+    if(!req.params.probleme_id){
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id du Utilisateur_Atelier");
+        res.send("erreur, les arguments doivent être l'id du Probleme_Service");
         return;
     }
-    const query = `SELECT atelier.* FROM utilisateur_atelier, atelier WHERE utilisateur_atelier.utilisateur_id = ${req.params.utilisateur_id} AND utilisateur_atelier.atelier_id = atelier.atelier_id`;
+    const query = `SELECT service.* FROM probleme_service, service WHERE probleme_service.probleme_id = ${req.params.probleme_id} AND probleme_service.service_id = service.service_id`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved atelier list : ');
 };
 
-const getAllUtilisateurFromAtelier = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'Getting one Utilisateur_Atelier by id.');
+const getAllProblemeFromService = async (req: Request, res: Response, next: NextFunction) => {   //TODO
+    logging.info(NAMESPACE, 'Getting one Probleme_Service by id.');
     if(!req.params.atelier_id){
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id du Utilisateur_Atelier");
+        res.send("erreur, les arguments doivent être l'id du Probleme_Service");
         return;
     }
-    const query = `SELECT utilisateur.* FROM utilisateur_atelier, utilisateur WHERE utilisateur_atelier.atelier_id = ${req.params.atelier_id} AND utilisateur_atelier.utilisateur_id = utilisateur.utilisateur_id`; 
+    const query = `SELECT probleme.* FROM probleme_service, probleme WHERE probleme_service.service_id = ${req.params.service_id} AND probleme_service.probleme_id = probleme.probleme_id`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user list : ');
 };
 
-const updateOneUtilisateur_AtelierById = async (req: Request, res: Response, next: NextFunction) => {
+const updateOneProbleme_ServiceById = async (req: Request, res: Response, next: NextFunction) => {
     res.status(403);
         res.send("erreur, Cette table n'est pas sensé être update");
     return;
 }; 
 
-const DeleteOneUtilisateur_AtelierById = async (req: Request, res: Response, next: NextFunction) => {
-    logging.info(NAMESPACE, 'DELETE one Utilisateur_Atelier by id.');
+const DeleteOneProbleme_ServiceById = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'DELETE one Probleme_Service by id.');
     if(!req.body || !req.body.utilisateur_id || !req.body.atelier_id){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
@@ -77,7 +75,7 @@ const DeleteOneUtilisateur_AtelierById = async (req: Request, res: Response, nex
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete utilisateur_atelier : ');
 };
 
-export default {/*getAllUtilisateur_Atelier,*/ createUtilisateur_Atelier, getAllAtelierFromUtilisateur, getAllUtilisateurFromAtelier,  updateOneUtilisateur_AtelierById, DeleteOneUtilisateur_AtelierById};
+export default {/*getAllProbleme_Service,*/ createProbleme_Service, getAllServiceFromProbleme, getAllProblemeFromService,  updateOneProbleme_ServiceById, DeleteOneProbleme_ServiceById};
 
 
 // CREATE TABLE IF NOT EXISTS utilisateur_atelier (
