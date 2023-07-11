@@ -6,8 +6,8 @@ import config from './config/config';
 // import bookRoutes from './routes/book';
 import userRoutes, { route } from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
-import atelierRoute from "./routes/vecoleo/prodetionnel/atelier"
-import utilisateur_atelierRoute from './routes/vecoleo/prodetionnel/utilisateur_atelier';
+import atelierRoute from "./routes/vecoleo/profetionnel/atelier"
+import utilisateur_atelierRoute from './routes/vecoleo/profetionnel/utilisateur_atelier';
 
 const NAMESPACE = 'Server';
 const router = express();
