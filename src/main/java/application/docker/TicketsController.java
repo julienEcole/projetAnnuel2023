@@ -3,6 +3,7 @@ package application.docker;
 import application.HelloApplication;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -53,6 +54,9 @@ public class TicketsController implements Initializable{
     @FXML
     private Button ButtonUser;
 
+    @FXML
+    private ComboBox<String> comboBox;
+
 
 
 
@@ -84,6 +88,8 @@ public class TicketsController implements Initializable{
 
         loadTicketsFromDatabase();
         tblTickets.setItems(ticketList);
+
+        comboBox.setItems(FXCollections.observableList());
 
     }
 
