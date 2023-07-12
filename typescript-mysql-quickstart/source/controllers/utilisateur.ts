@@ -8,21 +8,24 @@ const NAMESPACE = 'utilisateur';
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting utilisateurs');
 
-    if(!req.body){
+    if(!req.body && (!req.body.mdp || !req.body.mail || !req.body.prenom || !req.body.nom || !req.body.role_utilisateur_id)){
         res.status(400);
-        res.send("le body ne contiens pas d'information pour le put, veuillez ajouter le json contenant les donnés dans le body.");
+        res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
+    //const atelier_id : number = req.body.atelier_id;
     const mdp : string = req.body.mdp;
     const mail : string = req.body.mail;
-    const role_utilisateur_id : number = req.body.role_utilisateur_id;
+    const prenom:string = req.body.prenom;
+    const nom:string = req.body.nom;
+    const role_utilisateur_id:number = req.body.role_utilisateur_id
 
     if(mdp.length < 8 || mail.length < 4){
         res.status(400);
         res.send("le mail ou mdp sont trop court pour être vraiment utile.");
         return;
     }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id})`;
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}")`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
@@ -62,41 +65,63 @@ const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user: ');
 };
 
+
+// CREATE TABLE IF NOT EXISTS utilisateur (
+//     utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+//     mdp TEXT NOT NULL,
+//     mail VARCHAR(255) NOT NULL UNIQUE,
+//     prenom TEXT,
+//     nom TEXT,
+//     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
+// );
+
 const updateOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'updating one user by id.');
     const isInt : RegExp = new RegExp("[0-9]*")
-    if(!req.params || !req.body || !req.params.idUser || !isInt.test(req.params.idUser)){
+    if(!req.params || !req.body || !req.params.idUser || !isInt.test(req.params.utilisateur_id)){
         res.status(400);
         res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.idUser = ${req.params.idUser}
         return;
     }
+    //ajouter verification que 1 argument soit la ici
     
+    const utilisateur_id : number = parseInt(req.params.utilisateur_id);
+    const mail:string = req.body.mail;
     const mdp : string = req.body.mdp;
-    const mail : string = req.body.mail;
+    const adresse : string = req.body.adresse;
+    const prenom:string = req.body.prenom;
+    const nom:string = req.body.nom;
+    const role_utilisateur_id:number = req.body.role_utilisateur_id;
     const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
     if(!isMail.test(mail) && mdp.length < 8 ){
         res.status(400);
         res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long");
         return;
     }
-    let query = `UPDATE utilisateur SET `;
-    if(mail){
-        if(mdp){
-            query += `mdp = "${mdp}", mail = "${mail}" `
-        }
-        else{
-            query+= `mail = "${mail}" `;
-        }
+    
+    
+    let query = `UPDATE atelier SET `
+    if(mail){    //ne surtout pas enlever espace avant virgule!!
+        query += `mail = ${mail} ,`
     }
-    else if (mdp){
-        query += `mdp = "${mdp}" `;
+    if(mdp){
+        query += `mdp = \"${mdp}\" ,`
     }
-    else{
-        res.status(400);
-        res.send("veuillez envoyer un mdp et un mail dans l'update pour mettre a jour l'utilisateur.");
-        return;
+    if(adresse){
+        query += `adresse = \"${adresse}\" ,`
     }
-    query += `WHERE utilisateur.utilisateur_id = ${req.params.idUser}`
+    if(prenom){
+        query += `prenom = "${prenom}" ,`
+    }
+    if(nom){
+        query += `nom = "${nom}" ,`
+    }
+    if(role_utilisateur_id){
+        query += `role_utilisateur_id = ${role_utilisateur_id} `
+    }
+    query = query.substring(0, query.length - 1)
+
+    query += `WHERE utilisateur.utilisateur_id = ${utilisateur_id}`
     
     logging.info(NAMESPACE,"ma query = ", query);
 
