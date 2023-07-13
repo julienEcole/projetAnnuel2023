@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
+import mysql from 'mysql2';
 // import bookRoutes from './routes/book';
 import userRoutes, { route } from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
@@ -57,7 +58,7 @@ router.use((req, res, next) => {
         message: error.message
     });
 });
-
 const httpServer = http.createServer(router);
 
 httpServer.listen(config.server.port, () => logging.info(NAMESPACE, `Server is running ${config.server.hostname}:${config.server.port}`));
+

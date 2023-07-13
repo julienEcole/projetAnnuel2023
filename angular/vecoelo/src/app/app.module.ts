@@ -13,6 +13,7 @@ import { InscriptionComponent } from './components/login/inscription/inscription
 import { PostComponent } from './pages/post-probleme/post/post.component';
 import { ProfilUserComponent } from './components/profil/profil-user/profil-user.component';
 import { ProfilReparateurComponent } from './components/profil/profil-reparateur/profil-reparateur.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
   imports: [
     BrowserModule,
     FormsModule, // Ajout du module FormsModule
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

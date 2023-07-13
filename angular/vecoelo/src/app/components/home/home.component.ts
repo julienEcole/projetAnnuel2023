@@ -1,18 +1,23 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css', './velo_animation/velo_animation.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  @Input() text: string = 'default';
-  @Input() color: string = 'grey';
-  @Output() buttonClicked = new EventEmitter<void>();
+  constructor(private http: HttpClient) { }
 
-  emitEvent(): void {
-    this.buttonClicked.emit();
+  ngOnInit(): void {
+    this.http.get<any>('http://localhost:1337/utilisateur/get/utilisateur').subscribe(
+      response => {
+        console.log("Résultat de la requête :", response);
+      },
+      error => {
+        console.error("Erreur lors de la requête :", error);
+      }
+    );
   }
-
 }
