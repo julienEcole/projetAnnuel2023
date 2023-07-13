@@ -8,6 +8,9 @@ import userRoutes, { route } from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
 import atelierRoute from "./routes/vecoleo/profetionnel/atelier"
 import utilisateur_atelierRoute from './routes/vecoleo/profetionnel/utilisateur_atelier';
+import problemeRoute from './routes/vecoleo/probleme/probleme';
+import probleme_serviceRoute from './routes/vecoleo/probleme/probleme_service';
+import probleme_imageRoute from './routes/vecoleo/probleme/probleme_service';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -48,6 +51,9 @@ router.use("/utilisateur", userRoutes);
 router.use("/ticket", ticketRoute)
 router.use("/atelier", atelierRoute)
 router.use("/utilisateur_atelier",utilisateur_atelierRoute)
+router.use("/probleme", problemeRoute)
+router.use("/probleme_service", probleme_serviceRoute)
+router.use("/probleme_image", probleme_imageRoute)
 
 /** Error handling */
 router.use((req, res, next) => {
