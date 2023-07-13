@@ -8,12 +8,14 @@ import { UserService } from './components/login/user.service';
 })
 export class AppComponent {
   title = 'vecoelo';
-  constructor(private userService: UserService) {}
+constructor(private userService: UserService) {}
 
-  get nomUtilisateurConnecte(): string | null {
-    return this.userService.utilisateurConnecte?.pseudo || null;
-  }
-  deconnexion(): void {
-    this.userService.deconnexion();
+get nomUtilisateurConnecte(): string | null {
+  return this.userService.getNomUtilisateurConnecte();
+}
+
+deconnexion(): void {
+  this.userService.deconnexion();
+  
   }
 }

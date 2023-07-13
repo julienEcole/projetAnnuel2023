@@ -13,17 +13,21 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         res.send("le body ne contiens pas d'information pour le put, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const mdp : string = req.body.mdp;
-    const mail : string = req.body.mail;
-    const role_utilisateur_id : number = req.body.role_utilisateur_id;
-
-    if(mdp.length < 8 || mail.length < 4){
-        res.status(400);
-        res.send("le mail ou mdp sont trop court pour être vraiment utile.");
-        return;
-    }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id})`;
+    const mdp : string = req.body.password;
+    const mail : string = req.body.email;
+    const pseudo : string = req.body.pseudo;
+    const role_utilisateur_id: number = req.body.role_utilisateur_id || 0;
     
+
+    // if(mdp.length < 8 || mail.length < 4){
+    //     res.status(400);
+    //     res.send("le mail ou mdp sont trop court pour être vraiment utile.");
+    //     return;
+    // }
+    console.log(req.body);
+    console.log(mdp, mail, pseudo, role_utilisateur_id);
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id,pseudo) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id}, "${pseudo}")`;
+    console.log(query);
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 

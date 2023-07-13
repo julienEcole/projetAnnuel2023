@@ -19,16 +19,22 @@ export class InscriptionComponent {
   register() {
     this.champsIncomplets = false;
     this.mailDejaUtilise = false;
-
+  
     if (!this.pseudo || !this.email || !this.password) {
       this.champsIncomplets = true;
-    } else if (this.userService.checkEmailExists(this.email)) {
-      this.mailDejaUtilise = true;
     } else {
-      const inscriptionReussie = this.userService.registerUser(this.pseudo, this.email, this.password);
-      if (inscriptionReussie) {
-        this.inscriptionReussie = true;
-      }
+      this.userService.registerUser(this.pseudo, this.email, this.password).subscribe(
+        (inscriptionReussie) => {
+          if (inscriptionReussie) {
+            this.inscriptionReussie = true;
+          } else {
+            this.mailDejaUtilise = true;
+          }
+        },
+        (error) => {
+          console.log("Erreur lors de l'inscription :", error);
+        }
+      );
     }
   }
 }

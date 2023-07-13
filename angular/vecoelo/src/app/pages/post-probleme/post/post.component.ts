@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { last } from 'rxjs';
 import { ForumService } from 'src/app/components/forum/forum.service';
-import { UserService } from 'src/app/components/login/user.service'; // Ajoutez cette ligne
 
 @Component({
   selector: 'app-post',
@@ -16,8 +15,7 @@ export class PostComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private forumService: ForumService,
-    private userService: UserService // Ajoutez cette ligne
+    private forumService: ForumService
   ) {}
 
   ngOnInit() {
@@ -31,26 +29,23 @@ export class PostComponent implements OnInit {
   }
 
   submitReply() {
-    const utilisateurConnecte = this.userService.utilisateurConnecte;
-    if (utilisateurConnecte) {
-      this.post.auteur = utilisateurConnecte.pseudo;
-    }
     const reply = {
       message: this.replyMessage,
       timestamp: new Date(),
       lastActivityDate: new Date(),
-      auteur: this.userService.utilisateurConnecte?.pseudo || "anonymous",
-      
+      auteur: "anonymous"
     };
     
     this.forumService.addReplyToPost(this.postId, reply);
     this.replyMessage = ''; 
     window.location.reload();
   }
+  
   deleteReply(reply: any) {
     this.forumService.deleteReplyFromPost(this.postId, reply);
     this.post.replies = this.post.replies.filter((r: any) => r.message !== reply.message);
   }
+  
   formatDateTime(dateTime: string): string {
     const date = new Date(dateTime);
     date.setHours(date.getHours() + 2);
@@ -62,10 +57,8 @@ export class PostComponent implements OnInit {
       minute: '2-digit',
       hour12: false,
       timeZone: 'UTC'
-      
     };
     const formatter = new Intl.DateTimeFormat('fr-FR', options);
     return formatter.format(date);
   }
-  
 }

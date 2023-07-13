@@ -1,74 +1,102 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private users: User[] = [];
-  utilisateurConnecte: User | null = null;
+  private baseUrl = 'http://localhost:1337';
+  private estConnecte: boolean = false;
+  private pseudo: string = '';
+  private email: string = '';
 
-  constructor(private router: Router) {
-    // Récupérer les utilisateurs stockés dans le localStorage lors de l'initialisation du service
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      this.users = JSON.parse(storedUsers);
-    }
-    const storedUser = localStorage.getItem('utilisateurConnecte');
-    if (storedUser) {
-      this.utilisateurConnecte = JSON.parse(storedUser);
-    }
+  constructor(private http: HttpClient) { }
+
+  registerUser(pseudo: string, email: string, password: string): Observable<boolean> {
+    const user = {
+      pseudo,
+      email,
+      password
+    };
+    console.log(user);
+    return this.http.post<any>(`${this.baseUrl}/utilisateur/create/utilisateur`, user)
+      .pipe(
+        catchError(() => {
+          console.log("Erreur lors de l'inscription");
+          return of(false);
+        })
+      );
   }
 
-  registerUser(pseudo: string, email: string, password: string): boolean {
-    const userExists = this.checkEmailExists(email);
-    if (userExists) {
-      console.log("L'email est déjà utilisé.");
-      return false;
+  loginUser(email: string, password: string): Observable<boolean> {
+    return this.http.get<any>(`${this.baseUrl}/utilisateur/get/utilisateur/mail/${email}`).pipe(
+      map((response: any) => {
+        const utilisateur = response.results[0];
+        this.pseudo = utilisateur.pseudo;
+        this.email = utilisateur.email;
+        if (utilisateur && utilisateur.mdp === password) {
+          this.estConnecte = true;
+          
+          return true;
+        } else {
+          console.log('Échec de la connexion : email ou mot de passe incorrect');
+          return false;
+        }
+        
+      }),
+      catchError(() => {
+        console.log('Échec de la connexion : email ou mot de passe incorrect');
+        return of(false);
+      })
+      
+    );
+    
+  }
+  estUtilisateurConnecte(): boolean {
+    return this.estConnecte;
+  }
+
+  checkEmailExists(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/utilisateur/get/utilisateur/mail/${email}`)
+      .pipe(
+        catchError(() => {
+          console.log("Erreur lors de la vérification de l'e-mail existant");
+          return of(false);
+        })
+      );
+  }
+  getOneUserById(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/utilisateur/get/utilisateur/`);
+  }
+
+
+  updateOneUserByMail(email: string, user: any): Observable<any> {
+    const url = `utilisateur/put/utilisateur/mail/${email}`;
+    return this.http.put(url, user);
+  }
+
+  getNomUtilisateurConnecte(): string | null {
+    if (this.estConnecte) {
+      const utilisateur = this.http.get<boolean>(`${this.baseUrl}/utilisateur/get/utilisateur/mail/${this.email}`).pipe(
+        map((response: any) => {
+          return response?.pseudo || null;
+        }),
+        catchError(() => {
+          console.log("Erreur lors de la récupération de l'utilisateur connecté");
+          return of(null);
+        })
+      );
+      return this.pseudo;
     } else {
-      const user: User = {
-        pseudo,
-        email,
-        password,
-        dateCreation: new Date().toISOString() // Ajouter la date de création
-      };
-      this.users.push(user);
-      // Enregistrer les utilisateurs dans le localStorage
-      localStorage.setItem('users', JSON.stringify(this.users));
-      console.log('Utilisateur enregistré :', user);
-      return true;
+      return null;
     }
   }
 
-  loginUser(email: string, password: string): boolean {
-    const user = this.users.find(u => u.email === email && u.password === password);
-    if (user) {
-      this.utilisateurConnecte = user;
-      localStorage.setItem('utilisateurConnecte', JSON.stringify(user));
-      console.log('Utilisateur connecté :', user);
-      this.router.navigate(['/home']); // Rediriger vers la page d'accueil
-      return true;
-    } else {
-      console.log('Échec de la connexion : email ou mot de passe incorrect');
-      return false;
-    }
-  }
-
-  checkEmailExists(email: string): boolean {
-    const user = this.users.find(u => u.email === email);
-    return !!user;
-  }
 
   deconnexion(): void {
-    this.utilisateurConnecte = null;
-    localStorage.removeItem('utilisateurConnecte');
-    // Autres logiques de déconnexion si nécessaire
+    this.estConnecte = false;
   }
-}
 
-interface User {
-  pseudo: string;
-  email: string;
-  password: string;
-  dateCreation?: string;
 }
