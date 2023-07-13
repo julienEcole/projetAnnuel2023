@@ -6,11 +6,16 @@ import config from './config/config';
 // import bookRoutes from './routes/book';
 import userRoutes, { route } from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
+
 import atelierRoute from "./routes/vecoleo/profetionnel/atelier"
 import utilisateur_atelierRoute from './routes/vecoleo/profetionnel/utilisateur_atelier';
+import serviceRoute from './routes/vecoleo/profetionnel/service';
+
 import problemeRoute from './routes/vecoleo/probleme/probleme';
 import probleme_serviceRoute from './routes/vecoleo/probleme/probleme_service';
 import probleme_imageRoute from './routes/vecoleo/probleme/probleme_service';
+
+import critiqueRoute from './routes/vecoleo/critique/critique';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -49,11 +54,16 @@ router.use((req, res, next) => {
 // router.use('/books', bookRoutes);
 router.use("/utilisateur", userRoutes);
 router.use("/ticket", ticketRoute)
+
 router.use("/atelier", atelierRoute)
+router.use("/service", serviceRoute)
 router.use("/utilisateur_atelier",utilisateur_atelierRoute)
+
 router.use("/probleme", problemeRoute)
 router.use("/probleme_service", probleme_serviceRoute)
 router.use("/probleme_image", probleme_imageRoute)
+
+router.use("/critique", critiqueRoute)
 
 /** Error handling */
 router.use((req, res, next) => {

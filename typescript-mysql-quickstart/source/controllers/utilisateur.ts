@@ -95,7 +95,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
     if(!isMail.test(mail) && mdp.length < 8 ){
         res.status(400);
-        res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long");
+        res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
         return;
     }
     
