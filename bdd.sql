@@ -14,12 +14,13 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     nom TEXT,
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
 );
-CREATE TABLE IF NOT EXISTS type_ticket (
+
+CREATE TABLE IF NOT EXIS
+TS type_ticket (
     type_ticket_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
     `description` TEXT
 );
-
 CREATE TABLE IF NOT EXISTS urgence (
     urgence_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,

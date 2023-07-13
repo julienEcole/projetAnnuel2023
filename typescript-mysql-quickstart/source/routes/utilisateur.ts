@@ -4,7 +4,7 @@ import controller from '../controllers/utilisateur';
 const router = express.Router();
 
 router.post('/create/utilisateur', express.json(), controller.createUser);
-router.put("/put/utilisateur/:utilisateur_id", express.json(), controller.updateOneUserById);
+router.put("/patch/utilisateur/:utilisateur_id", express.json(), controller.updateOneUserById);
 router.get('/get/utilisateur', controller.getAllUsers);
 router.get("/get/utilisateur/id/:utilisateur_id", controller.getOneUserById);
 router.get("/get/utilisateur/mail/:mailUser", controller.getOneUserByMail);

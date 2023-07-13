@@ -83,7 +83,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
         res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.idUser = ${req.params.idUser}
         return;
     }
-    //ajouter verification que 1 argument soit la ici
+    //ajouter verification que 1 argument soit la au minimum
     
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
     const mail:string = req.body.mail;
