@@ -13,7 +13,7 @@ export class UserService {
   private email: string = '';
 
   constructor(private http: HttpClient) { }
-
+ 
   registerUser(pseudo: string, email: string, password: string): Observable<boolean> {
     const user = {
       pseudo,
@@ -38,7 +38,8 @@ export class UserService {
         this.email = utilisateur.email;
         if (utilisateur && utilisateur.mdp === password) {
           this.estConnecte = true;
-          
+          localStorage.setItem('estConnecte', "true");
+          localStorage.setItem('pseudo', this.pseudo);
           return true;
         } else {
           console.log('Échec de la connexion : email ou mot de passe incorrect');
@@ -55,7 +56,12 @@ export class UserService {
     
   }
   estUtilisateurConnecte(): boolean {
-    return this.estConnecte;
+    this.estConnecte = localStorage.getItem('estConnecte') === 'true';
+    if(this.estConnecte) {
+      return this.estConnecte;
+    } else {
+      return false;
+    }
   }
 
   checkEmailExists(email: string): Observable<boolean> {
@@ -77,25 +83,21 @@ export class UserService {
     return this.http.put(url, user);
   }
 
-  getNomUtilisateurConnecte(): string | null {
+  getNomUtilisateurConnecte(): string {
+    this.estConnecte = this.estUtilisateurConnecte();
     if (this.estConnecte) {
-      const utilisateur = this.http.get<boolean>(`${this.baseUrl}/utilisateur/get/utilisateur/mail/${this.email}`).pipe(
-        map((response: any) => {
-          return response?.pseudo || null;
-        }),
-        catchError(() => {
-          console.log("Erreur lors de la récupération de l'utilisateur connecté");
-          return of(null);
-        })
-      );
-      return this.pseudo;
+      this.pseudo = localStorage.getItem('pseudo') || "";
+      return this.pseudo; 
     } else {
-      return null;
+      return '';
     }
   }
+  
 
 
   deconnexion(): void {
+    localStorage.removeItem('estConnecte');
+    localStorage.removeItem('pseudo');
     this.estConnecte = false;
   }
 

@@ -112,4 +112,4 @@ const DeleteOneProblemeById = async (req: Request, res: Response, next: NextFunc
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme : ');
 };
 
-export default {getAllProbleme, createProbleme, getOneProblemeById, updateOneProblemeById, DeleteOneProblemeById};
+export default {getAllProbleme, createProbleme, getOneProblemeById, updateOneProblemeById, DeleteOneProblemeById}; 

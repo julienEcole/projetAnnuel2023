@@ -6,14 +6,13 @@ const params = {
     user: config.mysql.user,
     password: config.mysql.pass,
     host: config.mysql.host,
-    database: config.mysql.database,
-    port: config.mysql.port
+    database: config.mysql.database
 };
 
 const Connect = async () =>
     new Promise<mysql.Connection>((resolve, reject) => {
         const connection = mysql.createConnection(params);
-        console.log(connection);
+
         connection.connect((error) => {
             if (error) {
                 reject(error);

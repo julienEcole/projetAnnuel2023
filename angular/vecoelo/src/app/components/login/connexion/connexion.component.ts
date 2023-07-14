@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../user.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
@@ -13,7 +13,7 @@ export class ConnexionComponent {
   connexionReussie: boolean = false;
   erreurConnexion: boolean = false;
 
-  constructor(private userService: UserService) {console.log(userService)}
+  constructor(private userService: UserService, private router: Router) {console.log(userService)}
   
   login() {
     this.champsIncomplets = false;
@@ -27,6 +27,8 @@ export class ConnexionComponent {
         (isLoggedIn: boolean) => {
           if (isLoggedIn) {
             this.connexionReussie = true;
+            console.log('Connexion réussie !');
+            this.router.navigate(['/home']);
           } else {
             this.erreurConnexion = true;
           }

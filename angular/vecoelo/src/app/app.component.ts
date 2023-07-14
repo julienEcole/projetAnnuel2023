@@ -16,6 +16,5 @@ get nomUtilisateurConnecte(): string | null {
 
 deconnexion(): void {
   this.userService.deconnexion();
-  
   }
 }

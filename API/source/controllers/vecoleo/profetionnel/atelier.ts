@@ -48,7 +48,7 @@ const getOneAtelierById = async (req: Request, res: Response, next: NextFunction
 
 const updateOneAtelierById = async (req: Request, res: Response, next: NextFunction) => {   //TOVERIFY
     logging.info(NAMESPACE, 'updating one atelier by id.');
-    const isInt : RegExp = new RegExp("[0-9]*")
+    const isInt : RegExp = new RegExp("[0-9]+")
     if(!req.params || !req.body || !req.params.idatelier || !isInt.test(req.params.idatelier)){
         res.status(400);
         res.send(`erreur, les arguments doivent être le mail ou l'id de l'atelier`); //\n req.params.idatelier = ${req.params.idatelier}
