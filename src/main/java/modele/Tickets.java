@@ -9,7 +9,7 @@ public class Tickets {
 
     private String description;
 
-    private String etat;
+    private int etat;
 
     private String traite;
 
@@ -18,11 +18,11 @@ public class Tickets {
         this.id = id;
         this.nom = nom;
         this.description = description;
-        this.etat = etat;
-        this.traite = traite;
+        this.etat = this.etat;
+        this.traite = this.traite;
     }
 
-    public Tickets(String nom, String description, String etat, String traite) {
+    public Tickets(String nom, String description, int etat, String traite) {
         this.nom = nom;
         this.description = description;
         this.etat = etat;
@@ -55,11 +55,11 @@ public class Tickets {
         this.description = description;
     }
 
-    public String getEtat() {
+    public int getEtat() {
         return etat;
     }
 
-    public void setEtat(String etat) {
+    public void setEtat(int etat) {
         this.etat = etat;
     }
 

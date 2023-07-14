@@ -6,22 +6,45 @@ public class User{
     private int id;
     private String mail;
     private String mdp;
-    private boolean estadmin;
+    private String nom;
+    private String prenom;
+    private int role;
 
-    public User(int id, String mail, String mdp, boolean estadmin) {
+    private String etat;
+
+    public User(int id, String nom, String prenom, int role) {
         this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
         this.mail = mail;
         this.mdp = mdp;
-        this.estadmin = estadmin;
+        this.role = role;
+        this.etat = etat;
     }
 
-    public User(String mail, String mdp, boolean estadmin) {
+    public User(String mail, String mdp, int role) {
         this.mail = mail;
         this.mdp = mdp;
-        this.estadmin = estadmin;
+        this.role = role;
     }
 
     public User() {}
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 
     public int getUser() {
         return id;
@@ -47,15 +70,23 @@ public class User{
         return mdp;
     }
 
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
 
-    public boolean isEstadmin() {
-        return estadmin;
+    public int role() {
+        return role;
     }
 
-    public void setEstadmin(boolean estadmin) {
-        this.estadmin = estadmin;
+    public void setRole(int role) {
+        this.role = role;
     }
 }

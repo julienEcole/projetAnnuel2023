@@ -75,10 +75,10 @@ public class TicketsController implements Initializable{
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        createByColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id_ticket"));
+        createByColumn.setCellValueFactory(new PropertyValueFactory<>("Titre"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description_bug"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("etat_titre"));
         assignedToColumn.setCellValueFactory(new PropertyValueFactory<>("traite"));
 
         ButtonDisco.setOnAction(this::handleDisconnectButtonAction);
@@ -89,7 +89,7 @@ public class TicketsController implements Initializable{
         loadTicketsFromDatabase();
         tblTickets.setItems(ticketList);
 
-        comboBox.setItems(FXCollections.observableList());
+        //comboBox.setItems(FXCollections.observableList());
 
     }
 

@@ -7,13 +7,13 @@ import modele.Tickets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class UserRepository {
     private jdbc coBdd;
     private String table = "Utilisateur";
-    private String table1 = "Tickets";
+    private String table1 = "Ticket";
+    private String table_etat = "Etat";
 
 
 
@@ -33,7 +33,7 @@ public class UserRepository {
             pstm.setString(2, mdp);
             ResultSet rs = pstm.executeQuery();
             if (rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("mail"), rs.getString("mdp"), rs.getBoolean("est_admin"));
+                user = new User(rs.getInt("utilisateur_id"), rs.getString("nom"),rs.getString("prenom"), rs.getInt("role_utilisateur_id"));
             }
         } catch (SQLException e) {
 // TODO Auto-generated catch block
@@ -55,10 +55,10 @@ public class UserRepository {
             pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("id"),
+                user = new User(rs.getInt("utilisateur_id"),
                         rs.getString("mail"),
                         rs.getString("mdp"),
-                        rs.getBoolean("est_admin"));
+                        rs.getInt("role_utilisateur_id"));
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -70,32 +70,34 @@ public class UserRepository {
     }
 
 
-    public  ArrayList<Tickets> getTicket() {
+    public ArrayList<Tickets> getTicket() {
         ArrayList<Tickets> ticketList = new ArrayList<>();
-        String sql = "SELECT * FROM "+ table1;
+        String sql = "SELECT t.*, e.titre AS etat_titre\n" +
+                "FROM ticket AS t\n" +
+                "JOIN etat AS e ON t.etat_id = e.etat_id;\n";
         PreparedStatement pstm;
         try {
             pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-
-                int id = rs.getInt("id");
-                String nom = rs.getString("nom");
-                String description = rs.getString("description");
-                String etat = rs.getString("etat");
+                int id = rs.getInt("ticket_id");
+                String Titre = rs.getString("Titre");
+                String description = rs.getString("description_bug");
+                String etat = rs.getString("etat_titre");
                 String traite = rs.getString("traite");
 
                 // Créer un objet Tickets et l'ajouter à la liste
-                modele.Tickets ticket = new modele.Tickets(id, nom, description, etat, traite);
+                modele.Tickets ticket = new modele.Tickets(id, Titre, description,etat,traite);
                 ticketList.add(ticket);
             }
         } catch (SQLException e) {
-// TODO Auto-generated catch block
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println(ticketList);
         return ticketList;
     }
+
 
 
 
