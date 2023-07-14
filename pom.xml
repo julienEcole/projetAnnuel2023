@@ -89,7 +89,7 @@
                     <execution>
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>application.docker/application.docker.HelloApplication</mainClass>
+                            <mainClass>application.docker/application.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

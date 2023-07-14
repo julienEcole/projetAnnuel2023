@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="910.0" style="-fx-background-color: #20120F;" stylesheets="@../../Css/Style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.docker.LoginController">
+   <children>
+      <AnchorPane layoutX="451.0" layoutY="55.0" prefHeight="524.0" prefWidth="412.0" style="-fx-background-color: #9c2b27;">
+         <children>
+            <TextField fx:id="tname" layoutX="47.0" layoutY="132.0" prefHeight="25.0" prefWidth="333.0" promptText="Mail" />
+            <PasswordField fx:id="tpass" layoutX="47.0" layoutY="250.0" prefHeight="25.0" prefWidth="333.0" promptText="password" />
+            <Button defaultButton="true" layoutX="162.0" layoutY="358.0" mnemonicParsing="false" onAction="#seConnecterAction" prefHeight="30.0" prefWidth="218.0" style="-fx-background-color: #E45652; -fx-border-radius: 10;" text="Connexion" textFill="#f5f5f5" />
+            <Label layoutX="162.0" layoutY="52.0" prefHeight="53.0" prefWidth="89.0" text="Sign in" textFill="#c9c1c1">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="507.0" fitWidth="346.0" layoutX="53.0" layoutY="55.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icons/connexion.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="TOP_CENTER" layoutX="112.0" layoutY="269.0" prefHeight="66.0" prefWidth="218.0" text="Bienvenue" textAlignment="CENTER" textFill="#ebebeb">
+         <font>
+            <Font size="45.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
