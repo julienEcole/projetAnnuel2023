@@ -41,7 +41,7 @@ const getOneCritiqueById = async (req: Request, res: Response, next: NextFunctio
     logging.info(NAMESPACE, 'Getting one critique by id.');
     if(!req.params.idCritique){
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id du critique");
+        res.send("erreur, l'argument en parametre doit être l'id de la critique");
         return;
     }
     const query = `SELECT * FROM critique WHERE critique.critique_id = ${req.params.idCritique}`;
