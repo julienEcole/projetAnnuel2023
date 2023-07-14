@@ -11,12 +11,17 @@ export class UserService {
   private estConnecte: boolean = false;
   private pseudo: string = '';
   private email: string = '';
+  private id: string = '';
+  private nom: string = '';
+  private prenom: string = '';
 
   constructor(private http: HttpClient) { }
  
-  registerUser(pseudo: string, email: string, password: string): Observable<boolean> {
+  registerUser(pseudo: string, nom: string, prenom: string, email: string, password: string): Observable<boolean> {
     const user = {
       pseudo,
+      nom,
+      prenom,
       email,
       password
     };
@@ -24,6 +29,7 @@ export class UserService {
     return this.http.post<any>(`${this.baseUrl}/utilisateur/create/utilisateur`, user)
       .pipe(
         catchError(() => {
+
           console.log("Erreur lors de l'inscription");
           return of(false);
         })
@@ -36,10 +42,12 @@ export class UserService {
         const utilisateur = response.results[0];
         this.pseudo = utilisateur.pseudo;
         this.email = utilisateur.email;
+        this.id = utilisateur.id;
         if (utilisateur && utilisateur.mdp === password) {
           this.estConnecte = true;
           localStorage.setItem('estConnecte', "true");
           localStorage.setItem('pseudo', this.pseudo);
+          localStorage.setItem('id', this.id);
           return true;
         } else {
           console.log('Échec de la connexion : email ou mot de passe incorrect');

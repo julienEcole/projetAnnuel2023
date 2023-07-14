@@ -10,6 +10,8 @@ export class InscriptionComponent {
   pseudo: string = '';
   email: string = '';
   password: string = '';
+  nom: string = '';
+  prenom: string = '';
   champsIncomplets: boolean = false;
   mailDejaUtilise: boolean = false;
   inscriptionReussie: boolean = false;
@@ -23,7 +25,7 @@ export class InscriptionComponent {
     if (!this.pseudo || !this.email || !this.password) {
       this.champsIncomplets = true;
     } else {
-      this.userService.registerUser(this.pseudo, this.email, this.password).subscribe(
+      this.userService.registerUser(this.pseudo, this.nom,this.prenom, this.email, this.password).subscribe(
         (inscriptionReussie) => {
           if (inscriptionReussie) {
             this.inscriptionReussie = true;

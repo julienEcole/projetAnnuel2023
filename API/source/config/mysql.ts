@@ -6,7 +6,8 @@ const params = {
     user: config.mysql.user,
     password: config.mysql.pass,
     host: config.mysql.host,
-    database: config.mysql.database
+    database: config.mysql.database,
+    port: config.mysql.port
 };
 
 const Connect = async () =>

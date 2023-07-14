@@ -15,14 +15,22 @@
           <option value="pedale">Pédale</option>
           <option value="autre">Autre</option>
         </select>
+        
         <label *ngIf="problem.objet === 'autre'" for="autreProbleme">Si "Autre" :</label>
         <input *ngIf="problem.objet === 'autre'" type="text" name="autreProbleme" id="autreProbleme" [(ngModel)]="problem.autreProbleme">
+        
         <label for="image">Photo du problème :</label>
         <input type="file" name="image" id="image" [(ngModel)]="problem.image">
+        
         <label for="probleme">Résumé du problème :</label>
         <textarea name="probleme" id="probleme" cols="20" rows="10" [(ngModel)]="problem.resume"></textarea>
+        
+        <label for="adresse">Adresse :</label>
+        <input type="text" name="adresse" id="adresse" [(ngModel)]="problem.adresse">
+        
         <input type="submit" aria-label="Valider" value="Valider">
       </fieldset>
+      
     </form>
   </figure>
 </main>

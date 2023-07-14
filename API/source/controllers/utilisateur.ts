@@ -8,24 +8,25 @@ const NAMESPACE = 'utilisateur';
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting utilisateurs');
 
-    if(!req.body && (!req.body.mdp || !req.body.mail || !req.body.prenom || !req.body.nom || !req.body.role_utilisateur_id)){
+    if(!req.body && (!req.body.password || !req.body.email || !req.body.pseudo || !req.body.prenom || !req.body.nom || !req.body.role_utilisateur_id)){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
     //const atelier_id : number = req.body.atelier_id;
-    const mdp : string = req.body.mdp;
-    const mail : string = req.body.mail;
+    const mdp : string = req.body.password;
+    const mail : string = req.body.email;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id
+    const pseudo:string = req.body.pseudo;
+    const role_utilisateur_id:number = req.body.role_utilisateur_id || 0;
 
-    if(mdp.length < 8 || mail.length < 4){
-        res.status(400);
-        res.send("le mail ou mdp sont trop court pour être vraiment utile.");
-        return;
-    }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}")`;
+    // if(mdp.length < 8 || mail.length < 4){
+    //     res.status(400);
+    //     res.send("le mail ou mdp sont trop court pour être vraiment utile.");
+    //     return;
+    // }
+    let query = `INSERT INTO utilisateur (mdp, mail, prenom, nom, pseudo, role_utilisateur_id) VALUES ("${mdp}", "${mail}", "${prenom}", "${nom}","${pseudo}", ${role_utilisateur_id})`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
@@ -88,16 +89,16 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
     const mail:string = req.body.mail;
     const mdp : string = req.body.mdp;
-    const adresse : string = req.body.adresse;
+    // const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id;
+    const role_utilisateur_id: number = req.body.role_utilisateur_id || 0;
     const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
-    if(!isMail.test(mail) && mdp.length < 8 ){
-        res.status(400);
-        res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
-        return;
-    }
+    // if(!isMail.test(mail) && mdp.length < 8 ){
+    //     res.status(400);
+    //     res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
+    //     return;
+    // }
     
     
     let query = `UPDATE atelier SET `
@@ -107,9 +108,9 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     if(mdp){
         query += `mdp = \"${mdp}\" ,`
     }
-    if(adresse){
-        query += `adresse = \"${adresse}\" ,`
-    }
+    // if(adresse){
+    //     query += `adresse = \"${adresse}\" ,`
+    // }
     if(prenom){
         query += `prenom = "${prenom}" ,`
     }
