@@ -33,7 +33,7 @@ export class PostComponent implements OnInit {
       message: this.replyMessage,
       timestamp: new Date(),
       lastActivityDate: new Date(),
-      auteur: "anonymous"
+      auteur: localStorage.getItem('pseudo') || 'Anonyme'
     };
     
     this.forumService.addReplyToPost(this.postId, reply);

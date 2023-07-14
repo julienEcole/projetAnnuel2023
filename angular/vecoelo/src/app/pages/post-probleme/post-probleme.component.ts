@@ -14,7 +14,7 @@ export class PostProblemeComponent {
     image: '',
     resume: '',
     date: new Date(),
-    auteur: ''
+    auteur: localStorage.getItem('pseudo') || 'Anonyme'
   };
 
   constructor(
