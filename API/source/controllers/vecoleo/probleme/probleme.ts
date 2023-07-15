@@ -25,17 +25,19 @@ const getAllProbleme = async (req: Request, res: Response, next: NextFunction) =
 const createProbleme = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting probleme');
 
-    if(!req.body || !req.body.utilisateur_id || !req.body.adresse || !req.body.titre){
+    if(!req.body || !req.body.utilisateur_id || !req.body.adresse || !req.body.objet || !req.body.resume){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
     //const probleme_id : number = req.body.probleme_id;
     const utilisateur_id:number = req.body.utilisateur_id;
-    const description : string = req.body.description;
+    const description : string = req.body.resume;
     const adresse : string = req.body.adresse;
-    const titre : string = req.body.titre;
+    const titre : string = req.body.objet;
 
+    console.log("req.body = ", req.body);
+    console.log(utilisateur_id, description, adresse, titre);
     let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
@@ -69,7 +71,7 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
     }
     
     const probleme_id : number = parseInt(req.params.idProbleme);
-    // const utilisateur_id:number = req.body.utilisateur_id;
+    const utilisateur_id:number = req.body.utilisateur_id;
     const description : string = req.body.description;
     const adresse : string = req.body.adresse;
     const titre : string = req.body.titre;
@@ -77,9 +79,9 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
     if(probleme_id){    //ne surtout pas enlever espace avant virgule!!
         query += `probleme_id = ${probleme_id} ,`
     }
-    // if(utilisateur_id){
-    //     query += `utilisateur_id = ${utilisateur_id} ,`
-    // }
+    if(utilisateur_id){
+        query += `utilisateur_id = ${utilisateur_id} ,`
+    }
     if(adresse){
         query += `adresse = \"${adresse}\" ,`
     }

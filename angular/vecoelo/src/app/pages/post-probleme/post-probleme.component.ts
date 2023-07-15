@@ -32,7 +32,8 @@ export class PostProblemeComponent {
 
   submitProblem() {
     this.forumService.addProblem(this.problem);
-    return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
+    console.log(this.problem);
+    return this.http.post<any>(`${this.baseUrl}/post/probleme`, this.problem)
       .subscribe(
         response => {
           console.log("Résultat de la requête :", response);
