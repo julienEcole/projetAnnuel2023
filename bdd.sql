@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
 );
 
-CREATE TABLE IF NOT EXIS
-TS type_ticket (
+CREATE TABLE IF NOT EXISTS type_ticket (
     type_ticket_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
     `description` TEXT
@@ -72,9 +71,9 @@ CREATE TABLE IF NOT EXISTS probleme (
 );
 
 CREATE TABLE IF NOT EXISTS probleme_image (
-    image_id INT PRIMARY KEY NOT NULL REFERENCES image(image_id),
-    probleme_id INT PRIMARY KEY NOT NULL REFERENCES probleme(probleme_id),
-    PRIMARY KEY(image_id,probleme_id)
+    image_id INT NOT NULL REFERENCES image(image_id),
+    probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
+    PRIMARY KEY (image_id,probleme_id)
 );
 
 CREATE TABLE IF NOT EXISTS probleme_service (
