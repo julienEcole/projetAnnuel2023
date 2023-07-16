@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,15 +40,19 @@ export class UserService {
   loginUser(email: string, password: string): Observable<boolean> {
     return this.http.get<any>(`${this.baseUrl}/utilisateur/get/utilisateur/mail/${email}`).pipe(
       map((response: any) => {
+        console.log("le result : " + response.results[0].pseudo);
         const utilisateur = response.results[0];
         this.pseudo = utilisateur.pseudo;
-        this.email = utilisateur.email;
-        this.id = utilisateur.id;
+        this.email = utilisateur.mail;
+        this.id = utilisateur.utilisateur_id;
+        console.log(this.pseudo, this.email, this.id)
         if (utilisateur && utilisateur.mdp === password) {
           this.estConnecte = true;
           localStorage.setItem('estConnecte', "true");
           localStorage.setItem('pseudo', this.pseudo);
           localStorage.setItem('id', this.id);
+          localStorage.setItem('email', this.email);
+          console.log('Connexion réussie');
           return true;
         } else {
           console.log('Échec de la connexion : email ou mot de passe incorrect');
@@ -81,8 +86,13 @@ export class UserService {
         })
       );
   }
-  getOneUserById(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/utilisateur/get/utilisateur/`);
+  getOneUserById(id: string): Observable<any> {
+    const url = `${this.baseUrl}/utilisateur/get/utilisateur/id/${id}`;
+    return this.http.get<any>(url);
+  }
+  getOneUserByMail(email: string): Observable<any> {
+    const url = `${this.baseUrl}/utilisateur/get/utilisateur/mail/${email}`;
+    return this.http.get<any>(url);
   }
 
 
@@ -101,6 +111,29 @@ export class UserService {
     }
   }
   
+updatePassword(id: string, password: string): Observable<any> {
+  const user = {
+    password: password
+  };
+  const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${id}`;
+  return this.http.patch(url, user);
+}
+
+updateEmail(id: string, email: string): Observable<any> {
+  const user = {
+    mail: email
+  };
+  const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${id}`;
+  return this.http.patch(url, user);
+}
+
+updatePseudo(id: string, pseudo: string): Observable<any> {
+  const user = {
+    pseudo: pseudo
+  };
+  const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${id}`;
+  return this.http.patch(url, user);
+}
 
 
   deconnexion(): void {

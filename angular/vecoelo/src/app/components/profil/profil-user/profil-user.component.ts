@@ -17,21 +17,29 @@ export class ProfilUserComponent implements OnInit {
   passwordModifie: string = '';
 
   constructor(private userService: UserService) { }
+  get nomUtilisateurConnecte(): string | null {
+    return this.userService.getNomUtilisateurConnecte();
+  }
 
   ngOnInit(): void {
-    this.userService.getOneUserById().subscribe(
+    let mail = localStorage.getItem('email') || '';
+    this.userService.getOneUserByMail(mail).subscribe(
       (response: any) => {
-        const utilisateur = response.data;
-        if (utilisateur) {
-          this.pseudo = utilisateur.pseudo;
-          this.mail = utilisateur.mail;
-          this.dateInscription = utilisateur.dateCreation || '';
-          // Calcul du nombre de jours d'inscription en utilisant la date actuelle
-          const dateInscription = new Date(this.dateInscription);
-          const currentDate = new Date();
-          const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
-          this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        }
+        console.log('Réponse reçue :', response);
+        const utilisateur = response.results[0];
+        console.log('Utilisateur trouvé :', utilisateur);
+        this.pseudo = utilisateur.pseudo;
+        this.mail = utilisateur.mail;
+        console.log('Pseudo :', this.pseudo);
+        console.log('Mail :', this.mail);
+        this.dateInscription = utilisateur.dateCreation || '';
+        // Calcul du nombre de jours d'inscription en utilisant la date actuelle
+        const dateInscription = new Date(this.dateInscription);
+        const currentDate = new Date();
+        const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
+        this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          
+        
       },
       (error: any) => {
         console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
@@ -59,41 +67,71 @@ export class ProfilUserComponent implements OnInit {
   }
 
   changerProfil(): void {
-    if (!this.modifierProfil) {
-      this.modifierProfil = true;
-    } else {
-      if (this.pseudoModifie && this.mailModifie) {
-        const user = {
-          pseudo: this.pseudoModifie,
-          mail: this.mailModifie,
-          password: this.passwordModifie
-        };
-  
-        this.userService.updateOneUserByMail(this.mail, user).subscribe(
-          (response: any) => {
-            const utilisateur = response.data;
-            if (utilisateur) {
-              // Réinitialiser les champs de saisie et désactiver la modification du profil
-              this.pseudoModifie = '';
-              this.mailModifie = '';
-              this.passwordModifie = '';
-              this.modifierProfil = false;
-  
-              // Afficher un message de succès ou effectuer d'autres actions nécessaires
-              console.log('Profil modifié :', utilisateur);
-  
-              // Recharger la page
-              window.location.reload();
+    console.log('Pseudo modifié :', this.pseudoModifie);
+      console.log('Adresse e-mail modifiée :', this.mailModifie);
+      console.log('Mot de passe modifié :', this.passwordModifie);
+  if (!this.modifierProfil) {
+    this.modifierProfil = true;
+  } else {
+    if (this.pseudoModifie && this.mailModifie) {
+      const userId = localStorage.getItem('id');
+      console.log('ID utilisateur :', userId);
+      console.log('Pseudo modifié :', this.pseudoModifie);
+      console.log('Adresse e-mail modifiée :', this.mailModifie);
+      console.log('Mot de passe modifié :', this.passwordModifie);
+      if (userId) {
+        // Changer le mot de passe
+        if (this.passwordModifie) {
+          this.userService.updatePassword(userId, this.passwordModifie).subscribe(
+            (response: any) => {
+              console.log('Mot de passe modifié');
+            },
+            (error: any) => {
+              console.log("Une erreur s'est produite lors de la modification du mot de passe :", error);
             }
-          },
-          (error: any) => {
-            console.log("Une erreur s'est produite lors de la modification du profil :", error);
-          }
-        );
+          );
+        }
+
+        // Changer l'adresse e-mail
+        if (this.mailModifie !== this.mail) {
+          this.userService.updateEmail(userId, this.mailModifie).subscribe(
+            (response: any) => {
+              // Gérer la réponse de la mise à jour de l'adresse e-mail
+              console.log('Adresse e-mail modifiée');
+            },
+            (error: any) => {
+              console.log("Une erreur s'est produite lors de la modification de l'adresse e-mail :", error);
+            }
+          );
+        }
+
+        // Changer le pseudo
+        if (this.pseudoModifie !== this.pseudo) {
+          this.userService.updatePseudo(userId, this.pseudoModifie).subscribe(
+            (response: any) => {
+              // Gérer la réponse de la mise à jour du pseudo
+              console.log('Pseudo modifié');
+            },
+            (error: any) => {
+              console.log("Une erreur s'est produite lors de la modification du pseudo :", error);
+            }
+          );
+        }
+
+        // Réinitialiser les champs de saisie et désactiver la modification du profil
+        this.pseudoModifie = '';
+        this.mailModifie = '';
+        this.passwordModifie = '';
+        this.modifierProfil = false;
+
+        
       } else {
-        // Afficher un message d'erreur ou effectuer d'autres actions nécessaires
-        console.log('Veuillez remplir tous les champs de modification');
+        console.log('ID utilisateur non trouvé dans le localStorage');
       }
+    } else {
+      // Afficher un message d'erreur ou effectuer d'autres actions nécessaires
+      console.log('Veuillez remplir tous les champs de modification');
     }
-  }  
+  }
+}
 }

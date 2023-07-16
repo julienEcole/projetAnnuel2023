@@ -7,7 +7,7 @@
           <h2>Info</h2>
           <ul>
             <li>Mail : {{ mail }}</li>
-            <li>Membre depuis : {{ formatDateTime(dateInscription) }} ({{ joursInscription }} jours)</li>
+            <!-- <li>Membre depuis : {{ formatDateTime(dateInscription) }} ({{ joursInscription }} jours)</li> -->
           </ul>
         </section>
         <ng-container *ngIf="!modifierProfil; else modifierProfilTemplate">

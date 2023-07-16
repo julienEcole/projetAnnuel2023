@@ -92,8 +92,8 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     // const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const role_utilisateur_id: number = req.body.role_utilisateur_id || 0;
-    const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
+    //const role_utilisateur_id: number = req.body.role_utilisateur_id || 0;
+    //const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
     // if(!isMail.test(mail) && mdp.length < 8 ){
     //     res.status(400);
     //     res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
@@ -101,7 +101,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     // }
     
     
-    let query = `UPDATE atelier SET `
+    let query = `UPDATE utilisateur SET `
     if(mail){    //ne surtout pas enlever espace avant virgule!!
         query += `mail = ${mail} ,`
     }
@@ -117,13 +117,13 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     if(nom){
         query += `nom = "${nom}" ,`
     }
-    if(role_utilisateur_id){
-        query += `role_utilisateur_id = ${role_utilisateur_id} `
-    }
+    // if(role_utilisateur_id){
+    //     query += `role_utilisateur_id = ${role_utilisateur_id} `
+    // }
     query = query.substring(0, query.length - 1)
 
     query += `WHERE utilisateur.utilisateur_id = ${utilisateur_id}`
-    
+    console.log("ma query = ", query);
     logging.info(NAMESPACE,"ma query = ", query);
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'updating users: ');
