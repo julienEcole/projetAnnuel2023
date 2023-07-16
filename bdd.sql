@@ -1,5 +1,3 @@
-USE vecoleo;
-
 CREATE TABLE IF NOT EXISTS role_utilisateur (
     role_utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
