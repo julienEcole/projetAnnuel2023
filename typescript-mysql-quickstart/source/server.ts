@@ -16,6 +16,8 @@ import probleme_serviceRoute from './routes/vecoleo/probleme/probleme_service';
 import probleme_imageRoute from './routes/vecoleo/probleme/probleme_service';
 
 import critiqueRoute from './routes/vecoleo/critique/critique';
+import critique_atelierRoute from './routes/vecoleo/critique/critique_atelier';
+import critique_utilisateurRoute from './routes/vecoleo/critique/critique_utilisateur';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -64,6 +66,8 @@ router.use("/probleme_service", probleme_serviceRoute)
 router.use("/probleme_image", probleme_imageRoute)
 
 router.use("/critique", critiqueRoute)
+router.use("/critique_atelier", critique_atelierRoute)
+router.use("/critique_utilisateur", critique_utilisateurRoute)
 
 /** Error handling */
 router.use((req, res, next) => {

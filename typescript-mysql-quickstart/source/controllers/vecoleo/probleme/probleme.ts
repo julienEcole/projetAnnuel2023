@@ -48,8 +48,9 @@ const getOneProblemeById = async (req: Request, res: Response, next: NextFunctio
         res.send("erreur, les arguments doivent être l'id du probleme");
         return;
     }
-    const query = `SELECT * FROM probleme WHERE probleme.probleme_id = ${req.params.idProbleme}`;
-
+    const query = `SELECT * FROM probleme WHERE probleme_id = ${parseInt(req.params.idProbleme)}`;
+    console.log(" mon id recherché = " + req.params.idProbleme)
+    console.log(" mon query = " + query)
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved probleme : ');
 };

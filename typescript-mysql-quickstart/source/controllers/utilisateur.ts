@@ -40,12 +40,14 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
 
 const getOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting one user by id.');
-    if(!req.params.idUser){
+    // console.log()
+    const userId : number = parseInt(req.params.utilisateur_id);
+    if(!userId){
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id de l'utilisateur");
+        res.send("req.params.utilisateur_id = " + req.params.utilisateur_id);
         return;
     }
-    const query = `SELECT * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.idUser}`;
+    const query = `SELECT * FROM utilisateur WHERE utilisateur.utilisateur_id = ${userId}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user: ');
@@ -78,9 +80,9 @@ const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response
 const updateOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'updating one user by id.');
     const isInt : RegExp = new RegExp("[0-9]*")
-    if(!req.params || !req.body || !req.params.idUser || !isInt.test(req.params.utilisateur_id)){
+    if(!req.params || !req.body || !req.params.utilisateur_id || !isInt.test(req.params.utilisateur_id)){
         res.status(400);
-        res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.idUser = ${req.params.idUser}
+        res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.utilisateur_id = ${req.params.utilisateur_id}
         return;
     }
     //ajouter verification que 1 argument soit la au minimum
@@ -130,12 +132,12 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
 
 const deleteOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting one user by id.');
-    if(!req.params.idUser){
+    if(!req.params.utilisateur_id){
         res.status(400);
         res.send("erreur, les arguments doivent être l'id de l'utilisateur");
         return;
     }
-    const query = `DELETE * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.idUser}`;
+    const query = `DELETE * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.utilisateur_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'deleted users: ');
