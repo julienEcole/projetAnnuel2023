@@ -11,7 +11,7 @@
   
     <div class="reparateur">
       <figure *ngFor="let repairShop of displayedRepairShops">
-        <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/2425518-homme-avec-cle-reparateur-avec-chapeau-logo-caractere-illustrationle-gratuit-vectoriel.jpg" alt="">
+        <img [src]="getImagePath(repairShop.Nom)" alt="">
         <figcaption>
           <h3>{{ repairShop.Nom }}</h3> <br>
           <p><strong>Adresse :</strong> {{ repairShop.Adresse }}</p> <br>
@@ -21,6 +21,8 @@
         </figcaption>
       </figure>
     </div>
+    
+       
   
     <button *ngIf="!showMore && displayedRepairShops.length !== nearestRepairShops.length" (click)="showMoreRepairShops()">Afficher plus</button>
   </main>

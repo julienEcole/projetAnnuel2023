@@ -88,6 +88,8 @@ export class ReparateurProcheComponent implements OnInit {
       this.showMore = false;
     }
   }
-
+  getImagePath(nom: string): string {
+    return './assets/assets-reparateur/' + nom.replace(/ /g, '_') + '.jpg';
+  }
 
 }

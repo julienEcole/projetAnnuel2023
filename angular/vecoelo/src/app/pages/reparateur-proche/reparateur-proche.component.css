@@ -54,10 +54,11 @@ figure figcaption a:hover{
     color: #fff;
 }
 .reparateur figure img{
-    max-width: 15rem;
-    height: 100%;
+    width: 20rem;
+    display: inline-block;
+    height: 10rem;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: 1rem;
 }
 .reparateur{
     display: grid;
