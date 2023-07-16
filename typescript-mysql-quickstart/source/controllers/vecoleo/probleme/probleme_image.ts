@@ -71,7 +71,7 @@ const DeleteOneProbleme_ImageById = async (req: Request, res: Response, next: Ne
     }
     const probleme_id : number = parseInt(req.body.probleme_id);
     const image_id : number = parseInt(req.body.image_id);
-    const query = `DELETE * FROM probleme_image WHERE probleme_image.probleme_id = ${probleme_id} AND probleme_image.image_id = ${image_id}`;
+    const query = `DELETE FROM probleme_image WHERE probleme_image.probleme_id = ${probleme_id} AND probleme_image.image_id = ${image_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme_image : ');

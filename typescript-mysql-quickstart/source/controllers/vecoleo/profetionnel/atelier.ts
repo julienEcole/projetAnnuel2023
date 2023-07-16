@@ -93,7 +93,7 @@ const DeleteOneAtelierById = async (req: Request, res: Response, next: NextFunct
         res.send("erreur, les arguments doivent être l'id de l'atelier");
         return;
     }
-    const query = `DELETE * FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;
+    const query = `DELETE FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete atelier : ');

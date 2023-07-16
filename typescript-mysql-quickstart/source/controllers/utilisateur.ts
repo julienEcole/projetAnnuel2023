@@ -137,7 +137,7 @@ const deleteOneUserById = async (req: Request, res: Response, next: NextFunction
         res.send("erreur, les arguments doivent être l'id de l'utilisateur");
         return;
     }
-    const query = `DELETE * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.utilisateur_id}`;
+    const query = `DELETE FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.utilisateur_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'deleted users: ');

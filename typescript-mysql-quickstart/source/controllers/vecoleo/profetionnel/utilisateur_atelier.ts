@@ -71,7 +71,7 @@ const DeleteOneUtilisateur_AtelierById = async (req: Request, res: Response, nex
     }
     const utilisateur_id : number = parseInt(req.body.utilisateur_id);
     const atelier_id : number = parseInt(req.body.atelier_id);
-    const query = `DELETE * FROM utilisateur_atelier WHERE utilisateur_atelier.utilisateur_id = ${utilisateur_id} AND utilisateur_atelier.atelier_id = ${atelier_id}`;
+    const query = `DELETE FROM utilisateur_atelier WHERE utilisateur_atelier.utilisateur_id = ${utilisateur_id} AND utilisateur_atelier.atelier_id = ${atelier_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete utilisateur_atelier : ');

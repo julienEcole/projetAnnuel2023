@@ -69,7 +69,7 @@ const DeleteOneCritique_UtilisateurById = async (req: Request, res: Response, ne
     }
     const utilisateur_id : number = parseInt(req.body.utilisateur_id);
     const critique_id : number = parseInt(req.body.critique_id);
-    const query = `DELETE * FROM critique_utilisateur WHERE critique_utilisateur.utilisateur_id = ${utilisateur_id} AND critique_utilisateur.critique_id = ${critique_id}`;
+    const query = `DELETE FROM critique_utilisateur WHERE critique_utilisateur.utilisateur_id = ${utilisateur_id} AND critique_utilisateur.critique_id = ${critique_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete critique_utilisateur : ');
