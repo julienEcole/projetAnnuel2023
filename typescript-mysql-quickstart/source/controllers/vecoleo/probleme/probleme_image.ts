@@ -24,8 +24,8 @@ const createProbleme_Image = async (req: Request, res: Response, next: NextFunct
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const probleme_id : number = req.body.probleme_id;
-    const image_id : number = req.body.image_id;
+    const probleme_id : number = parseInt(req.body.probleme_id);
+    const image_id : number = parseInt(req.body.image_id);
 
     let query = `INSERT INTO probleme_image (probleme_id, image_id) VALUES (${probleme_id}, ${image_id})`;
     
@@ -69,8 +69,8 @@ const DeleteOneProbleme_ImageById = async (req: Request, res: Response, next: Ne
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const probleme_id : number = req.body.probleme_id;
-    const image_id : number = req.body.image_id;
+    const probleme_id : number = parseInt(req.body.probleme_id);
+    const image_id : number = parseInt(req.body.image_id);
     const query = `DELETE * FROM probleme_image WHERE probleme_image.probleme_id = ${probleme_id} AND probleme_image.image_id = ${image_id}`;
 
     

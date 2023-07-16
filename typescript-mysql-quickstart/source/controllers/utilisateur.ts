@@ -44,7 +44,7 @@ const getOneUserById = async (req: Request, res: Response, next: NextFunction) =
     const userId : number = parseInt(req.params.utilisateur_id);
     if(!userId){
         res.status(400);
-        res.send("req.params.utilisateur_id = " + req.params.utilisateur_id);
+        res.send("");
         return;
     }
     const query = `SELECT * FROM utilisateur WHERE utilisateur.utilisateur_id = ${userId}`;
@@ -102,7 +102,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     }
     
     
-    let query = `UPDATE atelier SET `
+    let query = `UPDATE utilisateur SET `
     if(mail){    //ne surtout pas enlever espace avant virgule!!
         query += `mail = ${mail} ,`
     }
