@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class UserService {
   private nom: string = '';
   private prenom: string = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router : Router) { }
  
   registerUser(pseudo: string, nom: string, prenom: string, email: string, password: string): Observable<boolean> {
     const user = {
@@ -134,12 +134,17 @@ updatePseudo(id: string, pseudo: string): Observable<any> {
   const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${id}`;
   return this.http.patch(url, user);
 }
+deleteOneUserById(id: string): Observable<any> {
+  const url = `${this.baseUrl}/utilisateur/delete/utilisateur/id/${id}`;
+  return this.http.delete(url);
+}
 
 
   deconnexion(): void {
     localStorage.removeItem('estConnecte');
     localStorage.removeItem('pseudo');
     this.estConnecte = false;
+    this.router.navigate(['/home']);
   }
 
 }

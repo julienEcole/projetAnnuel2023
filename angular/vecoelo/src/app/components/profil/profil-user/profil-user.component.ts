@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/components/login/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil-user',
@@ -16,7 +17,7 @@ export class ProfilUserComponent implements OnInit {
   mailModifie: string = '';
   passwordModifie: string = '';
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router : Router) { }
   get nomUtilisateurConnecte(): string | null {
     return this.userService.getNomUtilisateurConnecte();
   }
@@ -65,7 +66,20 @@ export class ProfilUserComponent implements OnInit {
     }
     return formatter.format(date);
   }
-
+  deleteProfil(): void {
+    const userId = localStorage.getItem('id');
+    if (userId) {
+      this.userService.deleteOneUserById(userId).subscribe(
+        (response: any) => {
+          console.log('Utilisateur supprimé');
+          this.router.navigate(['/home']);
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la suppression de l'utilisateur :", error);
+        }
+      );
+    };
+  }
   changerProfil(): void {
     console.log('Pseudo modifié :', this.pseudoModifie);
       console.log('Adresse e-mail modifiée :', this.mailModifie);

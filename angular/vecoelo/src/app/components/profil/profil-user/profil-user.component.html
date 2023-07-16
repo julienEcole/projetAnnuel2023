@@ -13,6 +13,7 @@
         <ng-container *ngIf="!modifierProfil; else modifierProfilTemplate">
           <button (click)="changerProfil()">Changer le profil</button>
         </ng-container>
+          <button (click)="deleteProfil()">Supprimer le profil</button>
         <ng-template #modifierProfilTemplate>
           <div>
             <label for="pseudo">Nouveau pseudo :</label>
