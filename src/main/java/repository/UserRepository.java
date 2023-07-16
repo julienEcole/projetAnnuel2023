@@ -48,26 +48,29 @@ public class UserRepository {
 
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<User>();
-        User user;
-        String sql = "SELECT * FROM "+table;
-        PreparedStatement pstm;
+        String sql = "SELECT u.utilisateur_id, u.nom, u.prenom, u.mail, r.titre AS role\n" +
+                "FROM utilisateur u\n" +
+                "JOIN role_utilisateur r ON u.role_utilisateur_id = r.role_utilisateur_id";
         try {
-            pstm = coBdd.getConnection().prepareStatement(sql);
+            PreparedStatement pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("utilisateur_id"),
-                        rs.getString("mail"),
-                        rs.getString("mdp"),
-                        rs.getInt("role_utilisateur_id"));
+                int userId = rs.getInt("utilisateur_id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String mail = rs.getString("mail");
+                String role = rs.getString("role");
+
+                User user = new User(userId, nom, prenom, mail, role);
                 users.add(user);
             }
         } catch (SQLException e) {
-// TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         return users;
     }
+
 
 
     public ArrayList<Tickets> getTicket() {
@@ -101,12 +104,13 @@ public class UserRepository {
     }
 
     public void addTicket(Tickets ticket) {
-        String sql = "INSERT INTO ticket (etat_id, Titre, traite, description_bug) VALUES (3, ?, NULL, ?);\n";
+        String sql = "INSERT INTO ticket (etat_id, Titre, traite, description_bug) VALUES (3, ?, (SELECT utilisateur_id FROM utilisateur WHERE nom = ?), ?);";
 
         try {
             PreparedStatement pstm = coBdd.getConnection().prepareStatement(sql);
             pstm.setString(1, ticket.getTitre());
-            pstm.setString(2, ticket.getDescription_bug());
+            pstm.setString(2, ticket.getTraite()); // Utiliser la valeur de 'traite' de l'objet Tickets
+            pstm.setString(3, ticket.getDescription_bug());
 
             int rowsAffected = pstm.executeUpdate();
             if (rowsAffected > 0) {
@@ -118,6 +122,34 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+
+
+
+
+    public ArrayList<String> getUserNames() {
+        ArrayList<String> userNames = new ArrayList<>();
+        String sql = "SELECT * FROM " + table;
+        PreparedStatement pstm;
+        try {
+            pstm = coBdd.getConnection().prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                String userName = rs.getString("nom");
+                userNames.add(userName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userNames;
+    }
+
+
+
+
+
+
+
+
 
 
 

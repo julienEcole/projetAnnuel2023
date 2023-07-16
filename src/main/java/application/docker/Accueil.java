@@ -46,7 +46,7 @@ public class Accueil implements Initializable {
 
     }
 
-
+@FXML
     private void handleButtonClick(ActionEvent event) {
         if (event.getSource() == btndiscon) {
             // Charger la nouvelle page depuis un fichier FXML
@@ -55,6 +55,9 @@ public class Accueil implements Initializable {
             // Charger la nouvelle page depuis un fichier FXML
 
             HelloApplication.changeScene("/application/docker/tickets", new TicketsController(this.tickets));
+        }else if (event.getSource() == btnuse) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/Users", new UserController(this.user));
         }
     }
 }

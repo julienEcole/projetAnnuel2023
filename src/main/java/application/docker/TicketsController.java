@@ -1,6 +1,7 @@
 package application.docker;
 
 import application.HelloApplication;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.ComboBox;
@@ -20,9 +21,9 @@ import repository.UserRepository;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static application.HelloApplication.fxmlLoader;
 
-public class TicketsController implements Initializable{
-
+public class TicketsController implements Initializable {
 
     private ObservableList<Tickets> ticketList = FXCollections.observableArrayList();
     @FXML
@@ -59,23 +60,16 @@ public class TicketsController implements Initializable{
     @FXML
     private Button addti;
 
-
-
-
-
-
-
-    public TicketsController(TicketsController t){
+    public TicketsController(TicketsController t) {
         this.tickets = t;
     }
 
     private void loadTicketsFromDatabase() {
         UserRepository ticketsRepository = new UserRepository();
         ticketList.addAll(ticketsRepository.getTicket());
-
     }
 
-    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id_ticket"));
@@ -90,35 +84,53 @@ public class TicketsController implements Initializable{
         ButtonUser.setOnAction(this::handleDisconnectButtonAction);
         addti.setOnAction(this::handleDisconnectButtonAction);
 
+        tblTickets.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) { // Vérifier si c'est un double-clic
+                Tickets selectedTicket = tblTickets.getSelectionModel().getSelectedItem();
+                if (selectedTicket != null) {
+                    // Ouvrir une nouvelle fenêtre ou une nouvelle vue pour afficher les informations du ticket
+                    openTicketDetails(selectedTicket);
+                }
+            }
+        });
+
         loadTicketsFromDatabase();
         tblTickets.setItems(ticketList);
+
 
         //comboBox.setItems(FXCollections.observableList());
 
     }
 
-
-
-@FXML
-private void handleDisconnectButtonAction(ActionEvent event) {
-    if (event.getSource() == ButtonDisco) {
-        // Charger la nouvelle page depuis un fichier FXML
-        HelloApplication.changeScene("/application/docker/login");
-        System.out.println("test");
-    } else if (event.getSource() == ButtonTickets) {
-        // Charger la nouvelle page depuis un fichier FXML
-        HelloApplication.changeScene("/application/docker/tickets");
-    } else if (event.getSource() == ButtonProfil) {
-        // Charger la nouvelle page depuis un fichier FXML
-        HelloApplication.changeScene("/application/docker/accueil");
-    } else if (event.getSource() == ButtonUser) {
-        // Charger la nouvelle page depuis un fichier FXML
-        HelloApplication.changeScene("/application/docker/User");
-    } else if (event.getSource() == addti) {
-        // Charger la nouvelle page depuis un fichier FXML
-        HelloApplication.changeScene("/application/docker/addTicket",new addTicketController(this.tickets));
+    @FXML
+    private void handleDisconnectButtonAction(ActionEvent event) {
+        if (event.getSource() == ButtonDisco) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/login");
+            System.out.println("test");
+        } else if (event.getSource() == ButtonTickets) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/tickets");
+        } else if (event.getSource() == ButtonProfil) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/accueil");
+        } else if (event.getSource() == ButtonUser) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/User");
+        } else if (event.getSource() == addti) {
+            // Charger la nouvelle page depuis un fichier FXML
+            HelloApplication.changeScene("/application/docker/addTicket", new addTicketController(this.tickets));
+        }
     }
-}
+
+    @FXML
+    private void openTicketDetails(Tickets ticket) {
+        HelloApplication.changeScene("/application/docker/TicketsInformation", new TicketsInformationController(this.tickets));
+        FXMLLoader fxmlLoader = HelloApplication.fxmlLoader;
+        TicketsInformationController controller = fxmlLoader.getController();
+        controller.displayTicketInformation(ticket);
+    }
+
+
 
 }
-
