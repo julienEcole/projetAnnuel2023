@@ -4,6 +4,7 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN apt-get update && \
+    apt-get install -y npm && \
     apt-get install -y maven && \
     apt-get install -y default-mysql-client && \
     apt-get clean && \

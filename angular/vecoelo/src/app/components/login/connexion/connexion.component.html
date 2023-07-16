@@ -1,0 +1,18 @@
+<main>
+    <section>
+      <h2>Connexion</h2>
+      <hr>
+      <form (ngSubmit)="login()">
+        <fieldset>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required>
+          <label for="password">Mot de passe</label>
+          <input type="password" name="password" id="password" placeholder="Mot de passe" [(ngModel)]="password" required>
+          <input type="submit" value="Connexion">
+        </fieldset>
+      </form>
+      <div *ngIf="erreurConnexion" class="error-message">Échec de la connexion : email ou mot de passe incorrect</div>
+    </section>
+    <a href="" routerLink="/inscription">S'inscrire si vous n'avez pas de compte</a>
+  </main>
+  
