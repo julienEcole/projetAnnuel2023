@@ -16,8 +16,8 @@ const createCritique_Utilisateur = async (req: Request, res: Response, next: Nex
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const utilisateur_id : number = req.body.utilisateur_id;
-    const critique_id : number = req.body.critique_id;
+    const utilisateur_id : number = parseInt(req.body.utilisateur_id);
+    const critique_id : number = parseInt(req.body.critique_id);
 
     let query = `INSERT INTO critique_utilisateur (utilisateur_id, critique_id) VALUES (${utilisateur_id}, ${critique_id})`;
     
@@ -67,8 +67,8 @@ const DeleteOneCritique_UtilisateurById = async (req: Request, res: Response, ne
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const utilisateur_id : number = req.body.utilisateur_id;
-    const critique_id : number = req.body.critique_id;
+    const utilisateur_id : number = parseInt(req.body.utilisateur_id);
+    const critique_id : number = parseInt(req.body.critique_id);
     const query = `DELETE * FROM critique_utilisateur WHERE critique_utilisateur.utilisateur_id = ${utilisateur_id} AND critique_utilisateur.critique_id = ${critique_id}`;
 
     
