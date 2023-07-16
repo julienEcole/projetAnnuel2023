@@ -101,7 +101,7 @@ const DeleteOneServiceById = async (req: Request, res: Response, next: NextFunct
         res.send("erreur, les arguments doivent être l'id de l'service");
         return;
     }
-    const query = `DELETE * FROM service WHERE service.service_id = ${req.params.idservice}`;
+    const query = `DELETE FROM service WHERE service.service_id = ${req.params.idservice}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete service : ');

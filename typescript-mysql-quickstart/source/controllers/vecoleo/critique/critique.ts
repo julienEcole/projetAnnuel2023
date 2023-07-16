@@ -92,7 +92,7 @@ const DeleteOneCritiqueById = async (req: Request, res: Response, next: NextFunc
         res.send("erreur, les arguments doivent être l'id de l'critique");
         return;
     }
-    const query = `DELETE * FROM critique WHERE critique.critique_id = ${req.params.idCritique}`;
+    const query = `DELETE FROM critique WHERE critique.critique_id = ${req.params.idCritique}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete critique : ');

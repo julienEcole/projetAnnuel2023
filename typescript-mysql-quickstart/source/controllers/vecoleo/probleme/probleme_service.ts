@@ -16,8 +16,8 @@ const createProbleme_Service = async (req: Request, res: Response, next: NextFun
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const utilisateur_id : number = req.body.utilisateur_id;
-    const atelier_id : number = req.body.atelier_id;
+    const utilisateur_id : number = parseInt(req.body.utilisateur_id);
+    const atelier_id : number = parseInt(req.body.atelier_id);
 
     let query = `INSERT INTO utilisateur_atelier (utilisateur_id, atelier_id) VALUES (${utilisateur_id}, ${atelier_id})`;
     
@@ -67,9 +67,9 @@ const DeleteOneProbleme_ServiceById = async (req: Request, res: Response, next: 
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const utilisateur_id : number = req.body.utilisateur_id;
-    const atelier_id : number = req.body.atelier_id;
-    const query = `DELETE * FROM utilisateur_atelier WHERE utilisateur_atelier.utilisateur_id = ${utilisateur_id} AND utilisateur_atelier.atelier_id = ${atelier_id}`;
+    const utilisateur_id : number = parseInt(req.body.utilisateur_id);
+    const atelier_id : number = parseInt(req.body.atelier_id);
+    const query = `DELETE FROM utilisateur_atelier WHERE utilisateur_atelier.utilisateur_id = ${utilisateur_id} AND utilisateur_atelier.atelier_id = ${atelier_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete utilisateur_atelier : ');

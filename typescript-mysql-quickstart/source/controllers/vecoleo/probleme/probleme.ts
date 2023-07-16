@@ -107,7 +107,7 @@ const DeleteOneProblemeById = async (req: Request, res: Response, next: NextFunc
         res.send("erreur, les arguments doivent être l'id de l'probleme");
         return;
     }
-    const query = `DELETE * FROM probleme WHERE probleme.probleme_id = ${req.params.idProbleme}`;
+    const query = `DELETE FROM probleme WHERE probleme.probleme_id = ${req.params.idProbleme}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme : ');
