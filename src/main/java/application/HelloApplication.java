@@ -15,7 +15,7 @@ import java.util.Optional;
 public class HelloApplication extends Application {
 
     private static Stage stage;
-    private static FXMLLoader fxmlLoader;
+    public static FXMLLoader fxmlLoader;
     @Override
     /*public void start(Stage stage) throws IOException {
         try {
@@ -100,5 +100,8 @@ public class HelloApplication extends Application {
         alert.getDialogPane().setHeaderText(titre);
         return alert.showAndWait();
     }
+
+
+
 
 }

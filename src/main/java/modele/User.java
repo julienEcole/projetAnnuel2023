@@ -28,7 +28,7 @@ public class User{
         this.role = role;
     }
 
-    public User() {}
+    public User(int userId, String nom, String prenom, String mail, String role) {}
 
     public String getNom() {
         return nom;

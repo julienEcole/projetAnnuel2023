@@ -136,6 +136,12 @@
 }
 
 
+.labelCustom {
+    -fx-border-color: black; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Épaisseur de la bordure */
+    -fx-border-radius: 5px; /* Rayon des coins de la bordure */
+    -fx-padding: 5px; /* Espacement interne des étiquettes */
+}
 
 
 
