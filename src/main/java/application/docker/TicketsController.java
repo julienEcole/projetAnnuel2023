@@ -56,6 +56,9 @@ public class TicketsController implements Initializable{
 
     @FXML
     private ComboBox<String> comboBox;
+    @FXML
+    private Button addti;
+
 
 
 
@@ -85,6 +88,7 @@ public class TicketsController implements Initializable{
         ButtonTickets.setOnAction(this::handleDisconnectButtonAction);
         ButtonProfil.setOnAction(this::handleDisconnectButtonAction);
         ButtonUser.setOnAction(this::handleDisconnectButtonAction);
+        addti.setOnAction(this::handleDisconnectButtonAction);
 
         loadTicketsFromDatabase();
         tblTickets.setItems(ticketList);
@@ -96,22 +100,25 @@ public class TicketsController implements Initializable{
 
 
 @FXML
-    private void handleDisconnectButtonAction(ActionEvent event) {
-
-         if (event.getSource() == ButtonDisco) {
-            // Charger la nouvelle page depuis un fichier FXML
-            HelloApplication.changeScene("/application/docker/login");
-            System.out.println("test");
-        } else if (event.getSource() == ButtonTickets) {
-            // Charger la nouvelle page depuis un fichier FXML
-            HelloApplication.changeScene("/application/docker/tickets");
-        } else if (event.getSource() == ButtonProfil) {
-             // Charger la nouvelle page depuis un fichier FXML
-             HelloApplication.changeScene("/application/docker/accueil");
-         } else if (event.getSource() == ButtonUser) {
-             // Charger la nouvelle page depuis un fichier FXML
-             HelloApplication.changeScene("/application/docker/User");
-         }
+private void handleDisconnectButtonAction(ActionEvent event) {
+    if (event.getSource() == ButtonDisco) {
+        // Charger la nouvelle page depuis un fichier FXML
+        HelloApplication.changeScene("/application/docker/login");
+        System.out.println("test");
+    } else if (event.getSource() == ButtonTickets) {
+        // Charger la nouvelle page depuis un fichier FXML
+        HelloApplication.changeScene("/application/docker/tickets");
+    } else if (event.getSource() == ButtonProfil) {
+        // Charger la nouvelle page depuis un fichier FXML
+        HelloApplication.changeScene("/application/docker/accueil");
+    } else if (event.getSource() == ButtonUser) {
+        // Charger la nouvelle page depuis un fichier FXML
+        HelloApplication.changeScene("/application/docker/User");
+    } else if (event.getSource() == addti) {
+        // Charger la nouvelle page depuis un fichier FXML
+        HelloApplication.changeScene("/application/docker/addTicket",new addTicketController(this.tickets));
     }
+}
+
 }
 
