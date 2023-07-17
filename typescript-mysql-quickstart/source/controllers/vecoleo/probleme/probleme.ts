@@ -32,7 +32,13 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
     }
     //const probleme_id : number = req.body.probleme_id;
     const utilisateur_id:number = req.body.utilisateur_id;
-    const description : string = req.body.description;
+    let description : string
+    if(req.body.description){
+        description = req.body.description
+    }
+    else{
+        description = ""
+    }
     const adresse : string = req.body.adresse;
     const titre : string = req.body.titre;
 
@@ -60,7 +66,7 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
     const isInt : RegExp = new RegExp("[0-9]+$")
     if(!req.params || !req.body || !req.params.idProbleme || !isInt.test(req.params.idProbleme)){
         res.status(400);
-        res.send(`erreur, les arguments doivent être le mail ou l'id de l'probleme`); //\n req.params.idProbleme = ${req.params.idProbleme}
+        res.send(`erreur, les arguments doivent être le mail ou l'id de l'probleme & un body en json doit accompagner la requete`); //\n req.params.idProbleme = ${req.params.idProbleme}
         return;
     }
     if(req.body.utilisateur_id){
@@ -75,12 +81,6 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
     const adresse : string = req.body.adresse;
     const titre : string = req.body.titre;
     let query = `UPDATE probleme SET `
-    if(probleme_id){    //ne surtout pas enlever espace avant virgule!!
-        query += `probleme_id = ${probleme_id} ,`
-    }
-    // if(utilisateur_id){
-    //     query += `utilisateur_id = ${utilisateur_id} ,`
-    // }
     if(adresse){
         query += `adresse = \"${adresse}\" ,`
     }
@@ -92,7 +92,7 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE probleme.probleme_id = ${req.params.probleme_id}`
+    query += `WHERE probleme.probleme_id = ${probleme_id}`
     
     //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 

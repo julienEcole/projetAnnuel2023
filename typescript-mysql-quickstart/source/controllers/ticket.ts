@@ -81,7 +81,7 @@ const updateOneTicketById = async (req: Request, res: Response, next: NextFuncti
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE utilisateur.utilisateur_id = ${req.params.idTicket}`
+    query += `WHERE utilisateur.utilisateur_id = ${parseInt(req.params.idTicket)}`
     
     //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 
