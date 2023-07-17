@@ -31,6 +31,9 @@ public class addTicketController implements Initializable {
     @FXML
     private ComboBox<String> comboBox;
 
+    @FXML
+    private Button btnreturn;
+
     public addTicketController(TicketsController ticketsController) { // Remplacez "TicketsController" par le nom correct de votre contrôleur principal
         this.ticketsController = ticketsController;
     }
@@ -38,6 +41,7 @@ public class addTicketController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         UserRepository userRepository = new UserRepository();
         ArrayList<String> userNames = userRepository.getUserNames();
         comboBox.setItems(FXCollections.observableArrayList(userNames));
@@ -94,4 +98,5 @@ public class addTicketController implements Initializable {
         HelloApplication.changeScene("/application/docker/tickets", new TicketsController(this.tickets));
 
     }
+
 }

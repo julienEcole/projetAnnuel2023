@@ -8,7 +8,6 @@ import javafx.scene.control.TableView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.cell.PropertyValueFactory;
-import modele.Tickets;
 import modele.User;
 //import repository.TicketsRepository;
 import java.net.URL;
@@ -19,7 +18,7 @@ public class UserController implements Initializable {
 
     private TableView<User> tblUser;
 
-    private UserController user;
+    private User user;
 
     @FXML
     private TableColumn<User, String> name;
@@ -42,12 +41,10 @@ public class UserController implements Initializable {
     private TicketsController tickets;
     private User u;
 
-    public UserController(User user) {
+    public UserController(User u) {
+        this.user= u;
     }
 
-    public void TicketsController(TicketsController t) {
-        this.tickets = t;
-    }
 
 
 

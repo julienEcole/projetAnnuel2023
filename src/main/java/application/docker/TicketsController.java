@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import modele.Tickets;
+import modele.User;
 import repository.UserRepository;
 //import repository.TicketsRepository;
 import java.net.URL;
@@ -59,6 +60,7 @@ public class TicketsController implements Initializable {
     private ComboBox<String> comboBox;
     @FXML
     private Button addti;
+    private modele.User User;
 
     public TicketsController(TicketsController t) {
         this.tickets = t;
@@ -116,7 +118,7 @@ public class TicketsController implements Initializable {
             HelloApplication.changeScene("/application/docker/accueil");
         } else if (event.getSource() == ButtonUser) {
             // Charger la nouvelle page depuis un fichier FXML
-            HelloApplication.changeScene("/application/docker/User");
+            HelloApplication.changeScene("/application/docker/Users", new UserController(this.User));
         } else if (event.getSource() == addti) {
             // Charger la nouvelle page depuis un fichier FXML
             HelloApplication.changeScene("/application/docker/addTicket", new addTicketController(this.tickets));

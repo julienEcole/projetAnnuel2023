@@ -99,12 +99,12 @@ public class UserRepository {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        System.out.println(ticketList);
+       // System.out.println(ticketList);
         return ticketList;
     }
 
     public void addTicket(Tickets ticket) {
-        String sql = "INSERT INTO ticket (etat_id, Titre, traite, description_bug) VALUES (3, ?, (SELECT utilisateur_id FROM utilisateur WHERE nom = ?), ?);";
+        String sql = "INSERT INTO ticket (etat_id, Titre, traite, description_bug) VALUES (1, ?, (SELECT utilisateur_id FROM utilisateur WHERE nom = ?), ?);";
 
         try {
             PreparedStatement pstm = coBdd.getConnection().prepareStatement(sql);
