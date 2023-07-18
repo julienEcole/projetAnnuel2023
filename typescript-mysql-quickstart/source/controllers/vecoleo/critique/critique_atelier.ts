@@ -16,8 +16,8 @@ const createCritique_Atelier = async (req: Request, res: Response, next: NextFun
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const critique_id : number = req.body.critique_id;
-    const atelier_id : number = req.body.atelier_id;
+    const critique_id : number = parseInt(req.body.critique_id);
+    const atelier_id : number = parseInt(req.body.atelier_id);
 
     let query = `INSERT INTO critique_atelier (critique_id, atelier_id) VALUES (${critique_id}, ${atelier_id})`;
     
@@ -67,9 +67,9 @@ const DeleteOneCritique_AtelierById = async (req: Request, res: Response, next: 
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const critique_id : number = req.body.critique_id;
-    const atelier_id : number = req.body.atelier_id;
-    const query = `DELETE * FROM critique_atelier WHERE critique_atelier.critique_id = ${critique_id} AND critique_atelier.atelier_id = ${atelier_id}`;
+    const critique_id : number = parseInt(req.body.critique_id);
+    const atelier_id : number = parseInt(req.body.atelier_id);
+    const query = `DELETE FROM critique_atelier WHERE critique_atelier.critique_id = ${critique_id} AND critique_atelier.atelier_id = ${atelier_id}`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete utilisateur_atelier : ');
 };

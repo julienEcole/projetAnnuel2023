@@ -69,9 +69,6 @@ const updateOneServiceById = async (req: Request, res: Response, next: NextFunct
     const titreService:string = req.body.titreService;
     const reparation_type_id:number = req.body.reparation_type_id;
     let query = `UPDATE service SET `
-    if(service_id){    //ne surtout pas enlever espace avant virgule!!
-        query += `service_id = ${service_id} ,`
-    }
     if(prix){
         query += `prix = ${prix} ,`
     }
@@ -86,7 +83,7 @@ const updateOneServiceById = async (req: Request, res: Response, next: NextFunct
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE service.service_id = ${req.params.service_id}`
+    query += `WHERE service.service_id = ${service_id}`
     
     //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 
@@ -101,7 +98,7 @@ const DeleteOneServiceById = async (req: Request, res: Response, next: NextFunct
         res.send("erreur, les arguments doivent être l'id de l'service");
         return;
     }
-    const query = `DELETE * FROM service WHERE service.service_id = ${req.params.idservice}`;
+    const query = `DELETE FROM service WHERE service.service_id = ${req.params.idservice}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete service : ');

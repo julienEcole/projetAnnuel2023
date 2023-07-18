@@ -4,8 +4,10 @@ import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
 // import bookRoutes from './routes/book';
-import userRoutes, { route } from './routes/utilisateur'
+import userRoutes from './routes/utilisateur'
 import ticketRoute from './routes/ticket'
+
+import notificationRoute from './routes/vecoleo/notification';
 
 import atelierRoute from "./routes/vecoleo/profetionnel/atelier"
 import utilisateur_atelierRoute from './routes/vecoleo/profetionnel/utilisateur_atelier';
@@ -56,6 +58,8 @@ router.use((req, res, next) => {
 // router.use('/books', bookRoutes);
 router.use("/utilisateur", userRoutes);
 router.use("/ticket", ticketRoute)
+
+router.use("/notification", notificationRoute)
 
 router.use("/atelier", atelierRoute)
 router.use("/service", serviceRoute)

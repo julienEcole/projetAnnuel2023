@@ -50,7 +50,7 @@
                                                     </padding>
                                                     <children>
                                                         <Label prefHeight="17.0" prefWidth="61.0" text="Tickets" />
-                                                        <Button mnemonicParsing="false" styleClass="button2" stylesheets="@../../Css/Style.css" text="Add new" textFill="WHITE" />
+                                                        <Button fx:id="addti" mnemonicParsing="false" styleClass="button2" stylesheets="@../../Css/Style.css" text="Add new" textFill="WHITE" />
                                                     </children>
                                                 </HBox>
                                             </top>

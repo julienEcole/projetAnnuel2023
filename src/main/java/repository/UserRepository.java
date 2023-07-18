@@ -48,21 +48,23 @@ public class UserRepository {
 
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<User>();
-        User user;
-        String sql = "SELECT * FROM "+table;
-        PreparedStatement pstm;
+        String sql = "SELECT u.utilisateur_id, u.nom, u.prenom, u.mail, r.titre AS role\n" +
+                "FROM utilisateur u\n" +
+                "JOIN role_utilisateur r ON u.role_utilisateur_id = r.role_utilisateur_id";
         try {
-            pstm = coBdd.getConnection().prepareStatement(sql);
+            PreparedStatement pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getInt("utilisateur_id"),
-                        rs.getString("mail"),
-                        rs.getString("mdp"),
-                        rs.getInt("role_utilisateur_id"));
+                int userId = rs.getInt("utilisateur_id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String mail = rs.getString("mail");
+                String role = rs.getString("role");
+
+                User user = new User(userId, nom, prenom, mail, role);
                 users.add(user);
             }
         } catch (SQLException e) {
-// TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -70,24 +72,27 @@ public class UserRepository {
     }
 
 
+
     public ArrayList<Tickets> getTicket() {
         ArrayList<Tickets> ticketList = new ArrayList<>();
-        String sql = "SELECT t.*, e.titre AS etat_titre\n" +
-                "FROM ticket AS t\n" +
-                "JOIN etat AS e ON t.etat_id = e.etat_id;\n";
+        String sql = "SELECT t.ticket_id, t.Titre, t.description_bug, e.titre AS etat, u.nom AS nom_traitant\n" +
+                "FROM ticket t\n" +
+                "JOIN etat e ON t.etat_id = e.etat_id\n" +
+                "LEFT JOIN utilisateur u ON t.traite = u.utilisateur_id\n";
+
         PreparedStatement pstm;
         try {
             pstm = coBdd.getConnection().prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("ticket_id");
+                int id_ticket = rs.getInt("ticket_id");
                 String Titre = rs.getString("Titre");
                 String description = rs.getString("description_bug");
-                String etat = rs.getString("etat_titre");
-                String traite = rs.getString("traite");
+                String etat = rs.getString("etat");
+                String traite = rs.getString("nom_traitant");
 
                 // Créer un objet Tickets et l'ajouter à la liste
-                modele.Tickets ticket = new modele.Tickets(id, Titre, description,etat,traite);
+                modele.Tickets ticket = new modele.Tickets(id_ticket, Titre, description, etat, traite);
                 ticketList.add(ticket);
             }
         } catch (SQLException e) {
@@ -97,6 +102,50 @@ public class UserRepository {
         System.out.println(ticketList);
         return ticketList;
     }
+
+    public void addTicket(Tickets ticket) {
+        String sql = "INSERT INTO ticket (etat_id, Titre, traite, description_bug) VALUES (3, ?, (SELECT utilisateur_id FROM utilisateur WHERE nom = ?), ?);";
+
+        try {
+            PreparedStatement pstm = coBdd.getConnection().prepareStatement(sql);
+            pstm.setString(1, ticket.getTitre());
+            pstm.setString(2, ticket.getTraite()); // Utiliser la valeur de 'traite' de l'objet Tickets
+            pstm.setString(3, ticket.getDescription_bug());
+
+            int rowsAffected = pstm.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Le ticket a été ajouté avec succès.");
+            } else {
+                System.out.println("Échec de l'ajout du ticket.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public ArrayList<String> getUserNames() {
+        ArrayList<String> userNames = new ArrayList<>();
+        String sql = "SELECT * FROM " + table;
+        PreparedStatement pstm;
+        try {
+            pstm = coBdd.getConnection().prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                String userName = rs.getString("nom");
+                userNames.add(userName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userNames;
+    }
+
+
+
+
 
 
 

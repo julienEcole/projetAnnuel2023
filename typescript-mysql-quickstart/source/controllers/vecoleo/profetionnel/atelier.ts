@@ -61,9 +61,6 @@ const updateOneAtelierById = async (req: Request, res: Response, next: NextFunct
     const horaire_ouverture:Date = req.body.horaire_ouverture;
     const horaire_fermeture:Date = req.body.horaire_fermeture;
     let query = `UPDATE atelier SET `
-    if(atelier_id){    //ne surtout pas enlever espace avant virgule!!
-        query += `atelier_id = ${atelier_id} ,`
-    }
     if(nomAtelier){
         query += `nomAtelier = \"${nomAtelier}\" ,`
     }
@@ -78,7 +75,7 @@ const updateOneAtelierById = async (req: Request, res: Response, next: NextFunct
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE atelier.atelier_id = ${req.params.atelier_id}`
+    query += `WHERE atelier.atelier_id = ${atelier_id}`
     
     //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 
@@ -93,7 +90,7 @@ const DeleteOneAtelierById = async (req: Request, res: Response, next: NextFunct
         res.send("erreur, les arguments doivent être l'id de l'atelier");
         return;
     }
-    const query = `DELETE * FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;
+    const query = `DELETE FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete atelier : ');

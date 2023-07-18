@@ -81,7 +81,7 @@ const updateOneTicketById = async (req: Request, res: Response, next: NextFuncti
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE utilisateur.utilisateur_id = ${req.params.idTicket}`
+    query += `WHERE utilisateur.utilisateur_id = ${parseInt(req.params.idTicket)}`
     
     //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 
@@ -96,7 +96,7 @@ const DeleteOneTicketById = async (req: Request, res: Response, next: NextFuncti
         res.send("erreur, les arguments doivent être l'id du ticket");
         return;
     }
-    const query = `DELETE * FROM ticket WHERE ticket.ticket_id = ${req.params.idTicket}`;
+    const query = `DELETE FROM ticket WHERE ticket.ticket_id = ${req.params.idTicket}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete ticket : ');
