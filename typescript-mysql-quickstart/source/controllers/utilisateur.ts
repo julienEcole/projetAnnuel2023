@@ -102,7 +102,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
     if(!isMail.test(mail) || !passwordRegex.test(mdp) ){
         res.status(400);
-        res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
+        res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
         return;
     }
     
