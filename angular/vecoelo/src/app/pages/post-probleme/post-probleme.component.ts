@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./post-probleme.component.css']
 })
 export class PostProblemeComponent {
-  private baseUrl = 'http://localhost:1337';
+  private baseUrl = 'http://localhost:3999';
   problem: any = {
     objet: '',
     autreProbleme: '',
@@ -33,13 +33,14 @@ export class PostProblemeComponent {
   submitProblem() {
     this.forumService.addProblem(this.problem);
     console.log(this.problem);
-    return this.http.post<any>(`${this.baseUrl}/post/probleme`, this.problem)
+    return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
       .subscribe(
         response => {
           console.log("Résultat de la requête :", response);
           this.router.navigate(['/forum']);
         },
         error => {
+          console.error("Erreur lors de la requête :", `${this.baseUrl}/probleme/post/probleme`, this.problem);
           console.error("Erreur lors de la requête :", error);
         }
       );

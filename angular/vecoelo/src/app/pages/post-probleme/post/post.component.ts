@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { last } from 'rxjs';
 import { ForumService } from 'src/app/components/forum/forum.service';
-
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -35,17 +34,15 @@ export class PostComponent implements OnInit {
       lastActivityDate: new Date(),
       auteur: localStorage.getItem('pseudo') || 'Anonyme'
     };
-    
     this.forumService.addReplyToPost(this.postId, reply);
     this.replyMessage = ''; 
     window.location.reload();
   }
-  
   deleteReply(reply: any) {
     this.forumService.deleteReplyFromPost(this.postId, reply);
     this.post.replies = this.post.replies.filter((r: any) => r.message !== reply.message);
   }
-  
+
   formatDateTime(dateTime: string): string {
     const date = new Date(dateTime);
     date.setHours(date.getHours() + 2);

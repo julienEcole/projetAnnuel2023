@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ForumService {
   private STORAGE_KEY = 'forum_problems';
-
+  private baseUrl = 'http://localhost:3999';
   constructor() {}
 
   getProblems(): any[] {
