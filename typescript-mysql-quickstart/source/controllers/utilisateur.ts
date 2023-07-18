@@ -16,18 +16,21 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         return;
     }
     //const atelier_id : number = req.body.atelier_id;
-    const mdp : string = SecurityUtils.toSHA512(req.body.mdp);
+    const mdp : string = req.body.mdp;
     const mail : string = req.body.mail;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
     const role_utilisateur_id:number = req.body.role_utilisateur_id
+    const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
+    const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
 
-    if(mdp.length < 8 || mail.length < 4){
+
+    if(!isMail.test(mail) || !passwordRegex.test(mdp)){
         res.status(400);
         res.send("le mail ou mdp sont trop court pour être vraiment utile.");
         return;
     }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}")`;
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}")`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
@@ -91,13 +94,14 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
     const mail:string = req.body.mail;
-    const mdp : string = SecurityUtils.toSHA512(req.body.mdp);
+    const mdp : string = req.body.mdp;
     const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
     const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
     const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
-    if(!isMail.test(mail) && mdp.length < 8 ){
+    const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
+    if(!isMail.test(mail) || !passwordRegex.test(mdp) ){
         res.status(400);
         res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
         return;
@@ -109,7 +113,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
         query += `mail = \'${mail}\' ,`
     }
     if(mdp){
-        query += `mdp = \"${mdp}\" ,`
+        query += `mdp = \"${SecurityUtils.toSHA512(mdp)}\" ,`
     }
     if(adresse){
         query += `adresse = \"${adresse}\" ,`
