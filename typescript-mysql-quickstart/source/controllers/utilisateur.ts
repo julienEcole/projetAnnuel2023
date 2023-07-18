@@ -94,7 +94,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id;
+    const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
     const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
     if(!isMail.test(mail) && mdp.length < 8 ){
         res.status(400);
