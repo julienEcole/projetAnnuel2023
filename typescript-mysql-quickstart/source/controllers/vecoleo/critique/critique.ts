@@ -63,12 +63,6 @@ const updateOneCritiqueById = async (req: Request, res: Response, next: NextFunc
     const note:number = req.body.note;
     const message : string = req.body.message;
     let query = `UPDATE critique SET `
-    if(critique_id){    //ne surtout pas enlever espace avant virgule!!
-        query += `critique_id = ${critique_id} ,`
-    }
-    // if(utilisateur_id){
-    //     query += `utilisateur_id = ${utilisateur_id} ,`
-    // }
     if(note){
         query += `note = \"${note}\" ,`
     }

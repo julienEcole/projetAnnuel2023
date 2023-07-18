@@ -5,6 +5,7 @@ import { executeSQLCommand } from './shared/executeCommand';
 
 const NAMESPACE = 'utilisateur';
 
+
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting utilisateurs');
 
