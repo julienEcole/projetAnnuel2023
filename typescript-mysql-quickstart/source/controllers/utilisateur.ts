@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
 import { executeSQLCommand } from './shared/executeCommand';
+import { SecurityUtils } from './shared/SecurityUtils';
 
 const NAMESPACE = 'utilisateur';
 
@@ -15,7 +16,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         return;
     }
     //const atelier_id : number = req.body.atelier_id;
-    const mdp : string = req.body.mdp;
+    const mdp : string = SecurityUtils.toSHA512(req.body.mdp);
     const mail : string = req.body.mail;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
@@ -90,7 +91,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
     const mail:string = req.body.mail;
-    const mdp : string = req.body.mdp;
+    const mdp : string = SecurityUtils.toSHA512(req.body.mdp);
     const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
@@ -105,7 +106,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     
     let query = `UPDATE utilisateur SET `
     if(mail){    //ne surtout pas enlever espace avant virgule!!
-        query += `mail = ${mail} ,`
+        query += `mail = \'${mail}\' ,`
     }
     if(mdp){
         query += `mdp = \"${mdp}\" ,`
@@ -124,7 +125,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE utilisateur.utilisateur_id = ${utilisateur_id}`
+    query += `WHERE utilisateur_id = ${utilisateur_id}`
     
     logging.info(NAMESPACE,"ma query = ", query);
 
