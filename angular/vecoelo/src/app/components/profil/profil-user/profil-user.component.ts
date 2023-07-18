@@ -16,8 +16,9 @@ export class ProfilUserComponent implements OnInit {
   pseudoModifie: string = '';
   mailModifie: string = '';
   passwordModifie: string = '';
+  baseUrl = 'http://localhost:3999';
 
-  constructor(private userService: UserService, private router : Router) { }
+  constructor(private userService: UserService, private router: Router) { }
   get nomUtilisateurConnecte(): string | null {
     return this.userService.getNomUtilisateurConnecte();
   }
@@ -39,14 +40,14 @@ export class ProfilUserComponent implements OnInit {
         const currentDate = new Date();
         const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
         this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
-          
-        
+
+
       },
       (error: any) => {
         console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
       }
     );
-  }  
+  }
 
   formatDateTime(dateTime: string): string {
     if (!dateTime) {
@@ -81,71 +82,38 @@ export class ProfilUserComponent implements OnInit {
     };
   }
   changerProfil(): void {
-    console.log('Pseudo modifié :', this.pseudoModifie);
-      console.log('Adresse e-mail modifiée :', this.mailModifie);
-      console.log('Mot de passe modifié :', this.passwordModifie);
-  if (!this.modifierProfil) {
-    this.modifierProfil = true;
-  } else {
-    if (this.pseudoModifie && this.mailModifie) {
-      const userId = localStorage.getItem('id');
-      console.log('ID utilisateur :', userId);
-      console.log('Pseudo modifié :', this.pseudoModifie);
-      console.log('Adresse e-mail modifiée :', this.mailModifie);
-      console.log('Mot de passe modifié :', this.passwordModifie);
-      if (userId) {
-        // Changer le mot de passe
-        if (this.passwordModifie) {
-          this.userService.updatePassword(userId, this.passwordModifie).subscribe(
-            (response: any) => {
-              console.log('Mot de passe modifié');
-            },
-            (error: any) => {
-              console.log("Une erreur s'est produite lors de la modification du mot de passe :", error);
-            }
-          );
-        }
-
-        // Changer l'adresse e-mail
-        if (this.mailModifie !== this.mail) {
-          this.userService.updateEmail(userId, this.mailModifie).subscribe(
-            (response: any) => {
-              // Gérer la réponse de la mise à jour de l'adresse e-mail
-              console.log('Adresse e-mail modifiée');
-            },
-            (error: any) => {
-              console.log("Une erreur s'est produite lors de la modification de l'adresse e-mail :", error);
-            }
-          );
-        }
-
-        // Changer le pseudo
-        if (this.pseudoModifie !== this.pseudo) {
-          this.userService.updatePseudo(userId, this.pseudoModifie).subscribe(
-            (response: any) => {
-              // Gérer la réponse de la mise à jour du pseudo
-              console.log('Pseudo modifié');
-            },
-            (error: any) => {
-              console.log("Une erreur s'est produite lors de la modification du pseudo :", error);
-            }
-          );
-        }
-
-        // Réinitialiser les champs de saisie et désactiver la modification du profil
-        this.pseudoModifie = '';
-        this.mailModifie = '';
-        this.passwordModifie = '';
-        this.modifierProfil = false;
-
-        
-      } else {
-        console.log('ID utilisateur non trouvé dans le localStorage');
-      }
+    if (!this.modifierProfil) {
+      this.modifierProfil = true;
     } else {
-      // Afficher un message d'erreur ou effectuer d'autres actions nécessaires
-      console.log('Veuillez remplir tous les champs de modification');
+      if (this.pseudoModifie && this.mailModifie) {
+        const userId = localStorage.getItem('id');
+        console.log('ID utilisateur :', userId);
+  
+        if (userId) {
+          const updatedUserData = {
+            password: this.passwordModifie,
+            mail: this.mailModifie,
+            pseudo: this.pseudoModifie
+          };
+          console.log('Données utilisateur mises à jour :', updatedUserData);
+          console.log(this.userService.updateUser(userId, updatedUserData));
+          this.userService.updateUser(userId, updatedUserData).subscribe(
+            response => {
+              console.log('Mise à jour effectuée avec succès', response);
+              this.router.navigate(['/profil']);
+            },
+            error => {
+              console.error("Erreur lors de la requête :", `${this.baseUrl}/utilisateur/patch/utilisateur/${userId}`, updatedUserData);
+              console.error('Erreur lors de la mise à jour', error);
+            }
+          );
+        } else {
+          console.log('ID utilisateur non trouvé dans le localStorage');
+        }
+      } else {
+        // Afficher un message d'erreur ou effectuer d'autres actions nécessaires
+        console.log('Veuillez remplir tous les champs de modification');
+      }
     }
   }
-}
 }
