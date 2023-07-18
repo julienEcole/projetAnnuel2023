@@ -11,13 +11,13 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    // this.http.get<any>('http://localhost:3999/utilisateur/get/utilisateur').subscribe(
-    //   response => {
-    //     console.log("Résultat de la requête :", response);
-    //   },
-    //   error => {
-    //     console.error("Erreur lors de la requête :", error);
-    //   }
-    // );
+    this.http.get<any>('http://localhost:1337/utilisateur/get/utilisateur').subscribe(
+      response => {
+        console.log("Résultat de la requête :", response);
+      },
+      error => {
+        console.error("Erreur lors de la requête :", error);
+      }
+    );
   }
 }

@@ -14,19 +14,18 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         return;
     }
     //const atelier_id : number = req.body.atelier_id;
-    const mdp : string = req.body.password;
-    const mail : string = req.body.email;
+    const mdp : string = req.body.mdp;
+    const mail : string = req.body.mail;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const pseudo:string = req.body.pseudo;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id || 0;
+    const role_utilisateur_id:number = req.body.role_utilisateur_id
 
-    // if(mdp.length < 8 || mail.length < 4){
-    //     res.status(400);
-    //     res.send("le mail ou mdp sont trop court pour être vraiment utile.");
-    //     return;
-    // }
-    let query = `INSERT INTO utilisateur (mdp, mail, prenom, nom, pseudo, role_utilisateur_id) VALUES ("${mdp}", "${mail}", "${prenom}", "${nom}","${pseudo}", ${role_utilisateur_id})`;
+    if(mdp.length < 8 || mail.length < 4){
+        res.status(400);
+        res.send("le mail ou mdp sont trop court pour être vraiment utile.");
+        return;
+    }
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom) VALUES ("${mdp}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}")`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
@@ -80,48 +79,44 @@ const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response
 
 const updateOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'updating one user by id.');
-    // const isInt : RegExp = new RegExp("[0-9]*")
-    // if(!req.params || !req.body || !req.params.id || !isInt.test(req.params.utilisateur_id)){
-    //     res.status(400);
-    //     res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.utilisateur_id = ${req.params.utilisateur_id}
-    //     return;
-    // }
+    const isInt : RegExp = new RegExp("[0-9]*")
+    if(!req.params || !req.body || !req.params.utilisateur_id || !isInt.test(req.params.utilisateur_id)){
+        res.status(400);
+        res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.utilisateur_id = ${req.params.utilisateur_id}
+        return;
+    }
     //ajouter verification que 1 argument soit la au minimum
     
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
     const mail:string = req.body.mail;
-    const mdp : string = req.body.password;
+    const mdp : string = req.body.mdp;
     const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const pseudo:string = req.body.pseudo;
     const role_utilisateur_id:number = req.body.role_utilisateur_id;
-    // const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
-    // if(!isMail.test(mail) && mdp.length < 8 ){
-    //     res.status(400);
-    //     res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
-    //     return;
-    // }
+    const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
+    if(!isMail.test(mail) && mdp.length < 8 ){
+        res.status(400);
+        res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
+        return;
+    }
     
     
     let query = `UPDATE atelier SET `
     if(mail){    //ne surtout pas enlever espace avant virgule!!
-        query += `mail = \"${mail}\" ,`
+        query += `mail = ${mail} ,`
     }
     if(mdp){
         query += `mdp = \"${mdp}\" ,`
     }
     if(adresse){
-        query += `adresse = ${adresse} ,`
+        query += `adresse = \"${adresse}\" ,`
     }
     if(prenom){
-        query += `prenom = \"${prenom}\" ,`
-    }
-    if(pseudo){
-        query += `pseudo = \"${pseudo}\" ,`
+        query += `prenom = "${prenom}" ,`
     }
     if(nom){
-        query += `nom = \"${nom}\" ,`
+        query += `nom = "${nom}" ,`
     }
     if(role_utilisateur_id){
         query += `role_utilisateur_id = ${role_utilisateur_id} `
