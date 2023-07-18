@@ -104,7 +104,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     // }
     
     
-    let query = `UPDATE atelier SET `
+    let query = `UPDATE utilisateur SET `
     if(mail){    //ne surtout pas enlever espace avant virgule!!
         query += `mail = \"${mail}\" ,`
     }
@@ -128,7 +128,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     }
     query = query.substring(0, query.length - 1)
 
-    query += `WHERE utilisateur.utilisateur_id = ${utilisateur_id}`
+    query += `WHERE utilisateur_id = ${utilisateur_id}`
     
     logging.info(NAMESPACE,"ma query = ", query);
 
@@ -142,7 +142,7 @@ const deleteOneUserById = async (req: Request, res: Response, next: NextFunction
         res.send("erreur, les arguments doivent être l'id de l'utilisateur");
         return;
     }
-    const query = `DELETE * FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.utilisateur_id}`;
+    const query = `DELETE FROM utilisateur WHERE utilisateur_id = ${req.params.utilisateur_id}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'deleted users: ');

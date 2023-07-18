@@ -88,7 +88,7 @@ export class ProfilUserComponent implements OnInit {
       if (this.pseudoModifie && this.mailModifie) {
         const userId = localStorage.getItem('id');
         console.log('ID utilisateur :', userId);
-  
+
         if (userId) {
           const updatedUserData = {
             password: this.passwordModifie,
@@ -100,7 +100,7 @@ export class ProfilUserComponent implements OnInit {
           this.userService.updateUser(userId, updatedUserData).subscribe(
             response => {
               console.log('Mise à jour effectuée avec succès', response);
-              this.router.navigate(['/profil']);
+              
             },
             error => {
               console.error("Erreur lors de la requête :", `${this.baseUrl}/utilisateur/patch/utilisateur/${userId}`, updatedUserData);

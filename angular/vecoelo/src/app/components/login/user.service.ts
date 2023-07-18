@@ -97,7 +97,7 @@ export class UserService {
 
 
   updateOneUserByMail(email: string, user: any): Observable<any> {
-    const url = `${this.baseUrl}/utilisateur/put/utilisateur/mail/${email}`;
+    const url = `${this.baseUrl}/utilisateur/patch/utilisateur/mail/${email}`;
     return this.http.put(url, user);
   }
 
@@ -115,8 +115,8 @@ export class UserService {
     const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${id}`;
     localStorage.setItem('pseudo', updatedData.pseudo);
     localStorage.setItem('email', updatedData.mail);
-    window.location.reload();
-    return this.http.put(url,updatedData);
+    this.router.navigate(['/home']);
+    return this.http.put(url, updatedData);
   }
 
   deleteOneUserById(id: string): Observable<any> {
