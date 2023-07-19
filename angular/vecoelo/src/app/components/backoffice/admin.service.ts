@@ -17,7 +17,7 @@ export class AdminService {
 
   updateUtilisateur(utilisateurId: string, utilisateurData: any): Observable<any> {
     const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${utilisateurId}`;
-    return this.http.put(url, utilisateurData);
+    return this.http.patch(url, utilisateurData);
   }
 
   deleteUtilisateur(utilisateurId: string): Observable<any> {

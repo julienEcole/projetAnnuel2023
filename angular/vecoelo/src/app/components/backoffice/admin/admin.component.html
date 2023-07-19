@@ -11,13 +11,35 @@
   </tr>
   <tr *ngFor="let utilisateur of utilisateurs">
     <td>{{ utilisateur.utilisateur_id }}</td>
-    <td>{{ utilisateur.pseudo }}</td>
-    <td>{{ utilisateur.prenom }}</td>
-    <td>{{ utilisateur.nom }}</td>
-    <td>{{ utilisateur.mail }}</td>
-    <td>{{ utilisateur.mdp }}</td>
+    <td>
+      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.pseudo }}</ng-container>
+      <input type="text" [(ngModel)]="utilisateur.nouveauPseudo" *ngIf="utilisateur.editionEnCours">
+    </td>
+    <td>
+      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.prenom }}</ng-container>
+      <input type="text" [(ngModel)]="utilisateur.nouveauPrenom" *ngIf="utilisateur.editionEnCours">
+    </td>
+    <td>
+      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.nom }}</ng-container>
+      <input type="text" [(ngModel)]="utilisateur.nouveauNom" *ngIf="utilisateur.editionEnCours">
+    </td>
+    <td>
+      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mail }}</ng-container>
+      <input type="text" [(ngModel)]="utilisateur.nouvelEmail" *ngIf="utilisateur.editionEnCours">
+    </td>
+    <td>
+      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mdp }}</ng-container>
+      <input type="text" [(ngModel)]="utilisateur.nouveauMotDePasse" *ngIf="utilisateur.editionEnCours">
+    </td>
     <td>
       <button (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">Supprimer</button>
+      <ng-container *ngIf="!utilisateur.editionEnCours">
+        <button (click)="editerUtilisateur(utilisateur)">Modifier</button>
+      </ng-container>
+      <ng-container *ngIf="utilisateur.editionEnCours">
+        <button (click)="enregistrerEdition(utilisateur)">Enregistrer</button>
+        <button (click)="annulerEdition(utilisateur)">Annuler</button>
+      </ng-container>
     </td>
   </tr>
 </table>
