@@ -55,6 +55,8 @@
     <th>Titre</th>
     <th>Adresse</th>
     <th>Description</th>
+    <th>ID Utilisateur</th> 
+    <th>Pseudo Auteur</th>
     <th>Actions</th>
   </tr>
   <tr *ngFor="let probleme of problemes">
@@ -71,6 +73,8 @@
       <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.description }}</ng-container>
       <textarea [(ngModel)]="probleme.nouvelleDescription" *ngIf="probleme.editionEnCours"></textarea>
     </td>
+    <td>{{ probleme.utilisateur_id }}</td>
+    <td>{{ probleme.utilisateur_pseudo }}</td>
     <td>
       <ng-container *ngIf="!probleme.editionEnCours">
         <button (click)="editerProbleme(probleme)">Modifier</button>

@@ -39,4 +39,8 @@ export class AdminService {
     const role_utilisateur_id = Number(localStorage.getItem('roleUtilisateurId'));
     return role_utilisateur_id === 1;
   }  
+  getUtilisateurById(id: string): Observable<any> {
+    const url = `${this.baseUrl}/utilisateur/get/utilisateur/id/${id}`;
+    return this.http.get(url);
+  }  
 }

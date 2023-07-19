@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-admin',
@@ -52,14 +55,33 @@ export class AdminComponent implements OnInit {
           editionEnCours: false,
           nouveauTitre: probleme.titre,
           nouvelleAdresse: probleme.adresse,
-          nouvelleDescription: probleme.description
+          nouvelleDescription: probleme.description,
+          utilisateur_pseudo: '' // Initialize the pseudo property
         }));
+  
+        // Retrieve usernames for each user ID
+        this.retrieveUsernames();
       },
       (error: any) => {
         console.log('Erreur lors de la récupération des problèmes :', error);
       }
     );
   }
+  
+  retrieveUsernames() {
+    this.problemes.forEach((probleme: any) => {
+      this.adminService.getUtilisateurById(probleme.utilisateur_id).subscribe(
+        (response: any) => {
+          const utilisateur = response.results[0];
+          probleme.utilisateur_pseudo = utilisateur.pseudo; // Assign the pseudo to the probleme object
+        },
+        (error: any) => {
+          console.log('Erreur lors de la récupération du pseudo de l\'utilisateur :', error);
+        }
+      );
+    });
+  }
+  
 
   editerUtilisateur(utilisateur: any) {
     utilisateur.editionEnCours = true;
