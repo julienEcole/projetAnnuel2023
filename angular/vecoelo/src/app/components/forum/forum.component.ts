@@ -23,7 +23,7 @@ export class ForumComponent implements OnInit {
       (response: any) => {
         if (Array.isArray(response.results)) {
           this.posts = response.results;
-  
+          console.log('Chargement des publications réussi:', this.posts);
           for (const post of this.posts) {
             let id = post.utilisateur_id;
   

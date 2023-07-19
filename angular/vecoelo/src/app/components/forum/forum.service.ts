@@ -38,10 +38,10 @@ export class ForumService {
   }
 
   addProblem(problem: any): void {
+    problem.id = localStorage.getItem('id');
+    problem.pseudo = localStorage.getItem('pseudo');
     this.getProblems().subscribe(problems => {
-      console.log('Problems before adding:', problems);
       problems.push(problem);
-      console.log('Problems after adding:', problems);
       this.saveProblems(problems);
     });
   }

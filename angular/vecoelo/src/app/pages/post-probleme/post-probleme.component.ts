@@ -33,6 +33,7 @@ export class PostProblemeComponent {
   submitProblem() {
     this.forumService.addProblem(this.problem);
     console.log(this.problem);
+    let id = localStorage.getItem('id');
     return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
       .subscribe(
         response => {
