@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     mail VARCHAR(255) NOT NULL UNIQUE,
     prenom TEXT,
     nom TEXT,
+    telephone TEXT,
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
 );
 
@@ -93,6 +94,9 @@ CREATE TABLE IF NOT EXISTS probleme_reparation_type (
 CREATE TABLE IF NOT EXISTS atelier (
     atelier_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     adresse TEXT NOT NULL,
+    Longitude NUMBER,
+    Latitude NUMBER,
+    Telephone TEXT,
     horaire_ouverture TIME,
     horaire_fermeture TIME,
     nomAtelier VARCHAR(255) NOT NULL UNIQUE
