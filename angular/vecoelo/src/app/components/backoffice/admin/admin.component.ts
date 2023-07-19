@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -10,11 +11,19 @@ export class AdminComponent implements OnInit {
   utilisateurs: any[] = [];
   problemes: any[] = [];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit() {
-    this.fetchUtilisateurs();
-    this.fetchProblemes();
+    console.log('Role utilisateur ID:', localStorage.getItem('role_utilisateur_id')); // Vérifier la valeur du rôle utilisateur ID
+    
+    if (!this.adminService.estRoleAdmin()) {
+      console.log('Redirection vers la page d\'accueil');
+      this.router.navigate(['/home']);
+    } else {
+      console.log('Chargement des utilisateurs et des problèmes');
+      this.fetchUtilisateurs();
+      this.fetchProblemes();
+    }
   }  
 
   fetchUtilisateurs() {

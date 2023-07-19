@@ -35,4 +35,8 @@ export class AdminService {
     const url = `${this.baseUrl}/probleme/delete/probleme/${problemeId}`;
     return this.http.delete(url);
   }
+  estRoleAdmin(): boolean {
+    const role_utilisateur_id = Number(localStorage.getItem('roleUtilisateurId'));
+    return role_utilisateur_id === 1;
+  }  
 }

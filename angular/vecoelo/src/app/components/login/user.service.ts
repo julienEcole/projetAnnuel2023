@@ -15,6 +15,7 @@ export class UserService {
   private id: string = '';
   private nom: string = '';
   private prenom: string = '';
+  private roleUtilisateurId: number = 0;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -45,6 +46,7 @@ export class UserService {
         this.pseudo = utilisateur.pseudo;
         this.email = utilisateur.mail;
         this.id = utilisateur.utilisateur_id;
+        this.roleUtilisateurId = utilisateur.role_utilisateur_id;
         console.log(this.pseudo, this.email, this.id)
         if (utilisateur && utilisateur.mdp === password) {
           this.estConnecte = true;
@@ -52,6 +54,7 @@ export class UserService {
           localStorage.setItem('pseudo', this.pseudo);
           localStorage.setItem('id', this.id);
           localStorage.setItem('email', this.email);
+          localStorage.setItem('roleUtilisateurId', this.roleUtilisateurId.toString()); 
           console.log('Connexion réussie');
           return true;
         } else {
@@ -138,8 +141,10 @@ export class UserService {
   deconnexion(): void {
     localStorage.removeItem('estConnecte');
     localStorage.removeItem('pseudo');
+    localStorage.removeItem('id');
+    localStorage.removeItem('email');
+    localStorage.removeItem('roleUtilisateurId');
     this.estConnecte = false;
     this.router.navigate(['/home']);
   }
-
 }
