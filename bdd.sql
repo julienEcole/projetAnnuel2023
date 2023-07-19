@@ -94,9 +94,9 @@ CREATE TABLE IF NOT EXISTS probleme_reparation_type (
 CREATE TABLE IF NOT EXISTS atelier (
     atelier_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     adresse TEXT NOT NULL,
-    Longitude NUMBER,
-    Latitude NUMBER,
-    Telephone TEXT,
+    longitude DECIMAL(9, 6),
+    latitude DECIMAL(9, 6),
+    telephone TEXT,
     horaire_ouverture TIME,
     horaire_fermeture TIME,
     nomAtelier VARCHAR(255) NOT NULL UNIQUE
