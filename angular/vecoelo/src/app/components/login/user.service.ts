@@ -116,7 +116,7 @@ export class UserService {
     localStorage.setItem('pseudo', updatedData.pseudo);
     localStorage.setItem('email', updatedData.mail);
     this.router.navigate(['/home']);
-    return this.http.put(url, updatedData);
+    return this.http.patch(url, updatedData);
   }
 
   deleteOneUserById(id: string): Observable<any> {
@@ -127,8 +127,14 @@ export class UserService {
     this.router.navigate(['/home']);
     return this.http.delete(url);
   }
-
-
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/utilisateur/get/utilisateur`).pipe(
+      catchError((error) => {
+        console.log('Erreur lors de la récupération des utilisateurs :', error);
+        return of(null);
+      })
+    );
+  }
   deconnexion(): void {
     localStorage.removeItem('estConnecte');
     localStorage.removeItem('pseudo');

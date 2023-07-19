@@ -16,17 +16,6 @@
       <div class="post-activity">
         <div *ngIf="post.replies && post.replies.length > 0">
           <div>Dernière activité : {{ formatDateTime(getLastActivityDate(post)) }}</div>
-
-    
-        
-          
-    
-
-        
-    
-    
-    <h3><span>de</span> {{ post.auteur }} </h3>
-  
         </div>
         <div *ngIf="!(post.replies && post.replies.length > 0)">
           <div>Aucune activité</div>
