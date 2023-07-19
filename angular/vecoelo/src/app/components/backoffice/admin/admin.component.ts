@@ -35,6 +35,23 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  fetchProblemes() {
+    this.adminService.getAllProblemes().subscribe(
+      (response: any) => {
+        this.problemes = response.results.map((probleme: any) => ({
+          ...probleme,
+          editionEnCours: false,
+          nouveauTitre: probleme.titre,
+          nouvelleAdresse: probleme.adresse,
+          nouvelleDescription: probleme.description
+        }));
+      },
+      (error: any) => {
+        console.log('Erreur lors de la récupération des problèmes :', error);
+      }
+    );
+  }
+
   editerUtilisateur(utilisateur: any) {
     utilisateur.editionEnCours = true;
   }
@@ -60,14 +77,13 @@ export class AdminComponent implements OnInit {
         console.log('Mise à jour de l\'utilisateur réussie');
         utilisateur.email = nouvelEmail; // Met à jour la valeur de l'email affichée
         utilisateur.editionEnCours = false;
-        window.location.reload(); // Recharge la page actuelle
+        this.fetchUtilisateurs(); // Rafraîchit la liste des utilisateurs
       },
       (error: any) => {
         console.log("Une erreur s'est produite lors de la mise à jour de l'utilisateur :", error);
       }
     );
   }
-  
 
   supprimerUtilisateur(utilisateurId: number) {
     console.log("Suppression de l'utilisateur avec l'ID :", utilisateurId);
@@ -85,14 +101,53 @@ export class AdminComponent implements OnInit {
       );
     }
   }
-  fetchProblemes() {
-    this.adminService.getAllProblemes().subscribe(
+
+  editerProbleme(probleme: any) {
+    probleme.editionEnCours = true; // Passer en mode édition
+  }
+
+  enregistrerEditionProbleme(probleme: any) {
+    const updatedProbleme = {
+      probleme_id: probleme.probleme_id,
+      titre: probleme.nouveauTitre,
+      adresse: probleme.nouvelleAdresse,
+      description: probleme.nouvelleDescription
+    };
+    console.log('Requête de modification (édit) :', updatedProbleme); // Affichage de la requête de modification dans la console
+
+    this.adminService.updateProbleme(probleme.probleme_id.toString(), updatedProbleme).subscribe(
       (response: any) => {
-        this.problemes = response.results;
+        console.log('Mise à jour du problème réussie');
+        probleme.editionEnCours = false; // Sortir du mode édition
+        this.fetchProblemes(); // Rafraîchit la liste des problèmes
       },
       (error: any) => {
-        console.log('Erreur lors de la récupération des problèmes :', error);
+        console.log("Une erreur s'est produite lors de la mise à jour du problème :", error);
       }
     );
+  }
+
+  annulerEditionProbleme(probleme: any) {
+    probleme.editionEnCours = false; // Annuler les modifications et sortir du mode édition
+    // Réinitialiser les valeurs des champs de texte aux valeurs initiales si nécessaire
+    probleme.nouveauTitre = probleme.titre;
+    probleme.nouvelleAdresse = probleme.adresse;
+    probleme.nouvelleDescription = probleme.description;
+  }
+
+  supprimerProbleme(problemeId: number) {
+    console.log("Suppression du problème avec l'ID :", problemeId);
+
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce problème ?")) {
+      this.adminService.deleteProbleme(problemeId.toString()).subscribe(
+        (response: any) => {
+          console.log('Problème supprimé');
+          this.fetchProblemes(); // Mettre à jour la liste des problèmes après la suppression
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la suppression du problème :", error);
+        }
+      );
+    }
   }
 }

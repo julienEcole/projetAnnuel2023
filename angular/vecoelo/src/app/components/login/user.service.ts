@@ -98,7 +98,7 @@ export class UserService {
 
   updateOneUserByMail(email: string, user: any): Observable<any> {
     const url = `${this.baseUrl}/utilisateur/patch/utilisateur/mail/${email}`;
-    return this.http.put(url, user);
+    return this.http.patch(url, user);
   }
 
   getNomUtilisateurConnecte(): string {

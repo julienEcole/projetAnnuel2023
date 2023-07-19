@@ -27,4 +27,12 @@ export class AdminService {
   getAllProblemes(): Observable<any> {
     return this.http.get(`${this.baseUrl}/probleme/get/probleme`);
   }
+  updateProbleme(problemeId: string, problemeData: any): Observable<any> {
+    const url = `${this.baseUrl}/probleme/patch/probleme/${problemeId}`;
+    return this.http.patch(url, problemeData);
+  }
+  deleteProbleme(problemeId: string): Observable<any> {
+    const url = `${this.baseUrl}/probleme/delete/probleme/${problemeId}`;
+    return this.http.delete(url);
+  }
 }

@@ -43,6 +43,7 @@
     </td>
   </tr>
 </table>
+<!-- ... -->
 <h2>Liste des problèmes</h2>
 <table>
   <tr>
@@ -50,11 +51,32 @@
     <th>Titre</th>
     <th>Adresse</th>
     <th>Description</th>
+    <th>Actions</th>
   </tr>
   <tr *ngFor="let probleme of problemes">
     <td>{{ probleme.probleme_id }}</td>
-    <td>{{ probleme.titre }}</td>
-    <td>{{ probleme.adresse }}</td>
-    <td>{{ probleme.description }}</td>
+    <td>
+      <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.titre }}</ng-container>
+      <input type="text" [(ngModel)]="probleme.nouveauTitre" *ngIf="probleme.editionEnCours">
+    </td>
+    <td>
+      <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.adresse }}</ng-container>
+      <input type="text" [(ngModel)]="probleme.nouvelleAdresse" *ngIf="probleme.editionEnCours">
+    </td>
+    <td>
+      <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.description }}</ng-container>
+      <textarea [(ngModel)]="probleme.nouvelleDescription" *ngIf="probleme.editionEnCours"></textarea>
+    </td>
+    <td>
+      <ng-container *ngIf="!probleme.editionEnCours">
+        <button (click)="supprimerProbleme(probleme.probleme_id)">Supprimer</button>
+        <button (click)="editerProbleme(probleme)">Modifier</button>
+      </ng-container>
+      <ng-container *ngIf="probleme.editionEnCours">
+        <button (click)="enregistrerEditionProbleme(probleme)">Enregistrer</button>
+        <button (click)="annulerEditionProbleme(probleme)">Annuler</button>
+      </ng-container>
+    </td>
   </tr>
 </table>
+
