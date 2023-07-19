@@ -64,6 +64,13 @@ CREATE TABLE IF NOT EXISTS assignation (
 /*toutes la partie java au dessus*/
 
 CREATE TABLE IF NOT EXISTS probleme (
+    utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
+    probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
+    string TEXT,
+    date_de_publication DATETIME
+)
+
+CREATE TABLE IF NOT EXISTS probleme (
     probleme_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     adresse TEXT NOT NULL,
     titre TEXT NOT NULL,
