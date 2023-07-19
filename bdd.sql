@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS probleme (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     string TEXT,
-    date_de_publication DATETIME
+    date_de_publication DATETIME,
     PRIMARY KEY (utilisateur_id,probleme_id)
 );
 
