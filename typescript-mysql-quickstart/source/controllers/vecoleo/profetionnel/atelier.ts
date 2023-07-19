@@ -14,17 +14,6 @@ const getAllAtelier = async (req: Request, res: Response, next: NextFunction) =>
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved atelier: ');
 };
 
-// CREATE TABLE IF NOT EXISTS atelier (
-//     atelier_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-//     adresse TEXT NOT NULL,
-//     longitude DECIMAL(9, 6),
-//     latitude DECIMAL(9, 6),
-//     telephone TEXT,
-//     horaire_ouverture TIME,
-//     horaire_fermeture TIME,
-//     nomAtelier VARCHAR(255) NOT NULL UNIQUE
-// );
-
 const createAtelier = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting atelier');
 
