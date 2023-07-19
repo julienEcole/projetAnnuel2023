@@ -84,18 +84,18 @@ const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response
 
 const updateOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'updating one user by id.');
-    const isInt : RegExp = new RegExp("[0-9]*")
-    if(!req.params || !req.body || !req.params.utilisateur_id || !isInt.test(req.params.utilisateur_id)){
-        res.status(400);
-        res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.utilisateur_id = ${req.params.utilisateur_id}
-        return;
-    }
+    // const isInt : RegExp = new RegExp("[0-9]*")
+    // if(!req.params || !req.body || !req.params.id || !isInt.test(req.params.utilisateur_id)){
+    //     res.status(400);
+    //     res.send(`erreur, les arguments doivent être le mail ou l'id de l'utilisateur`); //\n req.params.utilisateur_id = ${req.params.utilisateur_id}
+    //     return;
+    // }
     //ajouter verification que 1 argument soit la au minimum
     
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
 
     const mail:string = req.body.mail;
-    const mdp : string = req.body.mdp;
+    const mdp : string = req.body.password;
     const adresse : string = req.body.adresse;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
@@ -124,19 +124,22 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     
     let query = `UPDATE utilisateur SET `
     if(mail){    //ne surtout pas enlever espace avant virgule!!
-        query += `mail = \'${mail}\' ,`
+        query += `mail = \"${mail}\" ,`
     }
     if(mdp){
         query += `mdp = \"${SecurityUtils.toSHA512(mdp)}\" ,`
     }
     if(adresse){
-        query += `adresse = \"${adresse}\" ,`
+        query += `adresse = ${adresse} ,`
     }
     if(prenom){
-        query += `prenom = "${prenom}" ,`
+        query += `prenom = \"${prenom}\" ,`
+    }
+    if(pseudo){
+        query += `pseudo = \"${pseudo}\" ,`
     }
     if(nom){
-        query += `nom = "${nom}" ,`
+        query += `nom = \"${nom}\" ,`
     }
     if(telephone){
         query += `telephone = "${telephone}" ,`
@@ -160,7 +163,8 @@ const deleteOneUserById = async (req: Request, res: Response, next: NextFunction
         res.send("erreur, les arguments doivent être l'id de l'utilisateur");
         return;
     }
-    const query = `DELETE FROM utilisateur WHERE utilisateur.utilisateur_id = ${req.params.utilisateur_id}`;
+    const query = `DELETE FROM utilisateur WHERE utilisateur_id = ${req.params.utilisateur_id}`;
+
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'deleted users: ');

@@ -15,6 +15,7 @@ src\main
 
 #.env perso
 .env.dev
+.env
 
 # User-specific stuff
 .idea/**/workspace.xml

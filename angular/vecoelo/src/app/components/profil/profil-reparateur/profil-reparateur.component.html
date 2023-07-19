@@ -1,0 +1,14 @@
+<main>
+    <section>
+        <p><strong>Adresse :</strong> {{ repairShop?.Adresse }}</p>
+        <p><strong>Téléphone :</strong> {{ repairShop?.Telephone }}</p>
+        <p><strong>Distance :</strong> {{ repairShop.distance }} km</p>
+        <div class="rating">
+            <span class="star" *ngFor="let star of stars" [class.full]="star.filled"
+                (click)="rateRepairShop(star)"></span>
+        </div>
+        <p><strong>Évaluation :</strong> {{ getStarRating() }}</p>
+
+    </section>
+
+</main>

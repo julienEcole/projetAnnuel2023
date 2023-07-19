@@ -1,5 +1,3 @@
-USE vecoleo;
-
 CREATE TABLE IF NOT EXISTS role_utilisateur (
     role_utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
@@ -13,18 +11,20 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     prenom TEXT,
     nom TEXT,
     telephone TEXT,
+    pseudo TEXT,
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
 );
 
 CREATE TABLE IF NOT EXISTS type_ticket (
     type_ticket_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
-    `description` TEXT
+    description TEXT
 );
+
 CREATE TABLE IF NOT EXISTS urgence (
     urgence_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
-    `description` TEXT
+    description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS etat (
@@ -51,14 +51,13 @@ CREATE TABLE IF NOT EXISTS image (
 CREATE TABLE IF NOT EXISTS ticket_image (
     image_id INT NOT NULL REFERENCES image(image_id),
     ticket_id INT NOT NULL REFERENCES ticket(ticket_id),
-    PRIMARY KEY(ticket_id,image_id)
+    PRIMARY KEY(image_id, ticket_id)
 );
 
 CREATE TABLE IF NOT EXISTS assignation (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     ticket_id INT NOT NULL REFERENCES ticket(ticket_id),
     PRIMARY KEY(utilisateur_id,ticket_id)
-
 );
 
 /*toutes la partie java au dessus*/
@@ -80,7 +79,7 @@ CREATE TABLE IF NOT EXISTS probleme_image (
 CREATE TABLE IF NOT EXISTS probleme_service (
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     service_id INT NOT NULL REFERENCES service(service_id),
-    PRIMARY KEY(service_id,probleme_id)
+    PRIMARY KEY(probleme_id, service_id)
 );
 
 CREATE TABLE IF NOT EXISTS probleme_reparation_type (
@@ -90,7 +89,6 @@ CREATE TABLE IF NOT EXISTS probleme_reparation_type (
 );
 
 /*partie probleme au dessus*/
-
 CREATE TABLE IF NOT EXISTS atelier (
     atelier_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     adresse TEXT NOT NULL,

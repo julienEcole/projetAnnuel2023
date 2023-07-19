@@ -1,0 +1,47 @@
+<main>
+  <h2>FORUM</h2>
+  <section class="filter-section">
+    <button class="btn-poster" routerLink="/post-probleme">nouveau problème</button>
+    <input type="text" [(ngModel)]="searchText" (input)="filterPosts()" placeholder="Rechercher...">
+    <button class="btn-poster" onclick="location.reload()">Actualiser</button>
+
+  </section>
+
+  <figure *ngFor="let post of (filteredPosts.length > 0 ? filteredPosts : posts)">
+    <img src="{{ post.image }}" alt="">
+    <figcaption>
+      <h2>{{ post.autreProbleme || post.objet }} <time>{{ formatDateTime(post.date) }}</time></h2>
+      <h3><span>de</span> {{ post.auteur }} </h3>
+      <p><strong>Sujet :</strong> {{ post.resume }}</p>
+      <div class="post-activity">
+        <div *ngIf="post.replies && post.replies.length > 0">
+          <div>Dernière activité : {{ formatDateTime(getLastActivityDate(post)) }}</div>
+
+    
+        
+          
+    
+
+        
+    
+    
+    <h3><span>de</span> {{ post.auteur }} </h3>
+  
+        </div>
+        <div *ngIf="!(post.replies && post.replies.length > 0)">
+          <div>Aucune activité</div>
+        </div>
+      </div>
+      <a [routerLink]="['/post', post.id]">Voir la publication</a>
+
+    </figcaption>
+    <button class="delete-button" (click)="deletePost(post.id)">
+      <i class="material-icons">delete</i>
+    </button>  
+  </figure>
+
+    
+          
+    
+  
+</main>

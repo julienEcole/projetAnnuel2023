@@ -8,21 +8,44 @@ public class jdbc
 {
     Connection connection;
 
-    public jdbc()
-    {
+    /*public Connection getConnection() {
         try
         {
             Class.forName(Credentials.getDriverClassName());
             connection = DriverManager.getConnection(Credentials.getUrl(), Credentials.getUser(), Credentials.getPassword());
             System.out.println("un truc");
+            return connection;
         }
         catch (ClassNotFoundException e)
         {
             System.out.println("Pilote JDBC non installé.");
+            return null;
         }
         catch (SQLException e)
         {
             System.out.println(e);
+            return null;
+        }
+    }*/
+
+
+
+    private String url = "jdbc:mysql://localhost/Java_vecoleo?serverTimezone=UTC";
+    private String user = "root";
+    private String password = "";
+
+    public Connection getConnection() {
+
+        try {
+            Connection cnx = DriverManager.getConnection(this.url,this.user,this.password);
+            //System.out.print("Etat de la connexion :");
+            //System.out.print(cnx.isClosed()?"fermée":"ouverte \r\n");
+            return cnx;
+
+        } catch (SQLException e) {
+            System.out.print("erreur");
+            e.printStackTrace();
+            return null;
         }
     }
 }
