@@ -1,4 +1,5 @@
-<h2>Liste des utilisateurs</h2>
+<main>
+  <h2>Liste des utilisateurs</h2>
 <table>
   <tr>
     <th>ID</th>
@@ -7,6 +8,7 @@
     <th>Nom</th>
     <th>Email</th>
     <th>Mot de passe</th>
+    <th>Role Utilisateur</th>
     <th>Actions</th>
   </tr>
   <tr *ngFor="let utilisateur of utilisateurs">
@@ -29,13 +31,15 @@
     </td>
     <td>
       <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mdp }}</ng-container>
-      <input type="text" [(ngModel)]="utilisateur.nouveauMotDePasse" *ngIf="utilisateur.editionEnCours">
+      <input type="password" [(ngModel)]="utilisateur.nouveauMotDePasse" *ngIf="utilisateur.editionEnCours">
     </td>
+    <td>{{ utilisateur.role_utilisateur_id }}</td>
     <td>
-      <button (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">Supprimer</button>
+      
       <ng-container *ngIf="!utilisateur.editionEnCours">
         <button (click)="editerUtilisateur(utilisateur)">Modifier</button>
       </ng-container>
+      <button (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">Supprimer</button>
       <ng-container *ngIf="utilisateur.editionEnCours">
         <button (click)="enregistrerEdition(utilisateur)">Enregistrer</button>
         <button (click)="annulerEdition(utilisateur)">Annuler</button>
@@ -69,8 +73,8 @@
     </td>
     <td>
       <ng-container *ngIf="!probleme.editionEnCours">
-        <button (click)="supprimerProbleme(probleme.probleme_id)">Supprimer</button>
         <button (click)="editerProbleme(probleme)">Modifier</button>
+        <button (click)="supprimerProbleme(probleme.probleme_id)">Supprimer</button>
       </ng-container>
       <ng-container *ngIf="probleme.editionEnCours">
         <button (click)="enregistrerEditionProbleme(probleme)">Enregistrer</button>
@@ -79,4 +83,4 @@
     </td>
   </tr>
 </table>
-
+</main>

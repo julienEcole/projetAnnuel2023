@@ -1,0 +1,73 @@
+main{
+    margin:1rem auto;
+    padding: 2rem;
+}
+main h2{
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+    font-size: 4rem;
+}
+main table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 1rem;
+    padding: 2rem;
+    height: 5vh;
+    overflow-y: scroll;
+    background-color: transparent;
+
+}
+main tr th, main tr td{
+    text-align: center;
+    padding: 1rem;
+}
+main th, main td {
+    text-align: left;
+    padding: 2rem;  
+}
+main td button{
+    border: none;
+    padding: 1rem 2rem;
+    border: .2rem solid #354394;
+    margin: 0 1rem;
+    background-color: transparent;
+    border-radius: .5rem;
+    cursor: pointer;
+    transition: all .15s ease-in-out;
+}
+main td button:hover{
+    color: #fff;
+    background-color: #354394;
+}
+main td button:last-child{
+    color: #fff;
+    background-color: #354394;
+}
+tr:nth-child(even) {
+    background-color: #fafafa;
+
+}
+tr{
+    cursor: pointer;
+    background-color: #fff;
+}
+th {
+    
+    background-color: #354394;
+    color: white;
+}
+main table tr:nth-child(1) th:nth-child(1) {
+    border-radius: 1rem 0 0 0;
+}
+main table tr:nth-child(1) th:last-child {
+    border-radius: 0 1rem 0 0;
+}
+main table tr:last-child td:nth-child(1) {
+    border-radius: 0 0 0 1rem;
+}
+main table tr:last-child td:last-child {
+    border-radius: 0 0 1rem 0;
+}
