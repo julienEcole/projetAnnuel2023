@@ -43,3 +43,18 @@
     </td>
   </tr>
 </table>
+<h2>Liste des problèmes</h2>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Titre</th>
+    <th>Adresse</th>
+    <th>Description</th>
+  </tr>
+  <tr *ngFor="let probleme of problemes">
+    <td>{{ probleme.probleme_id }}</td>
+    <td>{{ probleme.titre }}</td>
+    <td>{{ probleme.adresse }}</td>
+    <td>{{ probleme.description }}</td>
+  </tr>
+</table>

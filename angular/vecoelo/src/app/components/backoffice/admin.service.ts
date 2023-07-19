@@ -24,4 +24,7 @@ export class AdminService {
     const url = `${this.baseUrl}/utilisateur/delete/utilisateur/id/${utilisateurId}`;
     return this.http.delete(url);
   }
+  getAllProblemes(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/probleme/get/probleme`);
+  }
 }

@@ -8,12 +8,14 @@ import { AdminService } from '../admin.service';
 })
 export class AdminComponent implements OnInit {
   utilisateurs: any[] = [];
+  problemes: any[] = [];
 
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
     this.fetchUtilisateurs();
-  }
+    this.fetchProblemes();
+  }  
 
   fetchUtilisateurs() {
     this.adminService.getAllUtilisateurs().subscribe(
@@ -82,5 +84,15 @@ export class AdminComponent implements OnInit {
         }
       );
     }
+  }
+  fetchProblemes() {
+    this.adminService.getAllProblemes().subscribe(
+      (response: any) => {
+        this.problemes = response.results;
+      },
+      (error: any) => {
+        console.log('Erreur lors de la récupération des problèmes :', error);
+      }
+    );
   }
 }
