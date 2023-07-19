@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS probleme (
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     string TEXT,
     date_de_publication DATETIME
-)
+);
 
 CREATE TABLE IF NOT EXISTS probleme (
     probleme_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
