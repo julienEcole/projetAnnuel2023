@@ -30,7 +30,7 @@
       <input type="text" [(ngModel)]="utilisateur.nouvelEmail" *ngIf="utilisateur.editionEnCours">
     </td>
     <td>
-      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mdp }}</ng-container>
+      <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mdp ? '********' : '' }}</ng-container>
       <input type="password" [(ngModel)]="utilisateur.nouveauMotDePasse" *ngIf="utilisateur.editionEnCours">
     </td>
     <td>{{ utilisateur.role_utilisateur_id }}</td>
