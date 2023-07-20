@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     prenom TEXT,
     nom TEXT,
     telephone TEXT,
+    date_de_creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
 );
 
@@ -38,6 +40,8 @@ CREATE TABLE IF NOT EXISTS ticket (
     etat_id INT NOT NULL REFERENCES etat(etat_id),
     urgence_id INT NOT NULL REFERENCES urgence(urgence_id),
     type_ticket_id INT NOT NULL REFERENCES type_ticket(type_ticket_id),
+    date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     description_bug TEXT
 );
 
@@ -57,17 +61,19 @@ CREATE TABLE IF NOT EXISTS ticket_image (
 CREATE TABLE IF NOT EXISTS assignation (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     ticket_id INT NOT NULL REFERENCES ticket(ticket_id),
+    date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(utilisateur_id,ticket_id)
-
 );
 
 /*toutes la partie java au dessus*/
 
-CREATE TABLE IF NOT EXISTS probleme (
+CREATE TABLE IF NOT EXISTS commentaire (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
-    string TEXT,
-    date_de_publication DATETIME,
+    `description` TEXT,
+    date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (utilisateur_id,probleme_id)
 );
 
@@ -76,6 +82,8 @@ CREATE TABLE IF NOT EXISTS probleme (
     adresse TEXT NOT NULL,
     titre TEXT NOT NULL,
     `description` TEXT,
+    date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id)
 );
 
@@ -107,7 +115,9 @@ CREATE TABLE IF NOT EXISTS atelier (
     telephone TEXT,
     horaire_ouverture TIME,
     horaire_fermeture TIME,
-    nomAtelier VARCHAR(255) NOT NULL UNIQUE
+    nomAtelier VARCHAR(255) NOT NULL UNIQUE,
+    date_ouverture DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS utilisateur_atelier (
@@ -121,6 +131,8 @@ CREATE TABLE IF NOT EXISTS service (
     prix int NOT NULL,
     `description` TEXT NOT NULL,
     titreService TEXT NOT NULL,
+    date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     reparation_type_id INT NOT NULL REFERENCES reparation_type(reparation_type_id)
 );
 
@@ -140,6 +152,8 @@ CREATE TABLE IF NOT EXISTS notification (
 CREATE TABLE IF NOT EXISTS critique (
     critique_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `message` TEXT NOT NULL,
+    date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     note INT
 );
 
