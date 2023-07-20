@@ -31,6 +31,7 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
         return;
     }
     //const probleme_id : number = req.body.probleme_id;
+
     const utilisateur_id:number = req.body.utilisateur_id;
     let description : string
     if(req.body.description){

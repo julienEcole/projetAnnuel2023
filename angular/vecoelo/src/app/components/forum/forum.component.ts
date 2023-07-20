@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ForumService } from './forum.service';
 
 @Component({
@@ -6,70 +6,93 @@ import { ForumService } from './forum.service';
   templateUrl: 'forum.component.html',
   styleUrls: ['forum.component.css']
 })
-export class ForumComponent {
-  constructor(private forumService: ForumService) { this.lastActivityDate = null; }
+export class ForumComponent implements OnInit {
+  pseudo: string = '';
+  mail: string = '';
+  constructor(private forumService: ForumService) { }
   searchText: string = '';
   filteredPosts: any[] = [];
-  lastActivityDate: string | null;;
+  posts: any[] = [];
 
-  get posts() {
-    // Récupérer les publications du service
-    const allPosts = this.forumService.getProblems();
+  ngOnInit(): void {
 
-    const sortedPosts = allPosts.sort((a, b) => {
-      const lastActivityDateA = new Date(this.getLastActivityDate(a));
-      const lastActivityDateB = new Date(this.getLastActivityDate(b));
-      const publicationDateA = new Date(a.timestamp);
-      const publicationDateB = new Date(b.timestamp);
-
-      if (isNaN(lastActivityDateA.getTime())) {
-        return 1; // Gérer le cas où la dernière activité de la publication A est invalide
-      }
-
-      if (isNaN(lastActivityDateB.getTime())) {
-        return -1; // Gérer le cas où la dernière activité de la publication B est invalide
-      }
-
-      // Tri par la dernière activité
-      if (lastActivityDateB.getTime() !== lastActivityDateA.getTime()) {
-        return lastActivityDateB.getTime() - lastActivityDateA.getTime();
-      }
-
-      // Tri par la dernière publication si les dernières activités sont les mêmes
-      return publicationDateB.getTime() - publicationDateA.getTime();
-    });
-
-    return sortedPosts;
+    this.loadPosts();
   }
 
-  deletePost(postId: string) {
-    this.forumService.deletePost(postId);
+  loadPosts(): void {
+    this.forumService.getProblems().subscribe(
+      (response: any) => {
+        if (Array.isArray(response.results)) {
+          this.posts = response.results;
+          console.log('Chargement des publications réussi:', this.posts);
+          for (const post of this.posts) {
+            let id = post.utilisateur_id;
+  
+            this.forumService.getOneUserById(id).subscribe(
+              (userResponse: any) => {
+                const utilisateur = userResponse.results[0];
+                post.pseudo = utilisateur.pseudo;
+                console.log('Chargement des réponses du post:', post);
+              },
+              (error: any) => {
+                console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
+              }
+            );
+          }
+  
+          console.log('Chargement des publications réussi:', this.posts);
+        } else {
+          console.error('Erreur lors du chargement des publications: La réponse.results n\'est pas un tableau.', response);
+        }
+      },
+      (error: any) => {
+        console.error('Erreur lors du chargement des publications:', error);
+        // Traitez l'erreur de chargement des publications si nécessaire
+      }
+    );
   }
+  
   filterPosts() {
     if (this.searchText) {
       this.filteredPosts = this.posts.filter(post =>
-        post.objet.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        (post.autreProbleme && post.autreProbleme.toLowerCase().includes(this.searchText.toLowerCase()))
+        post.titre.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        post.description.toLowerCase().includes(this.searchText.toLowerCase())
       );
     } else {
       this.filteredPosts = this.posts;
     }
   }
+
+  supprimerProbleme(problemeId: number) {
+    console.log("Suppression du problème avec l'ID :", problemeId);
+
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce problème ?")) {
+      this.forumService.deleteProbleme(problemeId.toString()).subscribe(
+        (response: any) => {
+          console.log('Problème supprimé');
+          this.loadPosts();
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la suppression du problème :", error);
+        }
+      );
+    }
+  }
+
   getLastActivityDate(post: any): string {
     const replies = post.replies;
     if (replies && replies.length > 0) {
-   return replies[replies.length - 1].lastActivityDate;
+      return replies[replies.length - 1].lastActivityDate;
     } else {
       return "Aucune activité";
     }
   }
 
-
-
   formatDateTime(dateTime: string): string {
     if (!dateTime) {
-      return ""; // Gérer le cas où dateTime est vide ou non défini
+      return "";
     }
+
     const date = new Date(dateTime);
     date.setHours(date.getHours() + 2);
     const options: Intl.DateTimeFormatOptions = {
@@ -83,11 +106,8 @@ export class ForumComponent {
     };
     const formatter = new Intl.DateTimeFormat('fr-FR', options);
     if (isNaN(date.getTime())) {
-      return ""; // Gérer le cas où dateTime n'est pas une date valide
+      return "";
     }
     return formatter.format(date);
   }
-
-
-
 }

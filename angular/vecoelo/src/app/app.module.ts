@@ -14,6 +14,8 @@ import { PostComponent } from './pages/post-probleme/post/post.component';
 import { ProfilUserComponent } from './components/profil/profil-user/profil-user.component';
 import { ProfilReparateurComponent } from './components/profil/profil-reparateur/profil-reparateur.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './components/backoffice/admin/admin.component';
+import { AdminService } from './components/backoffice/admin.service';
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     PostComponent,
     ProfilUserComponent,
     ProfilReparateurComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AdminService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

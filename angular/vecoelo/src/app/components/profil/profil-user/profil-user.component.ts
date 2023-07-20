@@ -73,6 +73,7 @@ export class ProfilUserComponent implements OnInit {
       this.userService.deleteOneUserById(userId).subscribe(
         (response: any) => {
           console.log('Utilisateur supprimé');
+          localStorage.clear();
           this.router.navigate(['/home']);
         },
         (error: any) => {

@@ -9,6 +9,7 @@ import { InscriptionComponent } from './components/login/inscription/inscription
 import { PostComponent } from './pages/post-probleme/post/post.component';
 import { ProfilReparateurComponent } from './components/profil/profil-reparateur/profil-reparateur.component';
 import { ProfilUserComponent } from './components/profil/profil-user/profil-user.component';
+import { AdminComponent } from './components/backoffice/admin/admin.component';
 
 
 
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'profil_user', component: ProfilUserComponent },
-  { path: 'profil-reparateur', component: ProfilReparateurComponent }
+  { path: 'profil-reparateur', component: ProfilReparateurComponent },
+  { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({
