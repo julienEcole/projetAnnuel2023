@@ -7,6 +7,6 @@ router.get("/get/probleme/:idProbleme", controller.getOneProblemeById);
 router.get("/get/probleme",controller.getAllProbleme);
 router.post("/post/probleme",express.json(), controller.createProbleme);
 router.patch("/patch/probleme/:idProbleme", express.json(), controller.updateOneProblemeById);
-router.delete("/delete/probleme/:idProbleme", controller.DeleteOneProblemeById)
 router.delete("/delete/probleme/allProblemeFromUser/:utilisateur_id", controller.DeleteAllProblemeFromUser)
+router.delete("/delete/probleme/:idProbleme", controller.DeleteOneProblemeById)
 export = router;

@@ -97,6 +97,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const mail:string = req.body.mail;
     const mdp : string = req.body.password;
     const adresse : string = req.body.adresse;
+    const pseudo : string = req.body.pseudo;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
     const telephone:string = req.body.telephone;

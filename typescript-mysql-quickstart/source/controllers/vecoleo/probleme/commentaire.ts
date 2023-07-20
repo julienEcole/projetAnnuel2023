@@ -21,7 +21,7 @@ const NAMESPACE = 'commentaire';
 const createCommentaire = async (req: Request, res: Response, next: NextFunction) => {  //TODO
     logging.info(NAMESPACE, 'Inserting commentaire');
 
-    if(!req.body || !req.body.probleme_id || !req.body.utilisateur_id || !req.body.titre){
+    if(!req.body || !req.body.probleme_id || !req.body.utilisateur_id || !req.body.description){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
@@ -68,7 +68,7 @@ const getAllCommentaireFromProbleme = async (req: Request, res: Response, next: 
 };
 
 const updateOneCommentaireById = async (req: Request, res: Response, next: NextFunction) => {//TODO
-    if(!req.body || !req.body.probleme_id || !req.body.utilisateur_id || (!req.body.titre || !req.body.description)){
+    if(!req.body || !req.body.probleme_id || !req.body.utilisateur_id || (!req.body.titre && !req.body.description)){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le update, veuillez ajouter le json contenant les donnés dans le body ou le .");
         return;
@@ -78,12 +78,12 @@ const updateOneCommentaireById = async (req: Request, res: Response, next: NextF
     const titre: string = req.body.titre;
     const description:string = req.body.description;
     
-    let query = `UPDATE probleme SET `
+    let query = `UPDATE commentaire SET `
     if(titre){
-        query += `adresse = \"${titre}\",`
+        query += `adresse = \"${titre}\" ,`
     }
     if(description){
-        query += `description = "${description}" `
+        query += `description = "${description}"  `
     }
     query = query.substring(0, query.length - 1)
     query += `WHERE commentaire.probleme_id = ${probleme_id} AND commentaire.utilisateur_id = ${utilisateur_id}`
@@ -106,20 +106,20 @@ const DeleteOneCommentaireById = async (req: Request, res: Response, next: NextF
 };
 
 const DeleteOneCommentaireFromUser = async (req: Request, res: Response, next: NextFunction) => {//TODO
-    logging.info(NAMESPACE, 'DELETE one commentaire by id.');
-    if(!req.body || !req.body.probleme_id){
+    logging.info(NAMESPACE, 'DELETE all commentaire from userId.');
+    if(!req.params || !req.params.utilisateur_id){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const probleme_id : number = parseInt(req.body.probleme_id);
-    const query = `DELETE FROM commentaire WHERE commentaire.probleme_id = ${probleme_id}`;
+    const utilisateur_id : number = parseInt(req.params.utilisateur_id);
+    const query = `DELETE FROM commentaire WHERE commentaire.utilisateur_id = ${utilisateur_id}`;
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete commentaire : ');
 };
 
 const DeleteOneCommentaireFromProbleme = async (req: Request, res: Response, next: NextFunction) => {//TODO
-    logging.info(NAMESPACE, 'DELETE all commentaire by user.');
+    logging.info(NAMESPACE, 'DELETE all commentaire from probleme Id.');
     if(!req.params || !req.params.probleme_id){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
