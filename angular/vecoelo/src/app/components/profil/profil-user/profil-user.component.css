@@ -1,0 +1,68 @@
+main{
+    max-width: 110rem;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+figure{
+    display: flex;
+
+    position: relative;
+    align-items: flex-start;
+}
+figure img{
+    width: 15rem;
+    height: 15rem;
+    vertical-align: middle;
+    display: inline-block;
+    object-fit: cover;
+    
+}
+figure figcaption{
+    padding: 1rem;
+    margin: 0rem 2rem;
+    
+}
+section{
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: .75rem;
+    background-color: #fff;
+    box-shadow:  .5rem .5rem 1rem #0000001a,
+                -.5rem -.5rem 1rem #ffffff17;
+}
+figure{
+    margin: 2rem auto;
+    box-shadow: 0 0 .5rem rgba(0, 0, 0, 0.179);
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: .75rem;
+
+    box-shadow:  .5rem .5rem 1rem #0000003d,
+                -.5rem -.5rem 1rem #ffffff31;
+}
+button{
+    font-size: 2rem;
+    display: block;
+    font-weight: bold;
+    border-radius: .5rem;
+    background-color: #ffffff;
+    color: #1e3799;
+    cursor: pointer;
+    padding: 1rem 2rem;
+}
+button:hover{
+    background-color: #1e3799;
+    color: #ffffff;
+}
+
+input{
+    font-size: 2rem;
+    display: block;
+    font-weight: bold;
+    text-align: start;
+    margin: 1rem auto;
+    border-radius: .5rem;
+    background-color: #ffffff;
+    border: solid .1rem rgb(87, 87, 87);
+    padding: 1rem 2rem;
+}

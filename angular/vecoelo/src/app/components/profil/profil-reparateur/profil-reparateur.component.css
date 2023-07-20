@@ -1,0 +1,40 @@
+main{
+    max-width: 110rem;
+    padding: 2rem;
+    margin: 0 auto;
+}
+section{
+    padding: 3rem;
+    max-width: 90rem;
+    margin: 2rem auto;
+    background-color: #fff;
+    border-radius: .75rem;
+    box-shadow:  .5rem .5rem 1rem #0000003d,
+                -.5rem -.5rem 1rem #ffffff31;
+}
+section h2{
+    font-size: 4rem;
+    color: #000;
+    margin: 1rem auto;
+    font-weight: bold;
+}
+.rating {
+    display: inline-block;
+    font-size: 24px;
+    color: #ffd700; /* couleur des étoiles */
+  }
+  
+  .star {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background-image: url('../../../../assets/star_empty.png'); /* icône d'étoile vide */
+    background-size: cover;
+    display: inline-block;
+  }
+  
+  .star.full {
+    background-image: url('../../../../assets/star_full.png'); /* icône d'étoile remplie */
+  }
+  
+  

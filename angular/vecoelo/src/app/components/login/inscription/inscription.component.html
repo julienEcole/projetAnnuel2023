@@ -1,0 +1,27 @@
+<main>
+    <section>
+      <h2>Inscription</h2>
+      <hr>
+      <form (ngSubmit)="register()" *ngIf="!inscriptionReussie">
+        <fieldset>
+          <label for="pseudo">Pseudo</label>
+          <input type="text" name="pseudo" id="pseudo" placeholder="Pseudo" [(ngModel)]="pseudo" required>
+          <label for="nom">Nom</label>
+          <input type="text" name="nom" id="nom" placeholder="Nom" [(ngModel)]="nom" required>
+          <label for="prenom">Prénom</label>
+          <input type="text" name="prenom" id="prenom" placeholder="Prénom" [(ngModel)]="prenom" required>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required>
+          <label for="password">Mot de passe</label>
+          <input type="password" name="password" id="password" placeholder="Mot de passe" [(ngModel)]="password" required>
+          <input type="submit" value="Inscription">
+          <div *ngIf="champsIncomplets" class="error-message">Veuillez remplir tous les champs.</div>
+          <div *ngIf="mailDejaUtilise" class="error-message">L'adresse e-mail est déjà utilisée.</div>
+        </fieldset>
+      </form>
+      <div *ngIf="inscriptionReussie">
+        Inscription réussie !
+      </div>
+    </section>
+  </main>
+  
