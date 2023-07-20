@@ -76,16 +76,9 @@ export class ForumService {
     });
   }
   
-  deletePost(postId: string): void {
-    this.getProblems().subscribe(problems => {
-      console.log('Problems before deleting post:', problems);
-      const index = problems.findIndex(post => post.id === postId);
-      if (index !== -1) {
-        problems.splice(index, 1);
-        console.log('Problems after deleting post:', problems);
-        this.saveProblems(problems);
-      }
-    });
+  deleteProbleme(problemeId: string): Observable<any> {
+    const url = `${this.baseUrl}/probleme/delete/probleme/${problemeId}`;
+    return this.http.delete(url);
   }
   
   private saveProblems(problems: any[]): void {

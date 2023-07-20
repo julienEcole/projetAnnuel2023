@@ -10,7 +10,8 @@ export class ForumComponent implements OnInit {
   pseudo: string = '';
   mail: string = '';
   constructor(private forumService: ForumService) { }
-
+  searchText: string = '';
+  filteredPosts: any[] = [];
   posts: any[] = [];
 
   ngOnInit(): void {
@@ -51,12 +52,31 @@ export class ForumComponent implements OnInit {
     );
   }
   
+  filterPosts() {
+    if (this.searchText) {
+      this.filteredPosts = this.posts.filter(post =>
+        post.titre.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        post.description.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
+      this.filteredPosts = this.posts;
+    }
+  }
 
+  supprimerProbleme(problemeId: number) {
+    console.log("Suppression du problème avec l'ID :", problemeId);
 
-
-  deletePost(postId: string): void {
-    this.forumService.deletePost(postId);
-    this.loadPosts();
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce problème ?")) {
+      this.forumService.deleteProbleme(problemeId.toString()).subscribe(
+        (response: any) => {
+          console.log('Problème supprimé');
+          this.loadPosts();
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la suppression du problème :", error);
+        }
+      );
+    }
   }
 
   getLastActivityDate(post: any): string {

@@ -13,7 +13,9 @@
         <ng-template #connexionBtn>
           <button class="btn-connexion" routerLink="/connexion">Connexion</button>
         </ng-template>
-        <button class="btn-admin" *ngIf="adminService.estRoleAdmin()" routerLink="/admin">Page Admin</button>
+          <button class="btn-admin" *ngIf="adminService.estRoleAdmin()" routerLink="/admin">
+            <i class="material-icons">security</i>
+          </button>
       </div>
     </div>
   </nav>

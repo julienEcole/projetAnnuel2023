@@ -74,8 +74,11 @@
       <textarea [(ngModel)]="probleme.nouvelleDescription" *ngIf="probleme.editionEnCours"></textarea>
     </td>
     <td>{{ probleme.utilisateur_id }}</td>
-    <td>{{ probleme.utilisateur_pseudo }}</td>
     <td>
+      <ng-container *ngIf="probleme.utilisateur_pseudo; else profilSupprime">{{ probleme.utilisateur_pseudo }}</ng-container>
+      <ng-template #profilSupprime>Profil Supprimé</ng-template>
+    </td>
+        <td>
       <ng-container *ngIf="!probleme.editionEnCours">
         <button (click)="editerProbleme(probleme)">Modifier</button>
         <button (click)="supprimerProbleme(probleme.probleme_id)">Supprimer</button>
