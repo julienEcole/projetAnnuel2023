@@ -33,7 +33,7 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
     const utilisateur_id:number = parseInt(req.body.id);
     const description: string = req.body.resume;
     const adresse : string = req.body.adresse;
-    const titre : string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.resume; 
+    const titre : string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet; 
     let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
 };

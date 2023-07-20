@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit {
   constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit() {
-    console.log('Role utilisateur ID:', localStorage.getItem('role_utilisateur_id')); // Vérifier la valeur du rôle utilisateur ID
+    console.log('Role utilisateur ID:', localStorage.getItem('roleUtilisateurId')); // Vérifier la valeur du rôle utilisateur ID
     
     if (!this.adminService.estRoleAdmin()) {
       console.log('Redirection vers la page d\'accueil');
