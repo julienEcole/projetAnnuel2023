@@ -24,17 +24,27 @@ const getAllProbleme = async (req: Request, res: Response, next: NextFunction) =
 
 const createProbleme = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting probleme');
-    if(!req.body || !req.body.id || !req.body.adresse || !req.body.objet){
+
+    if(!req.body || !req.body.utilisateur_id || !req.body.adresse || !req.body.titre){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
     //const probleme_id : number = req.body.probleme_id;
-    const utilisateur_id:number = parseInt(req.body.id);
-    const description: string = req.body.resume;
+
+    const utilisateur_id:number = req.body.utilisateur_id;
+    let description : string
+    if(req.body.description){
+        description = req.body.description
+    }
+    else{
+        description = ""
+    }
     const adresse : string = req.body.adresse;
-    const titre : string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet; 
-    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
+    const titre : string = req.body.titre;
+
+    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id, date_de_publication) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
+    
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
 };
 
@@ -60,9 +70,9 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
         res.send(`erreur, les arguments doivent être le mail ou l'id de l'probleme & un body en json doit accompagner la requete`); //\n req.params.idProbleme = ${req.params.idProbleme}
         return;
     }
-    if(req.body.utilisateur_id){
+    if(req.body.utilisateur_id  ){
         res.status(403);
-        res.send(`erreur, le propriétaire de ce problème ne peux pas être modifié, enlevez ce champ du fichier envoyé`); //\n req.params.idProbleme = ${req.params.idProbleme}
+        res.send(`erreur, le propriétaire de ce problème ou la date de publication de ce probleme ne peuvent pas être modifié, enlevez ce champ du fichier envoyé`); //\n req.params.idProbleme = ${req.params.idProbleme}
         return;
     }
     
@@ -100,8 +110,19 @@ const DeleteOneProblemeById = async (req: Request, res: Response, next: NextFunc
     }
     const query = `DELETE FROM probleme WHERE probleme.probleme_id = ${req.params.idProbleme}`;
 
-    
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme : ');
 };
 
-export default {getAllProbleme, createProbleme, getOneProblemeById, updateOneProblemeById, DeleteOneProblemeById}; 
+const DeleteAllProblemeFromUser = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'DELETE one probleme by utilisateur id.');
+    if(!req.params.utilisateur_id){
+        res.status(400);
+        res.send("erreur, les arguments doivent être l'id de l'probleme");
+        return;
+    }
+    const query = `DELETE FROM probleme WHERE probleme.utilisateur_id = ${req.params.utilisateur_id}`;
+
+    await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme : ');
+};
+
+export default {getAllProbleme, createProbleme, getOneProblemeById, updateOneProblemeById, DeleteOneProblemeById, DeleteAllProblemeFromUser}; 

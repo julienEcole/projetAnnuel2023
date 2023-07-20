@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
 import { executeSQLCommand } from './shared/executeCommand';
+import { SecurityUtils } from './shared/SecurityUtils';
 
 const NAMESPACE = 'utilisateur';
 
@@ -14,20 +15,32 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    //const atelier_id : number = req.body.atelier_id;
-    const mdp : string = req.body.password;
-    const mail : string = req.body.email;
+    const mdp : string = req.body.mdp;
+    const mail : string = req.body.mail;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const pseudo:string = req.body.pseudo;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id || 0;
+    const telephone:string =req.body.telephone;
+    const role_utilisateur_id:number = req.body.role_utilisateur_id
 
-    // if(mdp.length < 8 || mail.length < 4){
-    //     res.status(400);
-    //     res.send("le mail ou mdp sont trop court pour être vraiment utile.");
-    //     return;
-    // }
-    let query = `INSERT INTO utilisateur (mdp, mail, prenom, nom, pseudo, role_utilisateur_id) VALUES ("${mdp}", "${mail}", "${prenom}", "${nom}","${pseudo}", ${role_utilisateur_id})`;
+    const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
+    const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
+    const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
+    if(telephone &&!isNumber.test(telephone)){
+        res.status(400);
+        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+        return;
+    }
+    if(!isMail.test(mail)){
+        res.status(400);
+        res.send("mail n'est pas correct , veuillez en choisir un correct.");
+        return;
+    }
+    if(!passwordRegex.test(mdp) ){
+        res.status(400);
+        res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
+        return;
+    }
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom, telephone) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}", "${telephone}")`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
@@ -69,16 +82,6 @@ const getOneUserByMail = async (req: Request<{ mailUser: string}>, res: Response
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user: ');
 };
 
-
-// CREATE TABLE IF NOT EXISTS utilisateur (
-//     utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-//     mdp TEXT NOT NULL,
-//     mail VARCHAR(255) NOT NULL UNIQUE,
-//     prenom TEXT,
-//     nom TEXT,
-//     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
-// );
-
 const updateOneUserById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'updating one user by id.');
     // const isInt : RegExp = new RegExp("[0-9]*")
@@ -90,19 +93,34 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     //ajouter verification que 1 argument soit la au minimum
     
     const utilisateur_id : number = parseInt(req.params.utilisateur_id);
+
     const mail:string = req.body.mail;
     const mdp : string = req.body.password;
     const adresse : string = req.body.adresse;
+    const pseudo : string = req.body.pseudo;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const pseudo:string = req.body.pseudo;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id;
-    // const isMail : RegExp = new RegExp(`(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))`)
-    // if(!isMail.test(mail) && mdp.length < 8 ){
-    //     res.status(400);
-    //     res.send("le nouveau mail n'est pas au bon format ou le mot de passe n'est pas assez long (8 caractère minimum)");
-    //     return;
-    // }
+    const telephone:string = req.body.telephone;
+    const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
+
+    const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
+    const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
+    const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
+    if(!isNumber.test(telephone)){
+        res.status(400);
+        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+        return;
+    }
+    if(!isMail.test(mail)){
+        res.status(400);
+        res.send("mail n'est pas correct , veuillez en choisir un correct.");
+        return;
+    }
+    if(!passwordRegex.test(mdp) ){
+        res.status(400);
+        res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
+        return;
+    }
     
     
     let query = `UPDATE utilisateur SET `
@@ -110,7 +128,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
         query += `mail = \"${mail}\" ,`
     }
     if(mdp){
-        query += `mdp = \"${mdp}\" ,`
+        query += `mdp = \"${SecurityUtils.toSHA512(mdp)}\" ,`
     }
     if(adresse){
         query += `adresse = ${adresse} ,`
@@ -123,6 +141,9 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     }
     if(nom){
         query += `nom = \"${nom}\" ,`
+    }
+    if(telephone){
+        query += `telephone = "${telephone}" ,`
     }
     if(role_utilisateur_id){
         query += `role_utilisateur_id = ${role_utilisateur_id} `

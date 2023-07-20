@@ -4,6 +4,7 @@ import controller from "../../../controllers/vecoleo/profetionnel/utilisateur_at
 const router = express.Router();
 
 // router.get("/get/atelier",controller.getAllAtelier);
+router.get("/get/utilisateur_atelier/reparateurDeVelo", controller.getAllBikeReparator) //récupère tous les propriétaire/collaborateur réparateur de velo
 router.get("/get/utilisateur_atelier/idAtelier/:atelier_id", controller.getAllUtilisateurFromAtelier);
 router.get("/get/utilisateur_atelier/idUtilisateur/:utilisateur_id", controller.getAllAtelierFromUtilisateur);
 router.post("/post/utilisateur_atelier",express.json(), controller.createUtilisateur_Atelier);
