@@ -56,6 +56,15 @@ const getAllUtilisateurFromAtelier = async (req: Request, res: Response, next: N
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user list : ');
 };
 
+const getAllBikeReparator = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Getting all bike reparator.');
+
+    const query = `SELECT DISTINCT(utilisateur.*) FROM utilisateur_atelier, utilisateur WHERE utilisateur_atelier.atelier_id = atelier.atelier_id`;
+    
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved atelier list : ');
+};
+
+
 const updateOneUtilisateur_AtelierById = async (req: Request, res: Response, next: NextFunction) => {
     res.status(403);
         res.send("erreur, Cette table n'est pas sensé être update");
@@ -77,7 +86,7 @@ const DeleteOneUtilisateur_AtelierById = async (req: Request, res: Response, nex
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete utilisateur_atelier : ');
 };
 
-export default {/*getAllUtilisateur_Atelier,*/ createUtilisateur_Atelier, getAllAtelierFromUtilisateur, getAllUtilisateurFromAtelier,  updateOneUtilisateur_AtelierById, DeleteOneUtilisateur_AtelierById};
+export default {/*getAllUtilisateur_Atelier,*/ createUtilisateur_Atelier, getAllAtelierFromUtilisateur, getAllBikeReparator, getAllUtilisateurFromAtelier,  updateOneUtilisateur_AtelierById, DeleteOneUtilisateur_AtelierById};
 
 
 // CREATE TABLE IF NOT EXISTS utilisateur_atelier (

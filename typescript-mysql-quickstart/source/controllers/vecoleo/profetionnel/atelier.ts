@@ -19,16 +19,27 @@ const createAtelier = async (req: Request, res: Response, next: NextFunction) =>
 
     if(!req.body || !req.body.etat_id || req.body.nomAtelier || !req.body.horaire_ouverture || !req.body.horaire_fermeture){
         res.status(400);
-        res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
+        res.send("le body ne contiens pas toutes les information pour mener a bien le create, veuillez ajouter le json contenant TOUTES les donnés necessaire dans le body.");
         return;
     }
     //const atelier_id : number = req.body.atelier_id;
     const nomAtelier : string = req.body.nomAtelier;
     const adresse : string = req.body.adresse;
+    const longitude : number = req.body.longitude;
+    const latitude : number = req.body.latitude;
+    const telephone : string = req.body.telephone;
     const horaire_ouverture:Date = req.body.horaire_ouverture;
     const horaire_fermeture:Date = req.body.horaire_fermeture;
 
-    let query = `INSERT INTO atelier (nomAtelier, adresse, horaire_ouverture, horaire_fermeture) VALUES ("${nomAtelier}", "${adresse}", ${horaire_ouverture}, ${horaire_fermeture})`;
+    const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
+    if(telephone && !isNumber.test(telephone)){
+        res.status(400);
+        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+        return;
+    }
+
+    let query = `INSERT INTO atelier (nomAtelier, adresse, horaire_ouverture, horaire_fermeture, longitude, latitude, telephone)
+     VALUES ("${nomAtelier}", "${adresse}", ${horaire_ouverture}, ${horaire_fermeture}, ${longitude}, ${latitude},  "${telephone}")`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'atelier created: ');
 };
@@ -60,12 +71,33 @@ const updateOneAtelierById = async (req: Request, res: Response, next: NextFunct
     const adresse : string = req.body.adresse;
     const horaire_ouverture:Date = req.body.horaire_ouverture;
     const horaire_fermeture:Date = req.body.horaire_fermeture;
+    const longitude : number = req.body.longitude;
+    const latitude : number = req.body.latitude;
+    const telephone : string = req.body.telephone;
+    
+
+    const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
+    if(telephone && !isNumber.test(telephone)){
+        res.status(400);
+        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+        return;
+    }
+
     let query = `UPDATE atelier SET `
     if(nomAtelier){
         query += `nomAtelier = \"${nomAtelier}\" ,`
     }
     if(adresse){
         query += `adresse = \"${adresse}\" ,`
+    }
+    if(telephone){
+        query += `adresse = \"${telephone}\" ,`
+    }
+    if(longitude){
+        query += `adresse = ${longitude} ,`
+    }
+    if(latitude){
+        query += `adresse = ${latitude} ,`
     }
     if(horaire_ouverture){
         query += `horaire_ouverture = ${horaire_ouverture} ,`

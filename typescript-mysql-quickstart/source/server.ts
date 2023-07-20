@@ -16,6 +16,7 @@ import serviceRoute from './routes/vecoleo/profetionnel/service';
 import problemeRoute from './routes/vecoleo/probleme/probleme';
 import probleme_serviceRoute from './routes/vecoleo/probleme/probleme_service';
 import probleme_imageRoute from './routes/vecoleo/probleme/probleme_service';
+import commentaireRoute from './routes/vecoleo/probleme/commentaire';
 
 import critiqueRoute from './routes/vecoleo/critique/critique';
 import critique_atelierRoute from './routes/vecoleo/critique/critique_atelier';
@@ -68,6 +69,7 @@ router.use("/utilisateur_atelier",utilisateur_atelierRoute)
 router.use("/probleme", problemeRoute)
 router.use("/probleme_service", probleme_serviceRoute)
 router.use("/probleme_image", probleme_imageRoute)
+router.use("/commentaire", commentaireRoute)
 
 router.use("/critique", critiqueRoute)
 router.use("/critique_atelier", critique_atelierRoute)
