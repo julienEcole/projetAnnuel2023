@@ -10,38 +10,38 @@ const NAMESPACE = 'utilisateur';
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting utilisateurs');
 
-    if(!req.body && (!req.body.mdp || !req.body.mail || !req.body.prenom || !req.body.nom || !req.body.role_utilisateur_id)){
+    if(!req.body && (!req.body.password || !req.body.email || !req.body.prenom || !req.body.nom || !req.body.role_utilisateur_id)){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
         return;
     }
-    const mdp : string = req.body.mdp;
-    const mail : string = req.body.mail;
+    const mdp : string = req.body.password;
+    const mail : string = req.body.email;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const telephone:string =req.body.telephone;
-    const role_utilisateur_id:number = req.body.role_utilisateur_id
+    const pseudo:string = req.body.pseudo;
+    const telephone:string =req.body.telephone || null;
+    const role_utilisateur_id:number = req.body.role_utilisateur_id || 1;
 
-    const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
+    // const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
     const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
     const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
-    if(telephone &&!isNumber.test(telephone)){
-        res.status(400);
-        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
-        return;
-    }
-    if(!isMail.test(mail)){
-        res.status(400);
-        res.send("mail n'est pas correct , veuillez en choisir un correct.");
-        return;
-    }
-    if(!passwordRegex.test(mdp) ){
-        res.status(400);
-        res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
-        return;
-    }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, prenom, nom, telephone) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${prenom}", "${nom}", "${telephone}")`;
-    
+    // if(telephone &&!isNumber.test(telephone)){
+    //     res.status(400);
+    //     res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+    //     return;
+    // }
+    // if(!isMail.test(mail)){
+    //     res.status(400);
+    //     res.send("mail n'est pas correct , veuillez en choisir un correct.");
+    //     return;
+    // }
+    // if(!passwordRegex.test(mdp) ){
+    //     res.status(400);
+    //     res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
+    //     return;
+    // }
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}")`;
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 
@@ -103,7 +103,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const telephone:string = req.body.telephone;
     const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
 
-    const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
+    const isNumber = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
     const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
     const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
     if(!isNumber.test(telephone)){

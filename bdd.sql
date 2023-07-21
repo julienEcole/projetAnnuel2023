@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS image (
 CREATE TABLE IF NOT EXISTS ticket_image (
     image_id INT NOT NULL REFERENCES image(image_id),
     ticket_id INT NOT NULL REFERENCES ticket(ticket_id),
-    PRIMARY KEY(ticket_id,image_id)
+    PRIMARY KEY(ticket_id, image_id)
 );
 
 CREATE TABLE IF NOT EXISTS assignation (
@@ -65,10 +65,8 @@ CREATE TABLE IF NOT EXISTS assignation (
     ticket_id INT NOT NULL REFERENCES ticket(ticket_id),
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(utilisateur_id,ticket_id)
+    PRIMARY KEY(utilisateur_id, ticket_id)
 );
-
-/*toutes la partie java au dessus*/
 
 CREATE TABLE IF NOT EXISTS commentaire (
     commentaire_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -77,7 +75,8 @@ CREATE TABLE IF NOT EXISTS commentaire (
     `description` TEXT,
     titre TEXT,
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
-    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(utilisateur_id, probleme_id)
 );
 
 CREATE TABLE IF NOT EXISTS probleme (
@@ -93,19 +92,19 @@ CREATE TABLE IF NOT EXISTS probleme (
 CREATE TABLE IF NOT EXISTS probleme_image (
     image_id INT NOT NULL REFERENCES image(image_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
-    PRIMARY KEY (image_id,probleme_id)
+    PRIMARY KEY(image_id, probleme_id)
 );
 
 CREATE TABLE IF NOT EXISTS probleme_service (
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     service_id INT NOT NULL REFERENCES service(service_id),
-    PRIMARY KEY(service_id,probleme_id)
+    PRIMARY KEY(service_id, probleme_id)
 );
 
 CREATE TABLE IF NOT EXISTS probleme_reparation_type (
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     reparation_type_id INT NOT NULL REFERENCES reparation_type(reparation_type_id),
-    PRIMARY KEY(reparation_type_id,probleme_id)
+    PRIMARY KEY(reparation_type_id, probleme_id)
 );
 
 /*partie probleme au dessus*/
@@ -126,7 +125,7 @@ CREATE TABLE IF NOT EXISTS atelier (
 CREATE TABLE IF NOT EXISTS utilisateur_atelier (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     atelier_id INT NOT NULL REFERENCES atelier(atelier_id),
-    PRIMARY KEY(utilisateur_id,atelier_id)
+    PRIMARY KEY(utilisateur_id, atelier_id)
 );
 
 CREATE TABLE IF NOT EXISTS service (
@@ -146,11 +145,11 @@ CREATE TABLE IF NOT EXISTS reparation_type (
 );
 
 CREATE TABLE IF NOT EXISTS notification (
-    service_id INT NOT NULL REFERENCES `service`(service_id),
+    service_id INT NOT NULL REFERENCES service(service_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     is_readed BOOLEAN NOT NULL,
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(service_id,probleme_id)
+    PRIMARY KEY(service_id, probleme_id)
 );
 
 CREATE TABLE IF NOT EXISTS critique (
@@ -164,11 +163,11 @@ CREATE TABLE IF NOT EXISTS critique (
 CREATE TABLE IF NOT EXISTS critique_utilisateur (
     critique_id INT NOT NULL REFERENCES critique(critique_id),
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
-    PRIMARY KEY(critique_id,utilisateur_id)
+    PRIMARY KEY(critique_id, utilisateur_id)
 );
 
 CREATE TABLE IF NOT EXISTS critique_atelier (
     critique_id INT NOT NULL REFERENCES critique(critique_id),
     atelier_id INT NOT NULL REFERENCES atelier(atelier_id),
-    PRIMARY KEY(critique_id,atelier_id)
+    PRIMARY KEY(critique_id, atelier_id)
 );
