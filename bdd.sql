@@ -1,3 +1,5 @@
+use vecoleo;
+
 CREATE TABLE IF NOT EXISTS role_utilisateur (
     role_utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
@@ -69,13 +71,13 @@ CREATE TABLE IF NOT EXISTS assignation (
 /*toutes la partie java au dessus*/
 
 CREATE TABLE IF NOT EXISTS commentaire (
+    commentaire_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     `description` TEXT,
     titre TEXT,
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
-    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (utilisateur_id,probleme_id)
+    date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS probleme (
