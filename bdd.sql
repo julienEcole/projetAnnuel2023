@@ -1,3 +1,5 @@
+use vecoleo;
+
 CREATE TABLE IF NOT EXISTS role_utilisateur (
     role_utilisateur_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titre VARCHAR(255) NOT NULL UNIQUE,
@@ -67,6 +69,7 @@ CREATE TABLE IF NOT EXISTS assignation (
 );
 
 CREATE TABLE IF NOT EXISTS commentaire (
+    commentaire_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     `description` TEXT,
