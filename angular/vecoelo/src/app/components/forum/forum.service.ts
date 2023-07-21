@@ -41,11 +41,11 @@ export class ForumService {
     problem.id = localStorage.getItem('id');
     problem.pseudo = localStorage.getItem('pseudo');
     this.getProblems().subscribe(problems => {
-      problems.push(problem);
+      // problems.push(problem);
       this.saveProblems(problems);
     });
   }
-  
+
   addReplyToPost(postId: string, reply: any): void {
     this.getProblems().subscribe(problems => {
       console.log('Problems before adding reply:', problems);
@@ -60,7 +60,7 @@ export class ForumService {
       }
     });
   }
-  
+
   deleteReplyFromPost(postId: string, reply: any): void {
     this.getProblems().subscribe(problems => {
       console.log('Problems before deleting reply:', problems);
@@ -75,17 +75,17 @@ export class ForumService {
       }
     });
   }
-  
+
   deleteProbleme(problemeId: string): Observable<any> {
     const url = `${this.baseUrl}/probleme/delete/probleme/${problemeId}`;
     return this.http.delete(url);
   }
-  
+
   private saveProblems(problems: any[]): void {
     console.log('Saving problems:', problems);
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(problems));
   }
-  
+
   private generateUniqueId(): string {
     return '_' + Math.random().toString(36).substr(2, 9);
   }

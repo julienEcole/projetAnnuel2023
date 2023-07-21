@@ -142,11 +142,12 @@ export class AdminComponent implements OnInit {
       probleme_id: probleme.probleme_id,
       titre: probleme.nouveauTitre,
       adresse: probleme.nouvelleAdresse,
-      description: probleme.nouvelleDescription
+      description: probleme.nouvelleDescription,
+      // utilisateur_id = probleme.utilisateur_id
     };
     console.log('Requête de modification (édit) :', updatedProbleme); // Affichage de la requête de modification dans la console
 
-    this.adminService.updateProbleme(probleme.probleme_id.toString(), updatedProbleme).subscribe(
+    this.adminService.updateProbleme(probleme.probleme_id, updatedProbleme).subscribe(
       (response: any) => {
         console.log('Mise à jour du problème réussie');
         probleme.editionEnCours = false; // Sortir du mode édition
@@ -180,5 +181,27 @@ export class AdminComponent implements OnInit {
         }
       );
     }
+  }
+  formatDateTime(dateTime: string): string {
+    if (!dateTime) {
+      return "";
+    }
+
+    const date = new Date(dateTime);
+    date.setHours(date.getHours() + 2);
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric' as const,
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'UTC'
+    };
+    const formatter = new Intl.DateTimeFormat('fr-FR', options);
+    if (isNaN(date.getTime())) {
+      return "";
+    }
+    return formatter.format(date);
   }
 }
