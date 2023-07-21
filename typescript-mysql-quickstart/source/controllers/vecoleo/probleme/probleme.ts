@@ -42,7 +42,7 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
     const adresse : string = req.body.adresse;
     const titre : string = req.body.titre;
 
-    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id, date_de_publication) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
+    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
 };
