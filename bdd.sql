@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS ticket (
 
 CREATE TABLE IF NOT EXISTS image (
     image_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    fichier_image BLOB NOT NULL,
+    url_image TEXT NOT NULL,
     `description` TEXT,
     nom VARCHAR(255) NOT NULL UNIQUE
 );
