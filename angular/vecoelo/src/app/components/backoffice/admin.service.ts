@@ -42,5 +42,18 @@ export class AdminService {
   getUtilisateurById(id: string): Observable<any> {
     const url = `${this.baseUrl}/utilisateur/get/utilisateur/id/${id}`;
     return this.http.get(url);
+  }
+  getCommentsByPostId(postId: string): Observable<any[]> {
+    const url = `${this.baseUrl}/commentaire/get/commentaire/idProbleme/${postId}`;
+    return this.http.get<any[]>(url);
+  }
+  addCommentToPost(postId: string, comment: any): Observable<any> {
+    const url = `${this.baseUrl}/commentaire/post/commentaire`;
+    return this.http.post<any>(url, comment);
+  }
+  deleteCommentFromPost(commentaire_id: string): Observable<any> {
+    const url = `${this.baseUrl}/commentaire/delete/commentaire/${commentaire_id}`;
+    console.log('URL:', url);
+    return this.http.delete<any>(url);
   }  
 }

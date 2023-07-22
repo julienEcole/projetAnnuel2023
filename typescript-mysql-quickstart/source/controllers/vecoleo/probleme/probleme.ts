@@ -24,7 +24,6 @@ const getAllProbleme = async (req: Request, res: Response, next: NextFunction) =
 
 const createProbleme = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting probleme');
-
     if (!req.body || !req.body.utilisateur_id || !req.body.adresse || !req.body.objet) {
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
@@ -41,9 +40,9 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
         description = ""
     }
     const adresse: number = parseInt(req.body.adresse);
-    const objet: string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet;
+    const titre: string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet;
 
-    let query = `INSERT INTO probleme (objet, adresse, description, utilisateur_id) VALUES ("${objet}", ${adresse}, "${description}", ${utilisateur_id})`;
+    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", ${adresse}, "${description}", ${utilisateur_id})`;
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
 };

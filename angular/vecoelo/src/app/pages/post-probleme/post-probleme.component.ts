@@ -31,10 +31,11 @@ export class PostProblemeComponent {
   }
 
   submitProblem() {
-    this.forumService.addProblem(this.problem);
-    console.log(this.problem);
+    // this.forumService.addProblem(this.problem);
+    // console.log(this.problem);
     let id = localStorage.getItem('id');
     this.problem.utilisateur_id = id;
+    console.log(this.problem);
     return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
       .subscribe(
         response => {

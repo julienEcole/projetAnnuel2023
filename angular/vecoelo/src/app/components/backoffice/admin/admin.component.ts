@@ -13,6 +13,8 @@ import { map } from 'rxjs/operators';
 export class AdminComponent implements OnInit {
   utilisateurs: any[] = [];
   problemes: any[] = [];
+  comments: any[] = [];
+  selectedProblemId: string | null = null;
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -203,5 +205,18 @@ export class AdminComponent implements OnInit {
       return "";
     }
     return formatter.format(date);
+  }
+  showComments(problemId: string) {
+    this.selectedProblemId = problemId;
+    this.adminService.getCommentsByPostId(problemId).subscribe(
+      (comments: any[]) => {
+        this.comments = comments;
+        // Ouvrir le modal ici
+        // Vous pouvez utiliser une bibliothèque externe pour créer le modal ou créer un modal personnalisé en utilisant CSS et Angular Material Dialog
+      },
+      (error: any) => {
+        console.log('Erreur lors de la récupération des commentaires du problème :', error);
+      }
+    );
   }
 }

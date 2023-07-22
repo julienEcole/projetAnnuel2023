@@ -43,8 +43,9 @@ export class ForumService {
     const url = `${this.baseUrl}/commentaire/post/commentaire`;
     return this.http.post<any>(url, comment);
   }
-  deleteCommentFromPost(commentId: string): Observable<any> {
-    const url = `${this.baseUrl}/commentaire/delete/commentaire/${commentId}`;
+  deleteCommentFromPost(commentaire_id: string): Observable<any> {
+    const url = `${this.baseUrl}/commentaire/delete/commentaire/${commentaire_id}`;
+    console.log('URL:', url);
     return this.http.delete<any>(url);
   }
   addProblem(problem: any): void {
@@ -54,6 +55,7 @@ export class ForumService {
       // problems.push(problem);
       this.saveProblems(problems);
     });
+    
   }
 
   deleteProbleme(problemeId: string): Observable<any> {

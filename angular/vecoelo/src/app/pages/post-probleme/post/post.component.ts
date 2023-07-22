@@ -68,8 +68,9 @@ export class PostComponent implements OnInit {
     this.replyMessage = '';
   }
 
-  deleteComment(commentId: string) {
-    this.forumService.deleteCommentFromPost(commentId).subscribe(() => {
+  deleteComment(commentaire_id: string) {
+    console.log('Commentaire à supprimer:', commentaire_id);
+    this.forumService.deleteCommentFromPost(commentaire_id).subscribe(() => {
       this.loadComments();
     });
   }
