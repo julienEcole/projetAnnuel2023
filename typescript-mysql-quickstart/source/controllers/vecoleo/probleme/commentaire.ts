@@ -12,7 +12,7 @@ const NAMESPACE = 'commentaire';
 //     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
 //     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
 //     `description` TEXT,
-//     titre TEXT,
+//     resume TEXT,
 //     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
 //     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 //     PRIMARY KEY (utilisateur_id,probleme_id)
@@ -20,7 +20,7 @@ const NAMESPACE = 'commentaire';
 
 const createCommentaire = async (req: Request, res: Response, next: NextFunction) => {  //TODO
     logging.info(NAMESPACE, 'Inserting commentaire');
-    console.log("mon body = ", req.body)
+    console.log("mon body = ", req.body)    //DEBUG
     if(!req.body || !req.body.probleme_id || !req.body.utilisateur_id || !req.body.description){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
@@ -28,17 +28,17 @@ const createCommentaire = async (req: Request, res: Response, next: NextFunction
     }
     const probleme_id : number = parseInt(req.body.probleme_id);
     const utilisateur_id : number = parseInt(req.body.utilisateur_id);
-    let titre: string
-    if (req.body.titre) {
-       titre = req.body.resume
+    let resume: string
+    if (req.body.resume) {
+       resume = req.body.resume
     }
     else {
-        titre = ""
+        resume = ""
     }
     
     const description:string = req.body.description;
 
-    let query = `INSERT INTO commentaire (probleme_id, utilisateur_id, titre, description) VALUES (${probleme_id}, ${utilisateur_id}, "${titre}", "${description}")`;
+    let query = `INSERT INTO commentaire (probleme_id, utilisateur_id, resume, description) VALUES (${probleme_id}, ${utilisateur_id}, "${resume}", "${description}")`;
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'commentaire created: ');
 };
@@ -75,18 +75,18 @@ const getAllCommentaireFromProbleme = async (req: Request, res: Response, next: 
 };
 
 const updateOneCommentaireById = async (req: Request, res: Response, next: NextFunction) => {//TODO
-    if(!req.params || !req.body.commentaire_id || (!req.body.titre && !req.body.description)){
+    if(!req.params || !req.body.commentaire_id || (!req.body.resume && !req.body.description)){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le update, veuillez ajouter le json contenant les donnés dans le body ou le .");
         return;
     }
     const commentaire_id : number = parseInt(req.body.commentaire_id);
-    const titre: string = req.body.titre;
+    const resume: string = req.body.resume;
     const description:string = req.body.description;
     
     let query = `UPDATE commentaire SET `
-    if(titre){
-        query += `adresse = \"${titre}\" ,`
+    if(resume){
+        query += `adresse = \"${resume}\" ,`
     }
     if(description){
         query += `description = "${description}"  `

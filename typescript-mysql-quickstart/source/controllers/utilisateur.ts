@@ -106,21 +106,21 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const isNumber = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
     const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
     const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
-    // if(!isNumber.test(telephone)){
-    //     res.status(400);
-    //     res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
-    //     return;
-    // }
-    // if(!isMail.test(mail)){
-    //     res.status(400);
-    //     res.send("mail n'est pas correct , veuillez en choisir un correct.");
-    //     return;
-    // }
-    // if(!passwordRegex.test(mdp) ){
-    //     res.status(400);
-    //     res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
-    //     return;
-    // }
+    if(telephone && !isNumber.test(telephone)){
+        res.status(400);
+        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+        return;
+    }
+    if(!isMail.test(mail)){
+        res.status(400);
+        res.send("mail n'est pas correct , veuillez en choisir un correct.");
+        return;
+    }
+    if(!passwordRegex.test(mdp)){
+        res.status(400);
+        res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
+        return;
+    }
     
     
     let query = `UPDATE utilisateur SET `

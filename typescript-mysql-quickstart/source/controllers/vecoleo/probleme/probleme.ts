@@ -7,7 +7,7 @@ import { executeSQLCommand } from '../../shared/executeCommand';
 // CREATE TABLE IF NOT EXISTS probleme (
 //     probleme_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 //     adresse TEXT NOT NULL,
-//     titre TEXT NOT NULL,
+//     object TEXT NOT NULL,
 //     `description` TEXT NOT NULL,
 //     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id)
 // );
@@ -40,10 +40,10 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
     else {
         description = ""
     }
-    const adresse: number = req.body.adresse;
-    const titre: string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet;
+    const adresse: number = parseInt(req.body.adresse);
+    const objet: string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet;
 
-    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", "${adresse}", "${description}", ${utilisateur_id})`;
+    let query = `INSERT INTO probleme (objet, adresse, description, utilisateur_id) VALUES ("${objet}", ${adresse}, "${description}", ${utilisateur_id})`;
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
 };
@@ -79,23 +79,23 @@ const updateOneProblemeById = async (req: Request, res: Response, next: NextFunc
     const probleme_id: number = parseInt(req.params.idProbleme);
     // const utilisateur_id: number = req.body.utilisateur_id;
     const description: string = req.body.description;
-    const adresse: string = req.body.adresse;
-    const titre: string = req.body.titre;
+    const adresse: number = parseInt(req.body.adresse);
+    const object: string = req.body.object;
     let query = `UPDATE probleme SET `
     if (adresse) {
-        query += `adresse = \"${adresse}\" ,`
+        query += `adresse = ${adresse} ,`
     }
     if (description) {
         query += `description = "${description}" ,`
     }
-    if (titre) {
-        query += `titre = "${titre}" `
+    if (object) {
+        query += `object = "${object}"  ` //toujours laisser 2 espaces pour le derniers tests, sinon ça fera une erreur de syntaxe SQL
     }
     query = query.substring(0, query.length - 1)
 
     query += `WHERE probleme.probleme_id = ${probleme_id}`
     
-    logging.info(NAMESPACE,"ma query = ", query); //DEBUG
+    //logging.info(NAMESPACE,"ma query = ", query); //DEBUG
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, "updating problemes: ");
 };
@@ -104,7 +104,7 @@ const DeleteOneProblemeById = async (req: Request, res: Response, next: NextFunc
     logging.info(NAMESPACE, 'DELETE one probleme by id.');
     if (!req.params.idProbleme) {
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id de l'probleme");
+        res.send("erreur, l'argument dans la route doit être l'id du probleme");
         return;
     }
     const query = `DELETE FROM probleme WHERE probleme.probleme_id = ${req.params.idProbleme}`;
@@ -116,7 +116,7 @@ const DeleteAllProblemeFromUser = async (req: Request, res: Response, next: Next
     logging.info(NAMESPACE, 'DELETE one probleme by utilisateur id.');
     if (!req.params.utilisateur_id) {
         res.status(400);
-        res.send("erreur, les arguments doivent être l'id de l'probleme");
+        res.send("erreur, l'argument dans la route doit être l'id de l'utilisateur pour cette route");
         return;
     }
     const query = `DELETE FROM probleme WHERE probleme.utilisateur_id = ${req.params.utilisateur_id}`;

@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS commentaire (
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id),
     probleme_id INT NOT NULL REFERENCES probleme(probleme_id),
     `description` TEXT,
-    titre TEXT,
+    resume TEXT,
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(utilisateur_id, probleme_id)
@@ -81,8 +81,8 @@ CREATE TABLE IF NOT EXISTS commentaire (
 
 CREATE TABLE IF NOT EXISTS probleme (
     probleme_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    adresse TEXT NOT NULL,
-    titre TEXT NOT NULL,
+    adresse INT NOT NULL,   --code postale du probleme
+    `object` TEXT NOT NULL,
     `description` TEXT,
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
