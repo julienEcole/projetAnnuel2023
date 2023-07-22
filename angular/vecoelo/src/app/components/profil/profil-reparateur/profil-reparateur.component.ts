@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import repairShopsData from '../../../pages/reparateur-proche/reparateur.json';
+import { AtelierService } from 'src/app/pages/reparateur-proche/atelier.service';
 
 @Component({
   selector: 'app-profil-reparateur',
@@ -8,27 +8,70 @@ import repairShopsData from '../../../pages/reparateur-proche/reparateur.json';
   styleUrls: ['./profil-reparateur.component.css']
 })
 export class ProfilReparateurComponent implements OnInit {
-  repairShop: any;
+  atelier: any;
   ratedStars: number = 0;
   stars: any[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private atelierService: AtelierService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const repairShopID = params['id'];
       // Récupérer les détails du réparateur à partir de l'ID et assigner à repairShop
-      this.repairShop = this.getRepairShopDetails(repairShopID);
+      this.getRepairShopDetails(repairShopID);
     });
 
     this.initializeStars();
   }
 
-  getRepairShopDetails(repairShopID: string): any {
-    const foundRepairShop = repairShopsData.find((repairShop: any) => repairShop.id === repairShopID);
-    return foundRepairShop;
+  getRepairShopDetails(repairShopID: string): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          this.atelierService.getRepairShopDetails(repairShopID).subscribe(
+            (atelier) => {
+              this.atelier = atelier.results[0];
+              this.atelier.latitude = parseFloat(atelier.results[0].latitude);
+              this.atelier.longitude = parseFloat(atelier.results[0].longitude);
+  
+              const distance = this.calculateDistance(latitude, longitude, this.atelier.latitude, this.atelier.longitude);
+              this.atelier.distance = distance;
+  
+              console.log(atelier.distance);
+              console.log('Chargement des détails du réparateur réussi:', this.atelier);
+            }
+          );
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération de la position :', error);
+        }
+      );
+    }
   }
 
+  calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+    const R = 6371;
+    const lat1Rad = this.deg2rad(lat1);
+    const lon1Rad = this.deg2rad(lon1);
+    const lat2Rad = this.deg2rad(lat2);
+    const lon2Rad = this.deg2rad(lon2);
+    const dLat = lat2Rad - lat1Rad;
+    const dLon = lon2Rad - lon1Rad;
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+
+    return distance;
+  };
+  deg2rad(deg: number): number {
+    return deg * (Math.PI / 180);
+  };
   initializeStars(): void {
     for (let i = 0; i < 5; i++) {
       this.stars.push({
@@ -37,27 +80,13 @@ export class ProfilReparateurComponent implements OnInit {
     }
   }
 
-  rateRepairShop(selectedStar: any): void {
-    const selectedIndex = this.stars.indexOf(selectedStar);
-  
-    if (selectedIndex === this.ratedStars - 1) {
-      // L'utilisateur a cliqué sur la même étoile, on réinitialise l'évaluation
-      this.ratedStars = 0;
-      this.stars.forEach(star => star.filled = false);
-    } else {
-      // L'utilisateur a cliqué sur une étoile différente, on met à jour l'évaluation
-      this.ratedStars = selectedIndex + 1;
-  
-      this.stars.forEach((star, index) => {
-        if (index <= selectedIndex) {
-          star.filled = true;
-        } else {
-          star.filled = false;
-        }
-      });
-    }
+  fillStars(): void {
+    this.stars.forEach((star, index) => {
+      star.filled = index < this.ratedStars;
+    });
   }
+
   getStarRating(): string {
     return `${this.ratedStars}/5`;
-  }  
+  }
 }

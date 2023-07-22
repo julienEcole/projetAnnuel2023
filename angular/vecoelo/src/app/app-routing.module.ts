@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'profil_user', component: ProfilUserComponent },
-  { path: 'profil-reparateur', component: ProfilReparateurComponent },
+  { path: 'profil-reparateur/:id', component: ProfilReparateurComponent },
   { path: 'admin', component: AdminComponent },
   { path: '**', component: NotFoundComponent }
 ];
