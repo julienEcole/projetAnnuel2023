@@ -9,6 +9,8 @@ import ticketRoute from './routes/ticket'
 
 import notificationRoute from './routes/vecoleo/notification';
 
+import imageRoute from './routes/vecoleo/image/image';
+
 import atelierRoute from "./routes/vecoleo/profetionnel/atelier"
 import utilisateur_atelierRoute from './routes/vecoleo/profetionnel/utilisateur_atelier';
 import serviceRoute from './routes/vecoleo/profetionnel/service';
@@ -61,6 +63,8 @@ router.use("/utilisateur", userRoutes);
 router.use("/ticket", ticketRoute)
 
 router.use("/notification", notificationRoute)
+
+router.use("/image", imageRoute)
 
 router.use("/atelier", atelierRoute)
 router.use("/service", serviceRoute)
