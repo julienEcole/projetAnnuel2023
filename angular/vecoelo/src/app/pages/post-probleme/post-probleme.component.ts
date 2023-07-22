@@ -24,8 +24,8 @@ export class PostProblemeComponent {
     private forumService: ForumService,
     private router: Router,
     private http: HttpClient
-  ) {}
-  
+  ) { }
+
   UserID() {
     return localStorage.getItem('id');
   }
@@ -33,6 +33,8 @@ export class PostProblemeComponent {
   submitProblem() {
     this.forumService.addProblem(this.problem);
     console.log(this.problem);
+    let id = localStorage.getItem('id');
+    this.problem.utilisateur_id = id;
     return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
       .subscribe(
         response => {
@@ -44,7 +46,7 @@ export class PostProblemeComponent {
           console.error("Erreur lors de la requête :", error);
         }
       );
-    
+
   }
 
   onFileChange(event: any) {

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SHA256, SHA512 } from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class UserService {
   private id: string = '';
   private nom: string = '';
   private prenom: string = '';
+  private roleUtilisateurId: number = 0;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -45,28 +47,30 @@ export class UserService {
         this.pseudo = utilisateur.pseudo;
         this.email = utilisateur.mail;
         this.id = utilisateur.utilisateur_id;
+        this.roleUtilisateurId = utilisateur.role_utilisateur_id;
         console.log(this.pseudo, this.email, this.id)
-        if (utilisateur && utilisateur.mdp === password) {
+  
+        const motDePasseHache = SHA512(password).toString(); 
+
+        if (utilisateur && utilisateur.mdp === motDePasseHache) {
           this.estConnecte = true;
           localStorage.setItem('estConnecte', "true");
           localStorage.setItem('pseudo', this.pseudo);
           localStorage.setItem('id', this.id);
           localStorage.setItem('email', this.email);
+          localStorage.setItem('roleUtilisateurId', this.roleUtilisateurId.toString()); 
           console.log('Connexion réussie');
           return true;
         } else {
           console.log('Échec de la connexion : email ou mot de passe incorrect');
           return false;
         }
-
       }),
       catchError(() => {
         console.log('Échec de la connexion : email ou mot de passe incorrect');
         return of(false);
       })
-
     );
-
   }
   estUtilisateurConnecte(): boolean {
     this.estConnecte = localStorage.getItem('estConnecte') === 'true';
@@ -98,7 +102,7 @@ export class UserService {
 
   updateOneUserByMail(email: string, user: any): Observable<any> {
     const url = `${this.baseUrl}/utilisateur/patch/utilisateur/mail/${email}`;
-    return this.http.put(url, user);
+    return this.http.patch(url, user);
   }
 
   getNomUtilisateurConnecte(): string {
@@ -116,7 +120,7 @@ export class UserService {
     localStorage.setItem('pseudo', updatedData.pseudo);
     localStorage.setItem('email', updatedData.mail);
     this.router.navigate(['/home']);
-    return this.http.put(url, updatedData);
+    return this.http.patch(url, updatedData);
   }
 
   deleteOneUserById(id: string): Observable<any> {
@@ -127,13 +131,21 @@ export class UserService {
     this.router.navigate(['/home']);
     return this.http.delete(url);
   }
-
-
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/utilisateur/get/utilisateur`).pipe(
+      catchError((error) => {
+        console.log('Erreur lors de la récupération des utilisateurs :', error);
+        return of(null);
+      })
+    );
+  }
   deconnexion(): void {
     localStorage.removeItem('estConnecte');
     localStorage.removeItem('pseudo');
+    localStorage.removeItem('id');
+    localStorage.removeItem('email');
+    localStorage.removeItem('roleUtilisateurId');
     this.estConnecte = false;
     this.router.navigate(['/home']);
   }
-
 }

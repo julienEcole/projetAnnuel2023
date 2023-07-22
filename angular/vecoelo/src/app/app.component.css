@@ -29,7 +29,17 @@ button:first-child{
   font-weight: bold;
 
 }
-
+.btn-admin{
+  background-color: #1e3799;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: .4rem;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+}
 .connexion i{
   display: inline-block;
   vertical-align: middle;

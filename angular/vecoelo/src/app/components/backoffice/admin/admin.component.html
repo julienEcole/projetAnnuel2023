@@ -1,0 +1,110 @@
+<main>
+  <h2>Liste des utilisateurs</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Pseudo</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Mot de passe</th>
+      <th>Role Utilisateur</th>
+      <th>Date de création</th>
+      <th>Date de mise à jour</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let utilisateur of utilisateurs">
+      <td>{{ utilisateur.utilisateur_id }}</td>
+      <td>
+        <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.pseudo }}</ng-container>
+        <input type="text" [(ngModel)]="utilisateur.nouveauPseudo" *ngIf="utilisateur.editionEnCours">
+      </td>
+      <td>
+        <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.prenom }}</ng-container>
+        <input type="text" [(ngModel)]="utilisateur.nouveauPrenom" *ngIf="utilisateur.editionEnCours">
+      </td>
+      <td>
+        <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.nom }}</ng-container>
+        <input type="text" [(ngModel)]="utilisateur.nouveauNom" *ngIf="utilisateur.editionEnCours">
+      </td>
+      <td>
+        <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mail }}</ng-container>
+        <input type="text" [(ngModel)]="utilisateur.nouvelEmail" *ngIf="utilisateur.editionEnCours">
+      </td>
+      <td>
+        <ng-container *ngIf="!utilisateur.editionEnCours">{{ utilisateur.mdp ? '********' : '' }}</ng-container>
+        <input type="password" [(ngModel)]="utilisateur.nouveauMotDePasse" *ngIf="utilisateur.editionEnCours">
+      </td>
+      <td>{{ utilisateur.role_utilisateur_id }}</td>
+      <td>
+        {{ formatDateTime(utilisateur.date_de_publication) }}
+      </td>
+      <td>
+        {{ formatDateTime(utilisateur.date_mise_a_jour) }}
+      <td>
+
+        <ng-container *ngIf="!utilisateur.editionEnCours">
+          <button (click)="editerUtilisateur(utilisateur)">Modifier</button>
+        </ng-container>
+        <button (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">Supprimer</button>
+        <ng-container *ngIf="utilisateur.editionEnCours">
+          <button (click)="enregistrerEdition(utilisateur)">Enregistrer</button>
+          <button (click)="annulerEdition(utilisateur)">Annuler</button>
+        </ng-container>
+      </td>
+
+    </tr>
+  </table>
+  <!-- ... -->
+  <h2>Liste des problèmes</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Titre</th>
+      <th>Adresse</th>
+      <th>Description</th>
+      <th>ID Utilisateur</th>
+      <th>Pseudo Auteur</th>
+      <th>Date de publication</th>
+      <th>Date de mise à jour</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let probleme of problemes">
+      <td>{{ probleme.probleme_id }}</td>
+      <td>
+        <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.titre }}</ng-container>
+        <input type="text" [(ngModel)]="probleme.nouveauTitre" *ngIf="probleme.editionEnCours">
+      </td>
+      <td>
+        <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.adresse }}</ng-container>
+        <input type="text" [(ngModel)]="probleme.nouvelleAdresse" *ngIf="probleme.editionEnCours">
+      </td>
+      <td>
+        <ng-container *ngIf="!probleme.editionEnCours">{{ probleme.description }}</ng-container>
+        <textarea [(ngModel)]="probleme.nouvelleDescription" *ngIf="probleme.editionEnCours"></textarea>
+      </td>
+      <td>{{ probleme.utilisateur_id }}</td>
+      <td>
+        <ng-container *ngIf="probleme.utilisateur_pseudo; else profilSupprime">{{ probleme.utilisateur_pseudo
+          }}</ng-container>
+        <ng-template #profilSupprime>Profil Supprimé</ng-template>
+      </td>
+      <td>
+        {{ formatDateTime(probleme.date_de_publication) }}
+      </td>
+      <td>
+        {{ formatDateTime(probleme.date_mise_a_jour) }}
+      </td>
+      <td>
+        <ng-container *ngIf="!probleme.editionEnCours">
+          <button (click)="editerProbleme(probleme)">Modifier</button>
+          <button (click)="supprimerProbleme(probleme.probleme_id)">Supprimer</button>
+        </ng-container>
+        <ng-container *ngIf="probleme.editionEnCours">
+          <button (click)="enregistrerEditionProbleme(probleme)">Enregistrer</button>
+          <button (click)="annulerEditionProbleme(probleme)">Annuler</button>
+        </ng-container>
+      </td>
+    </tr>
+  </table>
+</main>
