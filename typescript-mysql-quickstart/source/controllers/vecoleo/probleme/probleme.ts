@@ -17,7 +17,7 @@ const NAMESPACE = 'probleme';
 const getAllProbleme = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all probleme.');
 
-    let query = 'SELECT * FROM probleme';
+    let query = 'SELECT * FROM probleme ORDER BY date_mise_a_jour DESC';
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved probleme: ');
 };

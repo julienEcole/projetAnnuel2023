@@ -20,7 +20,7 @@ const NAMESPACE = 'commentaire';
 
 const createCommentaire = async (req: Request, res: Response, next: NextFunction) => {  //TODO
     logging.info(NAMESPACE, 'Inserting commentaire');
-
+    console.log("mon body = ", req.body)
     if(!req.body || !req.body.probleme_id || !req.body.utilisateur_id || !req.body.description){
         res.status(400);
         res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
@@ -28,7 +28,14 @@ const createCommentaire = async (req: Request, res: Response, next: NextFunction
     }
     const probleme_id : number = parseInt(req.body.probleme_id);
     const utilisateur_id : number = parseInt(req.body.utilisateur_id);
-    const titre: string = req.body.titre;
+    let titre: string
+    if (req.body.titre) {
+       titre = req.body.resume
+    }
+    else {
+        titre = ""
+    }
+    
     const description:string = req.body.description;
 
     let query = `INSERT INTO commentaire (probleme_id, utilisateur_id, titre, description) VALUES (${probleme_id}, ${utilisateur_id}, "${titre}", "${description}")`;

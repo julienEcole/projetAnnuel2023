@@ -23,6 +23,10 @@ export class ForumService {
     const url = `${this.baseUrl}/probleme/get/probleme`;
     return this.http.get<any[]>(url);
   }
+  getOneProblemeById(id: string): Observable<any> {
+    const url = `${this.baseUrl}/probleme/get/probleme/${id}`;
+    return this.http.get(url);
+  }
   getuser(): Observable<any[]> {
     const url = `${this.baseUrl}/utilisateur/get/utilisateur`;
     return this.http.get<any[]>(url);
@@ -31,48 +35,24 @@ export class ForumService {
     const url = `${this.baseUrl}/utilisateur/get/utilisateur/id/${id}`;
     return this.http.get<any>(url);
   }
-  getPostById(id: string): Observable<any> {
-    return this.getProblems().pipe(
-      map((problems: any[]) => problems.find((post: any) => post.id === id))
-    );
+  getCommentsByPostId(postId: string): Observable<any[]> {
+    const url = `${this.baseUrl}/commentaire/get/commentaire/idProbleme/${postId}`;
+    return this.http.get<any[]>(url);
   }
-
+  addCommentToPost(postId: string, comment: any): Observable<any> {
+    const url = `${this.baseUrl}/commentaire/post/commentaire`;
+    return this.http.post<any>(url, comment);
+  }
+  deleteCommentFromPost(commentId: string): Observable<any> {
+    const url = `${this.baseUrl}/commentaire/delete/commentaire/${commentId}`;
+    return this.http.delete<any>(url);
+  }
   addProblem(problem: any): void {
     problem.id = localStorage.getItem('id');
     problem.pseudo = localStorage.getItem('pseudo');
     this.getProblems().subscribe(problems => {
       // problems.push(problem);
       this.saveProblems(problems);
-    });
-  }
-
-  addReplyToPost(postId: string, reply: any): void {
-    this.getProblems().subscribe(problems => {
-      console.log('Problems before adding reply:', problems);
-      const post = problems.find(p => p.id === postId);
-      if (post) {
-        if (!post.replies) {
-          post.replies = [];
-        }
-        post.replies.push(reply);
-        console.log('Problems after adding reply:', problems);
-        this.saveProblems(problems);
-      }
-    });
-  }
-
-  deleteReplyFromPost(postId: string, reply: any): void {
-    this.getProblems().subscribe(problems => {
-      console.log('Problems before deleting reply:', problems);
-      const post = problems.find(p => p.id === postId);
-      if (post && post.replies) {
-        const index = post.replies.findIndex((r: any) => r.message === reply.message);
-        if (index !== -1) {
-          post.replies.splice(index, 1);
-          console.log('Problems after deleting reply:', problems);
-          this.saveProblems(problems);
-        }
-      }
     });
   }
 
