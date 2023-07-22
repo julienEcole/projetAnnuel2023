@@ -37,7 +37,7 @@ export class AdminService {
   }
   estRoleAdmin(): boolean {
     const role_utilisateur_id = Number(localStorage.getItem('roleUtilisateurId'));
-    return role_utilisateur_id === 1;
+    return role_utilisateur_id === 3;
   }  
   getUtilisateurById(id: string): Observable<any> {
     const url = `${this.baseUrl}/utilisateur/get/utilisateur/id/${id}`;
@@ -56,4 +56,8 @@ export class AdminService {
     console.log('URL:', url);
     return this.http.delete<any>(url);
   }  
+  getOneUserById(userId: string): Observable<any> {
+    const url = `${this.baseUrl}/utilisateur/get/utilisateur/id/${userId}`;
+    return this.http.get(url);
+  }
 }

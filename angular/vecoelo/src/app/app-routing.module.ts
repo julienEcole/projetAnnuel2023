@@ -10,6 +10,7 @@ import { PostComponent } from './pages/post-probleme/post/post.component';
 import { ProfilReparateurComponent } from './components/profil/profil-reparateur/profil-reparateur.component';
 import { ProfilUserComponent } from './components/profil/profil-user/profil-user.component';
 import { AdminComponent } from './components/backoffice/admin/admin.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'inscription', component: InscriptionComponent },
   { path: 'profil_user', component: ProfilUserComponent },
   { path: 'profil-reparateur', component: ProfilReparateurComponent },
-  { path: 'admin', component: AdminComponent }
+  { path: 'admin', component: AdminComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

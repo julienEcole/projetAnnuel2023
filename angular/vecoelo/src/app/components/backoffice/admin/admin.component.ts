@@ -14,7 +14,8 @@ export class AdminComponent implements OnInit {
   utilisateurs: any[] = [];
   problemes: any[] = [];
   comments: any[] = [];
-  selectedProblemId: string | null = null;
+  postId: string | null = null;
+  commentsLoadedMap: { [problemId: string]: boolean } = {};
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -206,17 +207,46 @@ export class AdminComponent implements OnInit {
     }
     return formatter.format(date);
   }
-  showComments(problemId: string) {
-    this.selectedProblemId = problemId;
-    this.adminService.getCommentsByPostId(problemId).subscribe(
-      (comments: any[]) => {
-        this.comments = comments;
-        // Ouvrir le modal ici
-        // Vous pouvez utiliser une bibliothèque externe pour créer le modal ou créer un modal personnalisé en utilisant CSS et Angular Material Dialog
-      },
-      (error: any) => {
-        console.log('Erreur lors de la récupération des commentaires du problème :', error);
+  toggleCommentsDisplay(problemId: string) {
+    if (this.commentsLoadedMap[problemId]) {
+      this.unloadComments(problemId);
+    } else {
+      this.loadComments(problemId);
+    }
+  }
+
+  unloadComments(problemId: string) {
+    this.comments = [];
+    this.commentsLoadedMap[problemId] = false;
+  }
+
+  loadComments(problemId: string) {
+    this.postId = problemId;
+    this.adminService.getCommentsByPostId(problemId).subscribe((comments: any) => {
+      if (Array.isArray(comments.results)) {
+        this.comments = comments.results;
+        for (const comment of this.comments) {
+          this.adminService.getOneUserById(comment.utilisateur_id).subscribe(user => {
+            comment.pseudo = user.results[0].pseudo;
+          });
+        }
+      } else {
+        console.error('Erreur lors du chargement des commentaires: La réponse.results n\'est pas un tableau.', comments);
       }
-    );
+    });
+    this.commentsLoadedMap[problemId] = true;
+  }
+  supprimerCommentaire(commentaireId: number, problemeId: string) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce commentaire ?")) {
+      this.adminService.deleteCommentFromPost(commentaireId.toString()).subscribe(
+        (response: any) => {
+          console.log('Commentaire supprimé');
+          this.loadComments(problemeId);
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la suppression du commentaire :", error);
+        }
+      );
+    }
   }
 }

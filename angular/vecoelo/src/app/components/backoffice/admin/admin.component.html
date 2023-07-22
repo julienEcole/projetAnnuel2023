@@ -44,12 +44,12 @@
       <td>
 
         <ng-container *ngIf="!utilisateur.editionEnCours">
-          <button (click)="editerUtilisateur(utilisateur)">Modifier</button>
+          <i class="material-icons" (click)="editerUtilisateur(utilisateur)">create</i>
+          <i class="material-icons" (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">delete</i>
         </ng-container>
-        <button (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">Supprimer</button>
         <ng-container *ngIf="utilisateur.editionEnCours">
-          <button (click)="enregistrerEdition(utilisateur)">Enregistrer</button>
-          <button (click)="annulerEdition(utilisateur)">Annuler</button>
+          <i class="material-icons" (click)="enregistrerEdition(utilisateur)">done</i>
+          <i class="material-icons" (click)="annulerEdition(utilisateur)">close</i>
         </ng-container>
       </td>
 
@@ -97,12 +97,22 @@
       </td>
       <td>
         <ng-container *ngIf="!probleme.editionEnCours">
-          <button (click)="editerProbleme(probleme)">Modifier</button>
-          <button (click)="supprimerProbleme(probleme.probleme_id)">Supprimer</button>
+          <i class="material-icons" (click)="editerProbleme(probleme)">create</i>
+          <i class="material-icons" (click)="supprimerProbleme(probleme.probleme_id)">delete</i>
+          <i class="material-icons" (click)="toggleCommentsDisplay(probleme.probleme_id)">{{ commentsLoadedMap[probleme.probleme_id] ? 'remove_circle_outline' : 'add_circle_outline' }}</i>
+          <div *ngIf="commentsLoadedMap[probleme.probleme_id]">
+            <h3>Commentaires du problème "{{ probleme.titre }}"</h3>
+            <ul>
+              <li *ngFor="let comment of comments">
+                {{ comment.pseudo }} - {{ comment.description }} - {{ formatDateTime(comment.date_de_publication) }}
+                <i class="material-icons" (click)="supprimerCommentaire(comment.commentaire_id, probleme.probleme_id)">delete</i>
+              </li>
+            </ul>
+          </div>
         </ng-container>
         <ng-container *ngIf="probleme.editionEnCours">
-          <button (click)="enregistrerEditionProbleme(probleme)">Enregistrer</button>
-          <button (click)="annulerEditionProbleme(probleme)">Annuler</button>
+          <i class="material-icons" (click)="enregistrerEditionProbleme(probleme)">done</i>
+          <i class="material-icons" (click)="annulerEditionProbleme(probleme)">close</i>
         </ng-container>
       </td>
     </tr>

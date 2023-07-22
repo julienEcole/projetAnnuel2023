@@ -1,0 +1,19 @@
+main{
+    max-width: 90rem;
+    margin: 1rem auto;
+    padding: 2rem;
+}
+main h1{
+    text-align: center;
+    margin: 20rem 0 1rem 0;
+    font-size: 4rem;
+    color: #fff;
+    font-weight: bold;
+}
+main p{
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2rem;
+    color: #fff;
+    font-weight: bold;
+}

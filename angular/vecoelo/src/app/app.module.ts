@@ -16,6 +16,7 @@ import { ProfilReparateurComponent } from './components/profil/profil-reparateur
 import { HttpClientModule } from '@angular/common/http';
 import { AdminComponent } from './components/backoffice/admin/admin.component';
 import { AdminService } from './components/backoffice/admin.service';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ProfilUserComponent,
     ProfilReparateurComponent,
     AdminComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
