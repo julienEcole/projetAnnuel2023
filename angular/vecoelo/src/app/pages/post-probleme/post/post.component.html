@@ -7,7 +7,7 @@
       <figcaption>
         <h2> {{ post.titre }}</h2>
         <h3><span>à</span> {{ post.adresse }}</h3>
-        <h3><span>de</span> {{ post.pseudo }}</h3>
+        <h3><span>de </span> <span class="pseudo" (click)="redirigerVersProfil()">{{ post.pseudo }}</span></h3>
         <time>{{ formatDateTime(post.date_de_publication) }}</time>
         <p>{{ post.description }}</p>
       </figcaption>
@@ -18,7 +18,7 @@
       <ng-container *ngFor="let comment of comments">
         <ng-container *ngIf="comment.pseudo; else profilSupprime">
           <li>
-            <div><span>{{ comment.pseudo }} :</span> {{ comment.description }}</div>
+            <div><span class="pseudo-commentaire" (click)="redirigerVersProfilUtilisateur(comment.utilisateur_id)">{{ comment.pseudo }}</span> : {{ comment.description }}</div>
             <div>
               <time>{{ formatDateTime(comment.date_de_publication) }}</time>
             </div>
@@ -27,7 +27,7 @@
         </ng-container>
         <ng-template #profilSupprime>
           <li>
-            <div><span>Profil Supprimé :</span> {{ comment.description }}</div>
+            <div><span>Profil Supprimé</span> : {{ comment.description }}</div>
             <div>
               <time>{{ formatDateTime(comment.date_de_publication) }}</time>
             </div>

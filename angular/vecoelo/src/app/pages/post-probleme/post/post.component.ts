@@ -39,13 +39,20 @@ export class PostComponent implements OnInit {
   loadAuthor(id: string) {
     this.forumService.getOneUserById(id).subscribe(user => {
       this.post.pseudo = user.results[0].pseudo;
-      this.post.utilisateur_id = user.results[0].id; // Sauvegarder l'ID de l'utilisateur pour la redirection
+      this.post.utilisateur_id = user.results[0].utilisateur_id; // Utilisez la clé "utilisateur_id"
+      console.log("ID de l'utilisateur :", this.post.utilisateur_id); // Vérifiez l'ID de l'utilisateur
     });
-  }
+  }  
   redirigerVersProfil() {
     console.log("Redirection vers le profil de l'utilisateur :", this.post.utilisateur_id);
     if (this.post && this.post.utilisateur_id) {
-      this.router.navigate(['/profil', this.post.utilisateur_id]);
+      this.router.navigate(['/profil_user', this.post.utilisateur_id]);
+    }
+  }
+  redirigerVersProfilUtilisateur(userId: string) {
+    console.log("Redirection vers le profil de l'utilisateur :", userId);
+    if (userId) {
+      this.router.navigate(['/profil_user', userId]);
     }
   }
   loadComments() {
