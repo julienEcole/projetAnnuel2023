@@ -66,7 +66,7 @@ const updateOneImageById = async (req: Request, res: Response, next: NextFunctio
     const description : string = req.body.description;
     let query = `UPDATE image SET `
     if(url_image){
-        query += `note = \"${url_image}\" ,`
+        query += `url_image = \"${url_image}\" ,`
     }
     if(nom){
         query += `nom = \"${nom}\" ,`
