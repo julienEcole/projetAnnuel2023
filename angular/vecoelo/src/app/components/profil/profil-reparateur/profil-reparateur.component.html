@@ -1,14 +1,65 @@
 <main>
+    <button routerLink="/reparateur-proche"> Retour à la liste des réparateurs</button>
     <section>
-        <p><strong>Adresse :</strong> {{ repairShop?.Adresse }}</p>
-        <p><strong>Téléphone :</strong> {{ repairShop?.Telephone }}</p>
-        <p><strong>Distance :</strong> {{ repairShop.distance }} km</p>
-        <div class="rating">
+        
+        <div class="info">
+            <h3><strong>Nom :</strong> {{ atelier?.nomAtelier }}</h3>
+            <p><strong>Adresse :</strong> {{ atelier?.adresse }}</p>
+            <p><strong>Téléphone :</strong> {{ atelier?.telephone }}</p>
+            <p><strong>Distance :</strong> {{ atelier?.distance.toFixed(1) }} km</p>
+            <p><strong>Évaluation :</strong> {{ getStarRating() }}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>Horaires d'ouverture</th>
+                    <th>Horaires de fermeture</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lundi</td>
+                    <td><time>{{ atelier?.horaire_ouverture }}</time></td>
+                    <td><time>{{ atelier?.horaire_fermeture }}</time></td>
+                </tr>
+                <tr>
+                    <td>Mardi</td>
+                    <td><time>{{ atelier?.horaire_ouverture }}</time></td>
+                    <td><time>{{ atelier?.horaire_fermeture }}</time></td>
+                </tr>
+                <tr>
+                    <td>Mercredi</td>
+                    <td><time>{{ atelier?.horaire_ouverture }}</time></td>
+                    <td><time>{{ atelier?.horaire_fermeture }}</time></td>
+                </tr>
+                <tr>
+                    <td>Jeudi</td>
+                    <td><time>{{ atelier?.horaire_ouverture}}</time></td>
+                    <td><time>{{ atelier?.horaire_fermeture }}</time></td>
+                </tr>
+                <tr>
+                    <td>Vendredi</td>
+                    <td><time>{{ atelier?.horaire_ouverture}}</time></td>
+                    <td><time>{{ atelier?.horaire_fermeture }}</time></td>
+                </tr>
+                <tr>
+                    <td>Samedi</td>
+                    <td><time>{{ atelier?.horaire_ouverture }}</time></td>
+                    <td><time>{{ atelier?.horaire_fermeture }}</time></td>
+                </tr>
+                <tr>
+                    <td>Dimanche</td>
+                    <td><time>fermée</time></td>
+                    <td><time>fermée</time></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <div class="rating">
             <span class="star" *ngFor="let star of stars" [class.full]="star.filled"
                 (click)="rateRepairShop(star)"></span>
-        </div>
-        <p><strong>Évaluation :</strong> {{ getStarRating() }}</p>
+        </div> -->
 
     </section>
-
 </main>

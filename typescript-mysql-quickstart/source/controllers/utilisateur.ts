@@ -20,28 +20,39 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
     const pseudo:string = req.body.pseudo;
-    const telephone:string =req.body.telephone || null;
+    let telephone:string =req.body.telephone;
     const role_utilisateur_id:number = req.body.role_utilisateur_id || 1;
 
-    // const isNumber : RegExp = new RegExp("^(?:(?:\+|0)\d{1,3}\s?)?(?:\d{2}\s?){4}\d{2}$")
-    const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
-    const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
+    // const isNumber: RegExp = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
+    const isMail : RegExp = new RegExp(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+    const passwordRegex : RegExp = new RegExp(`^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-z])(?=.*[A-Z]).{8,}$`) ;
     // if(telephone &&!isNumber.test(telephone)){
     //     res.status(400);
     //     res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
     //     return;
     // }
-    // if(!isMail.test(mail)){
-    //     res.status(400);
-    //     res.send("mail n'est pas correct , veuillez en choisir un correct.");
-    //     return;
-    // }
-    // if(!passwordRegex.test(mdp) ){
-    //     res.status(400);
-    //     res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
-    //     return;
-    // }
+    if(!telephone){
+        telephone = "";
+    }
+    if (!isMail.test(mail)) {
+        // Débogage : affichage de l'adresse e-mail reçue pour validation
+        logging.debug(NAMESPACE, "Invalid email:", mail);
+    
+        res.status(400);
+        res.send("mail n'est pas correct , veuillez en choisir un correct.");
+        return;
+    }
+    
+    if (!passwordRegex.test(mdp)) {
+        // Débogage : affichage du mot de passe reçu pour validation
+        logging.debug(NAMESPACE, "Invalid password:", mdp);
+    
+        res.status(400);
+        res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
+        return;
+    }
     let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}")`;
+    logging.debug(NAMESPACE, "Query:", query);
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 

@@ -1,29 +1,20 @@
 <main>
-    <h2>Rechercher votre réparateur</h2>
-  
-    <!-- <section>
-      <h2>Indiquez où vous habitez</h2>
-      <div class="google">
-        <script src="https://maps.googleapis.com/maps/api/js?key=VOTRE_CLE_API&libraries=places"></script>
-      </div>
-    </section> -->
-    <hr>
-  
-    <div class="reparateur">
-      <figure *ngFor="let repairShop of displayedRepairShops">
-        <img [src]="getImagePath(repairShop.Nom)" alt="">
-        <figcaption>
-          <h3>{{ repairShop.Nom }}</h3> <br>
-          <p><strong>Adresse :</strong> {{ repairShop.Adresse }}</p> <br>
-          <p><strong>Téléphone :</strong> {{ repairShop.Telephone }}</p> <br>
-          <p><strong>Distance :</strong> {{ repairShop.distance.toFixed(1) }} km</p>
-          <a [routerLink]="['/profil-reparateur']">Lien vers le réparateur</a>
-        </figcaption>
-      </figure>
-    </div>
-    
-       
-  
-    <button *ngIf="!showMore && displayedRepairShops.length !== nearestRepairShops.length" (click)="showMoreRepairShops()">Afficher plus</button>
-  </main>
-  
+  <h2>Rechercher votre réparateur</h2>
+  <hr>
+
+  <div class="reparateur">
+    <figure *ngFor="let repairShop of displayedRepairShops">
+      <!-- <img [src]="getImagePath(repairShop.nomAtelier)" alt=""> -->
+      <figcaption>
+        <h3>{{ repairShop.nomAtelier }}</h3> <br>
+        <p><strong>Adresse :</strong> {{ repairShop.adresse }}</p> <br>
+        <p><strong>Téléphone :</strong> {{ repairShop.telephone }}</p> <br>
+        <p><strong>Distance :</strong> {{ repairShop.distance.toFixed(1) }} km</p>
+        <a [routerLink]="['/profil-reparateur', repairShop.atelier_id]">Lien vers le réparateur</a>
+        <!-- Redirection avec l'ID du réparateur -->
+      </figcaption>
+    </figure>
+  </div>
+
+  <button *ngIf="!showMore && displayedRepairShops.length !== nearestRepairShops.length" (click)="showMoreRepairShops()">Afficher plus</button>
+</main>

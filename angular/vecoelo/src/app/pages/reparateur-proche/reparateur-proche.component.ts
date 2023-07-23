@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import repairShopsData from './reparateur.json';
+import { AtelierService } from './atelier.service';
+
 
 @Component({
   selector: 'app-reparateur-proche',
@@ -13,12 +14,12 @@ export class ReparateurProcheComponent implements OnInit {
   selectedRepairShop: any = {};
   showMore: boolean = false;
   ReparateurID: string = '';
+  repairShop: any[] = [];
 
-  constructor(private router: Router) { }
-
+  constructor(private router: Router, private atelierService: AtelierService) { }
   ngOnInit(): void {
     this.getLocation();
-    
+
   }
 
   getLocation(): void {
@@ -27,17 +28,26 @@ export class ReparateurProcheComponent implements OnInit {
         (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
-
-          this.nearestRepairShops = repairShopsData;
-
-          for (const repairShop of this.nearestRepairShops) {
-            const distance = this.calculateDistance(latitude, longitude, repairShop.Latitude, repairShop.Longitude);
-            repairShop.distance = distance;
-          }
-
-          this.nearestRepairShops.sort((a, b) => a.distance - b.distance);
-
-          this.displayNearestRepairShops();
+  
+          this.atelierService.getAllAteliers().subscribe(
+            (ateliers: any[]) => { 
+              for (const atelier of ateliers) {
+                atelier.latitude = parseFloat(atelier.latitude);
+                atelier.longitude = parseFloat(atelier.longitude);
+              }
+  
+              for (const atelier of ateliers) {
+                const distance = this.calculateDistance(latitude, longitude, atelier.latitude, atelier.longitude);
+                atelier.distance = distance;
+              }
+              ateliers.sort((a, b) => a.distance - b.distance);
+              this.nearestRepairShops = ateliers;
+              this.displayNearestRepairShops();
+            },
+            (error) => {
+              console.log('Erreur lors de la récupération des ateliers :', error);
+            }
+          );
         },
         (error) => {
           console.log('Erreur de géolocalisation :', error);
@@ -47,7 +57,6 @@ export class ReparateurProcheComponent implements OnInit {
       console.log('La géolocalisation n\'est pas prise en charge par ce navigateur.');
     }
   }
-
   calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371; // Rayon de la Terre en kilomètres
 
@@ -74,7 +83,6 @@ export class ReparateurProcheComponent implements OnInit {
   }
 
   displayNearestRepairShops(): void {
-    this.nearestRepairShops = repairShopsData;
     this.displayedRepairShops = this.nearestRepairShops.slice(0, 3);
   }
 
@@ -88,8 +96,8 @@ export class ReparateurProcheComponent implements OnInit {
       this.showMore = false;
     }
   }
-  getImagePath(nom: string): string {
-    return './assets/assets-reparateur/' + nom.replace(/ /g, '_') + '.jpg';
-  }
 
+  // getImagePath(nom: string): string {
+  //   return './assets/assets-reparateur/' + nom.replace(/ /g, '_') + '.jpg';
+  // }
 }
