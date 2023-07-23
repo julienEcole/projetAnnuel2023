@@ -9,13 +9,16 @@ import { AdminService } from './components/backoffice/admin.service';
 })
 export class AppComponent {
   title = 'vecoelo';
-constructor(private userService: UserService, public adminService: AdminService) {}
-
-get nomUtilisateurConnecte(): string | null {
-  return this.userService.getNomUtilisateurConnecte();
-}
-
-deconnexion(): void {
-  this.userService.deconnexion();
+  constructor(private userService: UserService, public adminService: AdminService) {}
+  
+  get nomUtilisateurConnecte(): string | null {
+    return this.userService.getNomUtilisateurConnecte();
   }
-}
+  get UtilisateurId(): string | null {
+    return this.userService.getUtilisateurId();
+  }
+
+  deconnexion(): void {
+    this.userService.deconnexion();
+    }
+  }

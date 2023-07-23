@@ -114,6 +114,15 @@ export class UserService {
       return '';
     }
   }
+  getUtilisateurId(): string {
+    this.estConnecte = this.estUtilisateurConnecte();
+    if (this.estConnecte) {
+      this.id = localStorage.getItem('id') || "";
+      return this.id;
+    } else {
+      return '';
+    }
+  }
 
   updateUser(id: string, updatedData: any): Observable<any> {
     const url = `${this.baseUrl}/utilisateur/patch/utilisateur/${id}`;

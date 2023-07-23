@@ -111,16 +111,19 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const pseudo : string = req.body.pseudo;
     const prenom:string = req.body.prenom;
     const nom:string = req.body.nom;
-    const telephone:string = req.body.telephone;
+    let telephone:string = req.body.telephone;
     const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
 
     const isNumber = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
-    const isMail : RegExp = new RegExp(`^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$`)
-    const passwordRegex : RegExp = new RegExp(`/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z]).{8,}$/`) ;
+    const isMail : RegExp = new RegExp(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+    const passwordRegex : RegExp = new RegExp(`^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-z])(?=.*[A-Z]).{8,}$`);
     if(telephone && !isNumber.test(telephone)){
         res.status(400);
         res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
         return;
+    }
+    else if(!telephone){
+        telephone = "";
     }
     if(!isMail.test(mail)){
         res.status(400);

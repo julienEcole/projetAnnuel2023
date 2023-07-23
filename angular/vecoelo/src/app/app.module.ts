@@ -18,16 +18,6 @@ import { AdminComponent } from './components/backoffice/admin/admin.component';
 import { AdminService } from './components/backoffice/admin.service';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  let footer = document.querySelector("header footer");
-  if (footer) {
-    let currentDate = new Date();
-    let currentYear = currentDate.getFullYear();
-    footer.innerHTML = `Véco-Elo - Trouvez les meilleurs réparateurs de vélos près de chez vous. © ${currentYear}`;
-  }
-});
-
 @NgModule({
   declarations: [
     AppComponent,
