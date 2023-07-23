@@ -105,7 +105,7 @@ const DeleteAllProbleme_ImageByImage = async (req: Request, res: Response, next:
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme_image : ');
 };
 
-export default {/*getAllprobleme_image,*/ createProbleme_Image, getAllImageFromProbleme, /*getAllProblemeFromImage,*/  updateOneProbleme_ImageById, DeleteOneProbleme_ImageById, DeleteAllProbleme_ImageByProbleme, DeleteAllProbleme_ImageByImage};
+export default {/*getAllprobleme_image,*/ createProbleme_Image, getAllImageFromProbleme, getAllProblemeFromImage,  updateOneProbleme_ImageById, DeleteOneProbleme_ImageById, DeleteAllProbleme_ImageByProbleme, DeleteAllProbleme_ImageByImage};
 
 
 // CREATE TABLE IF NOT EXISTS probleme_image (
