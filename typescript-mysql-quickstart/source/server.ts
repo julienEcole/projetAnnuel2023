@@ -5,6 +5,7 @@ import logging from './config/logging';
 import config from './config/config';
 // import bookRoutes from './routes/book';
 import userRoutes from './routes/utilisateur'
+import role_utilisateurRoute from './routes/role_utilisateur';
 import ticketRoute from './routes/ticket'
 
 import notificationRoute from './routes/vecoleo/notification';
@@ -60,6 +61,7 @@ router.use((req, res, next) => {
 /** Routes go here */
 // router.use('/books', bookRoutes);
 router.use("/utilisateur", userRoutes);
+router.use("/role_utilisateur", role_utilisateurRoute)
 router.use("/ticket", ticketRoute)
 
 router.use("/notification", notificationRoute)
