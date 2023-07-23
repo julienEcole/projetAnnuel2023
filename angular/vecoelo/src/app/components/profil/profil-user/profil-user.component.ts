@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/components/login/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profil-user',
@@ -13,40 +13,42 @@ export class ProfilUserComponent implements OnInit {
   joursInscription: number = 0;
   pseudo: string = '';
   mail: string = '';
-  pseudoModifie: string = '';
-  mailModifie: string = '';
-  passwordModifie: string = '';
+  password: string = '';
+  telephone: string = '';
   baseUrl = 'http://localhost:3999';
 
-  constructor(private userService: UserService, private router: Router) { }
-  get nomUtilisateurConnecte(): string | null {
-    return this.userService.getNomUtilisateurConnecte();
-  }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    let mail = localStorage.getItem('email') || '';
-    this.userService.getOneUserByMail(mail).subscribe(
-      (response: any) => {
-        console.log('Réponse reçue :', response);
-        const utilisateur = response.results[0];
-        console.log('Utilisateur trouvé :', utilisateur);
-        this.pseudo = utilisateur.pseudo;
-        this.mail = utilisateur.mail;
-        console.log('Pseudo :', this.pseudo);
-        console.log('Mail :', this.mail);
-        this.dateInscription = utilisateur.dateCreation || '';
-        // Calcul du nombre de jours d'inscription en utilisant la date actuelle
-        const dateInscription = new Date(this.dateInscription);
-        const currentDate = new Date();
-        const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
-        this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-
-      },
-      (error: any) => {
-        console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
-      }
-    );
+    // Récupérer l'id de l'utilisateur depuis la route
+    this.route.params.subscribe((params) => {
+      const userId = params['id'];
+      // Récupérer les informations de l'utilisateur à partir de l'id
+      this.userService.getOneUserById(userId).subscribe(
+        (response: any) => {
+          console.log('Réponse reçue :', response);
+          const utilisateur = response.results[0];
+          console.log('Utilisateur trouvé :', utilisateur);
+          this.pseudo = utilisateur.pseudo;
+          this.mail = utilisateur.mail;
+          console.log('Pseudo :', this.pseudo);
+          console.log('Mail :', this.mail);
+          this.dateInscription = utilisateur.dateCreation || '';
+          // Calcul du nombre de jours d'inscription en utilisant la date actuelle
+          const dateInscription = new Date(this.dateInscription);
+          const currentDate = new Date();
+          const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
+          this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        },
+        (error: any) => {
+          console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
+        }
+      );
+    });
   }
 
   formatDateTime(dateTime: string): string {
@@ -67,8 +69,9 @@ export class ProfilUserComponent implements OnInit {
     }
     return formatter.format(date);
   }
+
   deleteProfil(): void {
-    const userId = localStorage.getItem('id');
+    const userId = this.route.snapshot.params['id'];
     if (userId) {
       this.userService.deleteOneUserById(userId).subscribe(
         (response: any) => {
@@ -82,26 +85,25 @@ export class ProfilUserComponent implements OnInit {
       );
     };
   }
+
   changerProfil(): void {
     if (!this.modifierProfil) {
       this.modifierProfil = true;
     } else {
-      if (this.pseudoModifie && this.mailModifie) {
-        const userId = localStorage.getItem('id');
+      if (this.pseudo && this.mail) {
+        const userId = this.route.snapshot.params['id'];
         console.log('ID utilisateur :', userId);
 
         if (userId) {
           const updatedUserData = {
-            password: this.passwordModifie,
-            mail: this.mailModifie,
-            pseudo: this.pseudoModifie
+            password: this.password,
+            mail: this.mail,
+            pseudo: this.pseudo
           };
           console.log('Données utilisateur mises à jour :', updatedUserData);
-          console.log(this.userService.updateUser(userId, updatedUserData));
           this.userService.updateUser(userId, updatedUserData).subscribe(
             response => {
               console.log('Mise à jour effectuée avec succès', response);
-              
             },
             error => {
               console.error("Erreur lors de la requête :", `${this.baseUrl}/utilisateur/patch/utilisateur/${userId}`, updatedUserData);

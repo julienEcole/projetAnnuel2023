@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/forum', pathMatch: 'full' },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'inscription', component: InscriptionComponent },
-  { path: 'profil_user', component: ProfilUserComponent },
+  { path: 'profil_user/:id', component: ProfilUserComponent },
   { path: 'profil-reparateur/:id', component: ProfilReparateurComponent },
   { path: 'admin', component: AdminComponent },
   { path: '**', component: NotFoundComponent }

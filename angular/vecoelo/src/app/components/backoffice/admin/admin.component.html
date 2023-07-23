@@ -104,7 +104,12 @@
             <h3>Commentaires du problème "{{ probleme.titre }}"</h3>
             <ul>
               <li *ngFor="let comment of comments">
-                {{ comment.pseudo }} - {{ comment.description }} - {{ formatDateTime(comment.date_de_publication) }}
+                <ng-container *ngIf="comment.pseudo; else profilSupprime">
+                  <strong>{{ comment.pseudo }} </strong> - {{ comment.description }} - {{ formatDateTime(comment.date_de_publication) }}
+                </ng-container>
+                <ng-template #profilSupprime>
+                  <strong>Profil Supprimé </strong>- {{ comment.description }} - {{ formatDateTime(comment.date_de_publication) }}
+                </ng-template>
                 <i class="material-icons" (click)="supprimerCommentaire(comment.commentaire_id, probleme.probleme_id)">delete</i>
               </li>
             </ul>

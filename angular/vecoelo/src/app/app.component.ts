@@ -9,6 +9,7 @@ import { AdminService } from './components/backoffice/admin.service';
 })
 export class AppComponent {
   title = 'vecoelo';
+  id = localStorage.getItem('id');
 constructor(private userService: UserService, public adminService: AdminService) {}
 
 get nomUtilisateurConnecte(): string | null {

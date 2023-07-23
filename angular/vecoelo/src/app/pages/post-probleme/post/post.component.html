@@ -15,13 +15,26 @@
 
     <h3>Commentaires</h3>
     <ul>
-      <li *ngFor="let comment of comments">
-        <div><span>{{ comment.pseudo }} :</span> {{ comment.description }}</div>
-        <div>
-          <time>{{ formatDateTime(comment.date_de_publication) }}</time>
-        </div>
-        <button (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
-      </li>
+      <ng-container *ngFor="let comment of comments">
+        <ng-container *ngIf="comment.pseudo; else profilSupprime">
+          <li>
+            <div><span>{{ comment.pseudo }} :</span> {{ comment.description }}</div>
+            <div>
+              <time>{{ formatDateTime(comment.date_de_publication) }}</time>
+            </div>
+            <button (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
+          </li>
+        </ng-container>
+        <ng-template #profilSupprime>
+          <li>
+            <div><span>Profil Supprimé :</span> {{ comment.description }}</div>
+            <div>
+              <time>{{ formatDateTime(comment.date_de_publication) }}</time>
+            </div>
+            <button (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
+          </li>
+        </ng-template>
+      </ng-container>
     </ul>
     
     <form (ngSubmit)="submitReply()" #replyForm="ngForm">
