@@ -56,7 +56,7 @@ const updateOneImageById = async (req: Request, res: Response, next: NextFunctio
     const isInt : RegExp = new RegExp("[0-9]+$")
     if(!req.params || !req.body || !req.params.idImage || !isInt.test(req.params.idImage)){
         res.status(400);
-        res.send(`erreur, les arguments doivent être le mail ou l'id de l'image`); //\n req.params.idImage = ${req.params.idImage}
+        res.send(`erreur, un body doit être envoyé contenant les arguments doivent être le mail et l'id de l'image doit être spécifié dans la route`); //\n req.params.idImage = ${req.params.idImage}
         return;
     }
     
