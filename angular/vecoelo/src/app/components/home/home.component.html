@@ -1,15 +1,13 @@
-  <main>
-    
-    <!-- Partie 2: Titre, texte de présentation et deux boutons -->
-    <div class="main-content">
-      <h1>Veco-Elo</h1>
-      <p>Bienvenue sur Véco-Elo, votre guide pratique pour trouver les réparateurs de vélos les plus abordables et proches de vous. <br> Avec notre plateforme, accéder aux informations clés de chaque réparateur, notamment les prix, les horaires d'ouverture et les coordonnées. 
-        <br>Trouvez le service de réparation idéal en quelques clics et roulez en toute tranquillité avec Véco-Elo.</p>
-      <div class="buttons">
-        <button class="btn-poster" routerLink="/post-probleme">Poster son problème</button>
-        <button class="btn-rechercher" routerLink="/reparateur-proche" >Rechercher un réparateur proche</button>
-      </div>
+<main>
+  <div class="main-content">
+    <h1>Veco-Elo</h1>
+    <p>Bienvenue sur Véco-Elo, votre guide pratique pour trouver les réparateurs de vélos les plus abordables et proches de vous. <br> Avec notre plateforme, accéder aux informations clés de chaque réparateur, notamment les prix, les horaires d'ouverture et les coordonnées.
+      <br>Trouvez le service de réparation idéal en quelques clics et roulez en toute tranquillité avec Véco-Elo.</p>
+    <div class="buttons">
+      <button class="btn-poster" *ngIf="isRoleAllowedToPostProblem" routerLink="/post-probleme">Poster son problème</button>
+      <button class="btn-rechercher" routerLink="/reparateur-proche">Rechercher un réparateur proche</button>
     </div>
+  </div>
 
       <section class="image">
         <!-- <img src="../../assets/image.png" alt="vecoelo-logo" class="logo-img"> -->

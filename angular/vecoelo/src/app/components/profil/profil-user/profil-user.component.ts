@@ -46,6 +46,7 @@ export class ProfilUserComponent implements OnInit {
           const utilisateur = response.results[0];
           this.pseudo = utilisateur.pseudo;
           this.mail = utilisateur.mail;
+          this.telephone = utilisateur.telephone;
           this.utilisateur_id = utilisateur.utilisateur_id;
           //Savoir si l'id de l'utilisateur connecté est le même que celui de l'utilisateur dont on consulte le profil
           this.userId = localStorage.getItem('id') || '';
@@ -125,7 +126,8 @@ export class ProfilUserComponent implements OnInit {
           const updatedUserData = {
             password: this.password,
             mail: this.mail,
-            pseudo: this.pseudo
+            pseudo: this.pseudo,
+            telephone: this.telephone
           };
 
           this.userService.updateUser(userId, updatedUserData).subscribe(
