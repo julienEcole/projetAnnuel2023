@@ -21,6 +21,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const nom:string = req.body.nom;
     const pseudo:string = req.body.pseudo;
     let telephone:string =req.body.telephone;
+    const icon_image_id:number = parseInt(req.body.icon_image_id)
     const role_utilisateur_id:number = req.body.role_utilisateur_id || 1;
 
     // const isNumber: RegExp = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
@@ -51,8 +52,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
         return;
     }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}")`;
-    logging.debug(NAMESPACE, "Query:", query);
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone, icon_image_id) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}", ${icon_image_id})`;
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 
@@ -160,8 +160,8 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
         }
         query += `telephone = "${telephone}" ,`
     }
-    if(image_id){
-        query += `image_id = "${image_id}" ,`
+    if(icon_image_id){
+        query += `icon_image_id = "${icon_image_id}" ,`
     }
     if(role_utilisateur_id){
         query += `role_utilisateur_id = ${role_utilisateur_id}  `

@@ -123,4 +123,4 @@ const DeleteAllProblemeFromUser = async (req: Request, res: Response, next: Next
     await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme : ');
 };
 
-export default { getAllProbleme, createProbleme, getOneProblemeById, updateOneProblemeById, DeleteOneProblemeById, DeleteAllProblemeFromUser }; 
+export default { getAllProbleme,createProbleme, getOneProblemeById, updateOneProblemeById, DeleteOneProblemeById, DeleteAllProblemeFromUser }; 

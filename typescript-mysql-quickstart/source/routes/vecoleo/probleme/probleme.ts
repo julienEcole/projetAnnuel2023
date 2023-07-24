@@ -3,6 +3,7 @@ import controller from "../../../controllers/vecoleo/probleme/probleme"
 
 const router = express.Router();
 
+//ajouter route pour récup toutes les images d'un probleme
 router.get("/get/probleme/:idProbleme", controller.getOneProblemeById);
 router.get("/get/probleme",controller.getAllProbleme);
 router.post("/post/probleme",express.json(), controller.createProbleme);
