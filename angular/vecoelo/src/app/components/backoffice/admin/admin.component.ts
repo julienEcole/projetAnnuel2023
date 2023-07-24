@@ -251,25 +251,34 @@ export class AdminComponent implements OnInit {
   }
   bannirUtilisateur(utilisateurId: number) {
     if (confirm("Êtes-vous sûr de vouloir changer le statut de cet utilisateur ?")) {
-      // Récupérer l'utilisateur à partir de la liste des utilisateurs
       const utilisateur = this.utilisateurs.find(u => u.utilisateur_id === utilisateurId);
-  
-      // Déterminer le nouveau rôle en fonction de l'état actuel du rôle
       const nouveauRole = utilisateur.role_utilisateur_id === 2 ? 1 : 2;
-  
-      // Créer un nouvel objet avec toutes les données existantes de l'utilisateur et le nouveau rôle
       const utilisateurModifie = { ...utilisateur, role_utilisateur_id: nouveauRole };
-  
-      // Effectuer la requête PATCH avec toutes les données de l'utilisateur
       this.adminService.updateUtilisateur(utilisateurId.toString(), utilisateurModifie).subscribe(
         (response: any) => {
           console.log('Statut de l\'utilisateur mis à jour avec succès');
-          this.fetchUtilisateurs(); // Mettre à jour la liste des utilisateurs après le changement de statut
+          this.fetchUtilisateurs();
         },
         (error: any) => {
           console.log("Une erreur s'est produite lors de la mise à jour du statut de l'utilisateur :", error);
         }
       );
     }
-  }  
+  }
+  makeUserAdmin(utilisateurId: number) {
+    if (confirm("Êtes-vous sûr de vouloir changer le statut de cet utilisateur ?")) {
+      const utilisateur = this.utilisateurs.find(u => u.utilisateur_id === utilisateurId);
+      const nouveauRole = utilisateur.role_utilisateur_id === 3 ? 1 : 3;
+      const utilisateurModifie = { ...utilisateur, role_utilisateur_id: nouveauRole };
+      this.adminService.updateUtilisateur(utilisateurId.toString(), utilisateurModifie).subscribe(
+        (response: any) => {
+          console.log('Statut de l\'utilisateur mis à jour avec succès');
+          this.fetchUtilisateurs();
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la mise à jour du statut de l'utilisateur :", error);
+        }
+      );
+    }
+  }
 }
