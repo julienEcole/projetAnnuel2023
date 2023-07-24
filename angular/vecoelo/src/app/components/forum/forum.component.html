@@ -7,7 +7,7 @@
   </section>
 
   <figure *ngFor="let post of (filteredPosts.length > 0 ? filteredPosts : posts)">
-    <img [src]="post.image" alt="">
+    <img src="https://www.01net.com/app/uploads/2022/06/MEA-4.jpg" alt="">
     <figcaption>
       <h2>{{ post.titre }}</h2>
       <h3>
@@ -18,12 +18,13 @@
       <h3><span>Adresse :</span> {{ post.adresse }}</h3>
       <p><strong>Description :</strong> {{ post.description }}</p>
       <div class="post-activity">
-        <div *ngIf="post.replies && post.replies.length > 0">
+        Dernière activité : {{  formatDateTime(post.date_mise_a_jour) }}
+        <!-- <div *ngIf="post.replies && post.replies.length > 0">
           <div>Dernière activité : {{ formatDateTime(getLastActivityDate(post)) }}</div>
         </div>
         <div *ngIf="!(post.replies && post.replies.length > 0)">
           <div>Aucune activité</div>
-        </div>
+        </div> -->
       </div>
       <a [routerLink]="['/post', post.probleme_id]">Voir la publication</a>
     </figcaption>

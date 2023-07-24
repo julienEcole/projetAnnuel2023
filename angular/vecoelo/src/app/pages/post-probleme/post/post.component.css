@@ -10,6 +10,28 @@ main h2{
     font-weight: bold;
     text-align: center;
 }
+.pseudo{
+    font-size: 2rem;
+    font-weight: bold !important;
+    margin: 1.5rem auto auto;
+    color: #000;
+    cursor: pointer;
+}
+.pseudo:hover{
+    color: #000;
+    
+    text-decoration: underline;
+}
+.pseudo-commentaire{
+    font-weight: bold !important;
+    margin: 1.5rem auto auto;
+    color: #000;
+    cursor: pointer;
+}
+.pseudo-commentaire:hover{
+    color: #000;
+    text-decoration: underline;
+}
 main figure{
     margin: 1rem auto;
     border: solid .1rem #ccc;

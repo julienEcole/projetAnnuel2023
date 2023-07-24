@@ -67,7 +67,7 @@ const updateOneCritiqueById = async (req: Request, res: Response, next: NextFunc
         query += `note = \"${note}\" ,`
     }
     if(message){
-        query += `message = "${message}" `
+        query += `message = "${message}"  `
     }
     query = query.substring(0, query.length - 1)
 

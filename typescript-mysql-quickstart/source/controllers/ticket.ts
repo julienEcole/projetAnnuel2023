@@ -77,7 +77,7 @@ const updateOneTicketById = async (req: Request, res: Response, next: NextFuncti
         query += `type_ticket_id = ${type_ticket_id} ,`
     }
     if(description_bug){
-        query += `description_bug = "${description_bug}" `
+        query += `description_bug = "${description_bug}"  `
     }
     query = query.substring(0, query.length - 1)
 

@@ -46,12 +46,12 @@ const createAtelier = async (req: Request, res: Response, next: NextFunction) =>
 
 const getOneAtelierById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting one atelier by id.');
-    if(!req.params.idatelier){
+    if(!req.params.idAtelier){
         res.status(400);
         res.send("erreur, les arguments doivent être l'id du atelier");
         return;
     }
-    const query = `SELECT * FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;
+    const query = `SELECT * FROM atelier WHERE atelier.atelier_id = ${req.params.idAtelier}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved atelier : ');
@@ -60,13 +60,13 @@ const getOneAtelierById = async (req: Request, res: Response, next: NextFunction
 const updateOneAtelierById = async (req: Request, res: Response, next: NextFunction) => {   //TOVERIFY
     logging.info(NAMESPACE, 'updating one atelier by id.');
     const isInt : RegExp = new RegExp("[0-9]+")
-    if(!req.params || !req.body || !req.params.idatelier || !isInt.test(req.params.idatelier)){
+    if(!req.params || !req.body || !req.params.idAtelier || !isInt.test(req.params.idAtelier)){
         res.status(400);
-        res.send(`erreur, les arguments doivent être le mail ou l'id de l'atelier`); //\n req.params.idatelier = ${req.params.idatelier}
+        res.send(`erreur, les arguments doivent être le mail ou l'id de l'atelier`); //\n req.params.idAtelier = ${req.params.idAtelier}
         return;
     }
     
-    const atelier_id : number = parseInt(req.params.idatelier);
+    const atelier_id : number = parseInt(req.params.idAtelier);
     const nomAtelier : string = req.body.nomAtelier;
     const adresse : string = req.body.adresse;
     const horaire_ouverture:Date = req.body.horaire_ouverture;
@@ -117,12 +117,12 @@ const updateOneAtelierById = async (req: Request, res: Response, next: NextFunct
 
 const DeleteOneAtelierById = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'DELETE one atelier by id.');
-    if(!req.params.idatelier){
+    if(!req.params.idAtelier){
         res.status(400);
         res.send("erreur, les arguments doivent être l'id de l'atelier");
         return;
     }
-    const query = `DELETE FROM atelier WHERE atelier.atelier_id = ${req.params.idatelier}`;
+    const query = `DELETE FROM atelier WHERE atelier.atelier_id = ${req.params.idAtelier}`;
 
     
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete atelier : ');

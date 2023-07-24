@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/components/login/user.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profil-user',
@@ -8,47 +9,76 @@ import { Router } from '@angular/router';
   styleUrls: ['./profil-user.component.css']
 })
 export class ProfilUserComponent implements OnInit {
+  baseUrl = 'http://localhost:3999';
   dateInscription: string = '';
   modifierProfil: boolean = false;
   joursInscription: number = 0;
   pseudo: string = '';
   mail: string = '';
+  password: string = '';
+  roleUser: string = '';
+  telephone: string = '';
+  utilisateur_id: string = '';
+
+  userId: string = '';
   pseudoModifie: string = '';
   mailModifie: string = '';
   passwordModifie: string = '';
-  baseUrl = 'http://localhost:3999';
+  roleUtilisateurId: number = 0;
+  userIdConnected: number = 0;
+  roleAdmin: number = 0;
 
-  constructor(private userService: UserService, private router: Router) { }
+
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
   get nomUtilisateurConnecte(): string | null {
     return this.userService.getNomUtilisateurConnecte();
   }
 
   ngOnInit(): void {
-    let mail = localStorage.getItem('email') || '';
-    this.userService.getOneUserByMail(mail).subscribe(
-      (response: any) => {
-        console.log('Réponse reçue :', response);
-        const utilisateur = response.results[0];
-        console.log('Utilisateur trouvé :', utilisateur);
-        this.pseudo = utilisateur.pseudo;
-        this.mail = utilisateur.mail;
-        console.log('Pseudo :', this.pseudo);
-        console.log('Mail :', this.mail);
-        this.dateInscription = utilisateur.dateCreation || '';
-        // Calcul du nombre de jours d'inscription en utilisant la date actuelle
-        const dateInscription = new Date(this.dateInscription);
-        const currentDate = new Date();
-        const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
-        this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    this.pseudo = '';
+    this.mail = '';
+    this.utilisateur_id = '';
+    this.route.params.subscribe((params) => {
+      const userId = params['id'];
+      // Récupérer les informations de l'utilisateur à partir de l'id
+      this.userService.getOneUserById(userId).subscribe(
+        (response: any) => {
+          const utilisateur = response.results[0];
+          this.pseudo = utilisateur.pseudo;
+          this.mail = utilisateur.mail;
+          this.utilisateur_id = utilisateur.utilisateur_id;
+          //Savoir si l'id de l'utilisateur connecté est le même que celui de l'utilisateur dont on consulte le profil
+          this.userId = localStorage.getItem('id') || '';
+          this.roleUtilisateurId = utilisateur.role_utilisateur_id;
 
-
-      },
-      (error: any) => {
-        console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
-      }
-    );
+          // Calcul du nombre de jours d'inscription en utilisant la date actuelle
+          this.dateInscription = utilisateur.date_de_publication;
+          const dateInscription = new Date(this.dateInscription);
+          const currentDate = new Date();
+          const timeDiff = Math.abs(currentDate.getTime() - dateInscription.getTime());
+          this.joursInscription = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        },
+        (error: any) => {
+          console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
+        }
+      );
+    });
   }
+  isAdmin(): boolean {
+    this.roleAdmin = parseInt(localStorage.getItem('roleUtilisateurId') || '0');
 
+    if (this.roleUtilisateurId == 3) {
+
+      return true;
+    }
+    return false;
+  }
+  ifUser(): boolean {
+    if (this.userId == this.utilisateur_id) {
+      return true;
+    }
+    return false;
+  }
   formatDateTime(dateTime: string): string {
     if (!dateTime) {
       return ""; // Gérer le cas où dateTime est vide ou non défini
@@ -85,23 +115,23 @@ export class ProfilUserComponent implements OnInit {
   changerProfil(): void {
     if (!this.modifierProfil) {
       this.modifierProfil = true;
-    } else {
-      if (this.pseudoModifie && this.mailModifie) {
+    }
+    else {
+      if (this.pseudo && this.mail) {
+
         const userId = localStorage.getItem('id');
-        console.log('ID utilisateur :', userId);
 
         if (userId) {
           const updatedUserData = {
-            password: this.passwordModifie,
-            mail: this.mailModifie,
-            pseudo: this.pseudoModifie
+            password: this.password,
+            mail: this.mail,
+            pseudo: this.pseudo
           };
-          console.log('Données utilisateur mises à jour :', updatedUserData);
-          console.log(this.userService.updateUser(userId, updatedUserData));
+
           this.userService.updateUser(userId, updatedUserData).subscribe(
             response => {
               console.log('Mise à jour effectuée avec succès', response);
-              
+
             },
             error => {
               console.error("Erreur lors de la requête :", `${this.baseUrl}/utilisateur/patch/utilisateur/${userId}`, updatedUserData);

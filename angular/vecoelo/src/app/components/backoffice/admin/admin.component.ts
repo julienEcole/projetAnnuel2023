@@ -13,6 +13,9 @@ import { map } from 'rxjs/operators';
 export class AdminComponent implements OnInit {
   utilisateurs: any[] = [];
   problemes: any[] = [];
+  comments: any[] = [];
+  postId: string | null = null;
+  commentsLoadedMap: { [problemId: string]: boolean } = {};
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -142,11 +145,12 @@ export class AdminComponent implements OnInit {
       probleme_id: probleme.probleme_id,
       titre: probleme.nouveauTitre,
       adresse: probleme.nouvelleAdresse,
-      description: probleme.nouvelleDescription
+      description: probleme.nouvelleDescription,
+      // utilisateur_id = probleme.utilisateur_id
     };
     console.log('Requête de modification (édit) :', updatedProbleme); // Affichage de la requête de modification dans la console
 
-    this.adminService.updateProbleme(probleme.probleme_id.toString(), updatedProbleme).subscribe(
+    this.adminService.updateProbleme(probleme.probleme_id, updatedProbleme).subscribe(
       (response: any) => {
         console.log('Mise à jour du problème réussie');
         probleme.editionEnCours = false; // Sortir du mode édition
@@ -177,6 +181,70 @@ export class AdminComponent implements OnInit {
         },
         (error: any) => {
           console.log("Une erreur s'est produite lors de la suppression du problème :", error);
+        }
+      );
+    }
+  }
+  formatDateTime(dateTime: string): string {
+    if (!dateTime) {
+      return "";
+    }
+
+    const date = new Date(dateTime);
+    date.setHours(date.getHours() + 2);
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric' as const,
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'UTC'
+    };
+    const formatter = new Intl.DateTimeFormat('fr-FR', options);
+    if (isNaN(date.getTime())) {
+      return "";
+    }
+    return formatter.format(date);
+  }
+  toggleCommentsDisplay(problemId: string) {
+    if (this.commentsLoadedMap[problemId]) {
+      this.unloadComments(problemId);
+    } else {
+      this.loadComments(problemId);
+    }
+  }
+
+  unloadComments(problemId: string) {
+    this.comments = [];
+    this.commentsLoadedMap[problemId] = false;
+  }
+
+  loadComments(problemId: string) {
+    this.postId = problemId;
+    this.adminService.getCommentsByPostId(problemId).subscribe((comments: any) => {
+      if (Array.isArray(comments.results)) {
+        this.comments = comments.results;
+        for (const comment of this.comments) {
+          this.adminService.getOneUserById(comment.utilisateur_id).subscribe(user => {
+            comment.pseudo = user.results[0].pseudo;
+          });
+        }
+      } else {
+        console.error('Erreur lors du chargement des commentaires: La réponse.results n\'est pas un tableau.', comments);
+      }
+    });
+    this.commentsLoadedMap[problemId] = true;
+  }
+  supprimerCommentaire(commentaireId: number, problemeId: string) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce commentaire ?")) {
+      this.adminService.deleteCommentFromPost(commentaireId.toString()).subscribe(
+        (response: any) => {
+          console.log('Commentaire supprimé');
+          this.loadComments(problemeId);
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la suppression du commentaire :", error);
         }
       );
     }

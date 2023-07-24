@@ -44,17 +44,17 @@ const getAllImageFromProbleme = async (req: Request, res: Response, next: NextFu
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved image list : ');
 };
 
-// const getAllProblemeFromImage = async (req: Request, res: Response, next: NextFunction) => {
-//     logging.info(NAMESPACE, 'Getting one probleme_image by id.');
-//     if(!req.params.atelier_id){
-//         res.status(400);
-//         res.send("erreur, les arguments doivent être l'id du probleme_image");
-//         return;
-//     }
-//     const query = `SELECT utilisateur.* FROM probleme_image, utilisateur WHERE probleme_image.atelier_id = ${req.params.atelier_id} AND probleme_image.utilisateur_id = utilisateur.utilisateur_id`; 
+const getAllProblemeFromImage = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'Getting one probleme_image by id.');
+    if(!req.params.atelier_id){
+        res.status(400);
+        res.send("erreur, les arguments doivent être l'id du probleme_image");
+        return;
+    }
+    const query = `SELECT probleme.* FROM probleme_image, probleme WHERE probleme_image.image_id = ${req.params.image_id} AND probleme_image.probleme_id = probleme.probleme_id`; 
     
-//     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user list : ');
-// };
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved user list : ');
+};
 
 const updateOneProbleme_ImageById = async (req: Request, res: Response, next: NextFunction) => {
     res.status(403);
@@ -77,7 +77,35 @@ const DeleteOneProbleme_ImageById = async (req: Request, res: Response, next: Ne
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme_image : ');
 };
 
-export default {/*getAllprobleme_image,*/ createProbleme_Image, getAllImageFromProbleme, /*getAllProblemeFromImage,*/  updateOneProbleme_ImageById, DeleteOneProbleme_ImageById};
+const DeleteAllProbleme_ImageByProbleme = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'DELETE one probleme_image by id.');
+    if(!req.params || !req.params.probleme_id){
+        res.status(400);
+        res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
+        return;
+    }
+    const probleme_id : number = parseInt(req.params.probleme_id);
+    const query = `DELETE FROM probleme_image WHERE probleme_image.probleme_id = ${probleme_id}`;
+
+    
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme_image : ');
+};
+
+const DeleteAllProbleme_ImageByImage = async (req: Request, res: Response, next: NextFunction) => {
+    logging.info(NAMESPACE, 'DELETE one probleme_image by id.');
+    if(!req.params || !req.params.image_id){
+        res.status(400);
+        res.send("le body ne contiens pas d'information pour le DELETE, veuillez ajouter le json contenant les donnés dans le body.");
+        return;
+    }
+    const image_id : number = parseInt(req.params.image_id);
+    const query = `DELETE FROM probleme_image WHERE probleme_image.image_id = ${image_id}`;
+
+    
+    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'delete probleme_image : ');
+};
+
+export default {/*getAllprobleme_image,*/ createProbleme_Image, getAllImageFromProbleme, getAllProblemeFromImage,  updateOneProbleme_ImageById, DeleteOneProbleme_ImageById, DeleteAllProbleme_ImageByProbleme, DeleteAllProbleme_ImageByImage};
 
 
 // CREATE TABLE IF NOT EXISTS probleme_image (

@@ -5,9 +5,12 @@ import logging from './config/logging';
 import config from './config/config';
 // import bookRoutes from './routes/book';
 import userRoutes from './routes/utilisateur'
+import role_utilisateurRoute from './routes/role_utilisateur';
 import ticketRoute from './routes/ticket'
 
 import notificationRoute from './routes/vecoleo/notification';
+
+import imageRoute from './routes/vecoleo/image/image';
 
 import atelierRoute from "./routes/vecoleo/profetionnel/atelier"
 import utilisateur_atelierRoute from './routes/vecoleo/profetionnel/utilisateur_atelier';
@@ -15,7 +18,7 @@ import serviceRoute from './routes/vecoleo/profetionnel/service';
 
 import problemeRoute from './routes/vecoleo/probleme/probleme';
 import probleme_serviceRoute from './routes/vecoleo/probleme/probleme_service';
-import probleme_imageRoute from './routes/vecoleo/probleme/probleme_service';
+//import probleme_imageRoute from './routes/vecoleo/probleme/probleme_image';
 import commentaireRoute from './routes/vecoleo/probleme/commentaire';
 
 import critiqueRoute from './routes/vecoleo/critique/critique';
@@ -58,9 +61,12 @@ router.use((req, res, next) => {
 /** Routes go here */
 // router.use('/books', bookRoutes);
 router.use("/utilisateur", userRoutes);
+router.use("/role_utilisateur", role_utilisateurRoute)
 router.use("/ticket", ticketRoute)
 
 router.use("/notification", notificationRoute)
+
+router.use("/image", imageRoute)
 
 router.use("/atelier", atelierRoute)
 router.use("/service", serviceRoute)
@@ -68,7 +74,7 @@ router.use("/utilisateur_atelier",utilisateur_atelierRoute)
 
 router.use("/probleme", problemeRoute)
 router.use("/probleme_service", probleme_serviceRoute)
-router.use("/probleme_image", probleme_imageRoute)
+// router.use("/probleme_image", probleme_imageRoute)
 router.use("/commentaire", commentaireRoute)
 
 router.use("/critique", critiqueRoute)

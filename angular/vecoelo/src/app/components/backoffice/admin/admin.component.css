@@ -71,3 +71,11 @@ main table tr:last-child td:nth-child(1) {
 main table tr:last-child td:last-child {
     border-radius: 0 0 1rem 0;
 }
+.material-icons{
+    font-size: 3rem;
+    padding: 0 1rem;
+    color: #000000;
+    cursor: pointer;
+    transition: all .15s ease-in-out;
+
+}

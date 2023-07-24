@@ -7,7 +7,7 @@
       <div class="connexion">
         <button class="btn-forum" routerLink="/forum">Forum des problèmes</button>
         <ng-container *ngIf="nomUtilisateurConnecte; else connexionBtn">
-          <h3><a [routerLink]="['/profil_user']">{{ nomUtilisateurConnecte }}</a></h3>
+          <h3><a [routerLink]="['/profil_user', UtilisateurId]">{{ nomUtilisateurConnecte }}</a></h3>
           <button class="btn-deconnexion" (click)="deconnexion()"><i class="material-icons">logout</i></button>
         </ng-container>
         <ng-template #connexionBtn>
