@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     telephone TEXT,
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id)
+    role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id),
+    icon_image_id INT REFERENCES [image](image_id)
 );
 
 CREATE TABLE IF NOT EXISTS type_ticket (
