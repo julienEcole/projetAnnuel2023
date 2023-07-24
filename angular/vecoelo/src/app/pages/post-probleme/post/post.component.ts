@@ -12,6 +12,8 @@ export class PostComponent implements OnInit {
   post: any;
   replyMessage!: string;
   comments: any[] = [];
+  isRoleAllowedToComment: boolean = true; 
+  isRoleAllowedToDelete: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +31,10 @@ export class PostComponent implements OnInit {
           this.forumService.getOneUserById(this.postId).subscribe(user => {
             this.post = post.results[0];
             this.loadAuthor(this.post.utilisateur_id);
+            console.log(localStorage.getItem('id'));
+            const roleId = localStorage.getItem('roleUtilisateurId'); // Utilisez la clé "role_utilisateur_id"
+            this.isRoleAllowedToComment = roleId !== '2';
+            this.isRoleAllowedToDelete = roleId == '3';
 
           });
           this.loadComments(); 
@@ -43,18 +49,21 @@ export class PostComponent implements OnInit {
       console.log("ID de l'utilisateur :", this.post.utilisateur_id); // Vérifiez l'ID de l'utilisateur
     });
   }  
+
   redirigerVersProfil() {
     console.log("Redirection vers le profil de l'utilisateur :", this.post.utilisateur_id);
     if (this.post && this.post.utilisateur_id) {
       this.router.navigate(['/profil_user', this.post.utilisateur_id]);
     }
   }
+
   redirigerVersProfilUtilisateur(userId: string) {
     console.log("Redirection vers le profil de l'utilisateur :", userId);
     if (userId) {
       this.router.navigate(['/profil_user', userId]);
     }
   }
+
   loadComments() {
     this.forumService.getCommentsByPostId(this.postId).subscribe((comments: any) => {
       if (Array.isArray(comments.results)) { // Vérifier si comments.results est un tableau
@@ -71,6 +80,14 @@ export class PostComponent implements OnInit {
   }
 
   submitReply() {
+    // Vérifiez à nouveau le rôle ID avant d'ajouter un commentaire
+    const roleId = localStorage.getItem('role_utilisateur_id');
+    console.log("ID du rôle de l'utilisateur :", roleId);
+    if (roleId === '2') {
+      console.log("Vous n'êtes pas autorisé à ajouter un commentaire avec ce rôle.");
+      return; // Arrêtez l'exécution de la fonction si l'utilisateur a le rôle ID 2
+    }
+
     const comment = {
       description: this.replyMessage,
       probleme_id: this.postId,

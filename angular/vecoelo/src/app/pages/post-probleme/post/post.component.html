@@ -22,7 +22,7 @@
             <div>
               <time>{{ formatDateTime(comment.date_de_publication) }}</time>
             </div>
-            <button (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
+            <button *ngIf="isRoleAllowedToDelete" (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
           </li>
         </ng-container>
         <ng-template #profilSupprime>
@@ -31,16 +31,18 @@
             <div>
               <time>{{ formatDateTime(comment.date_de_publication) }}</time>
             </div>
-            <button (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
+            <button *ngIf="isRoleAllowedToDelete" (click)="deleteComment(comment.commentaire_id)">Supprimer</button>
           </li>
         </ng-template>
       </ng-container>
     </ul>
     
+    <ng-container *ngIf="isRoleAllowedToComment">
     <form (ngSubmit)="submitReply()" #replyForm="ngForm">
       <textarea [(ngModel)]="replyMessage" name="replyMessage" required></textarea>
       <button type="submit" [disabled]="replyForm.invalid">Envoyer</button>
     </form>
+  </ng-container>
   </div>
 
 

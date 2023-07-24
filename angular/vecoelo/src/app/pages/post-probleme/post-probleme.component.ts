@@ -35,11 +35,11 @@ export class PostProblemeComponent {
     // console.log(this.problem);
     let id = localStorage.getItem('id');
     this.problem.utilisateur_id = id;
-    console.log(this.problem);
+    // console.log(this.problem);
     return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
       .subscribe(
         response => {
-          console.log("Résultat de la requête :", response);
+          // console.log("Résultat de la requête :", response);
           this.router.navigate(['/forum']);
         },
         error => {
@@ -49,8 +49,17 @@ export class PostProblemeComponent {
       );
 
   }
-
-  onFileChange(event: any) {
-    // Logique pour gérer le changement de fichier
+  ngOnInit(): void{
+  }
+  onChangeFile(event: any) {
+    debugger
+    if(event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      this.http.post('http://localhost:3999/images/post/image',formData).subscribe((res: any) => {
+        debugger
+      });
+    }
   }
 }

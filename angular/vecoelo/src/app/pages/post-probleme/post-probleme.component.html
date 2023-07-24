@@ -20,8 +20,8 @@
         <input *ngIf="problem.objet === 'autre'" type="text" name="autreProbleme" id="autreProbleme" [(ngModel)]="problem.autreProbleme">
         
         <label for="image">Photo du problème :</label>
-        <input type="file" name="image" id="image" [(ngModel)]="problem.image">
-        
+        <input type="file" (change)="onChangeFile($event)" name="image" id="image" [(ngModel)]="problem.image">
+                
         <label for="probleme">Résumé du problème :</label>
         <textarea name="probleme" id="probleme" cols="20" rows="10" [(ngModel)]="problem.resume"></textarea>
         

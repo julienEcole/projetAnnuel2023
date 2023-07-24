@@ -249,4 +249,36 @@ export class AdminComponent implements OnInit {
       );
     }
   }
+  bannirUtilisateur(utilisateurId: number) {
+    if (confirm("Êtes-vous sûr de vouloir changer le statut de cet utilisateur ?")) {
+      const utilisateur = this.utilisateurs.find(u => u.utilisateur_id === utilisateurId);
+      const nouveauRole = utilisateur.role_utilisateur_id === 2 ? 1 : 2;
+      const utilisateurModifie = { ...utilisateur, role_utilisateur_id: nouveauRole };
+      this.adminService.updateUtilisateur(utilisateurId.toString(), utilisateurModifie).subscribe(
+        (response: any) => {
+          console.log('Statut de l\'utilisateur mis à jour avec succès');
+          this.fetchUtilisateurs();
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la mise à jour du statut de l'utilisateur :", error);
+        }
+      );
+    }
+  }
+  makeUserAdmin(utilisateurId: number) {
+    if (confirm("Êtes-vous sûr de vouloir changer le statut de cet utilisateur ?")) {
+      const utilisateur = this.utilisateurs.find(u => u.utilisateur_id === utilisateurId);
+      const nouveauRole = utilisateur.role_utilisateur_id === 3 ? 1 : 3;
+      const utilisateurModifie = { ...utilisateur, role_utilisateur_id: nouveauRole };
+      this.adminService.updateUtilisateur(utilisateurId.toString(), utilisateurModifie).subscribe(
+        (response: any) => {
+          console.log('Statut de l\'utilisateur mis à jour avec succès');
+          this.fetchUtilisateurs();
+        },
+        (error: any) => {
+          console.log("Une erreur s'est produite lors de la mise à jour du statut de l'utilisateur :", error);
+        }
+      );
+    }
+  }
 }

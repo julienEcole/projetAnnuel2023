@@ -9,7 +9,7 @@ body {
     font: 1.6rem 'Inter', sans-serif;
     margin: 0;
     background: rgb(125,174,255);
-    background: radial-gradient(circle, rgba(125,174,255,1) 0%, rgba(175,212,255,1) 100%);
+    background: radial-gradient(circle, rgb(93, 155, 255) 0%, rgb(132, 189, 255) 100%);
 
 }
 

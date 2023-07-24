@@ -46,6 +46,8 @@
         <ng-container *ngIf="!utilisateur.editionEnCours">
           <i class="material-icons" (click)="editerUtilisateur(utilisateur)">create</i>
           <i class="material-icons" (click)="supprimerUtilisateur(utilisateur.utilisateur_id)">delete</i>
+          <i class="material-icons" (click)="makeUserAdmin(utilisateur.utilisateur_id)">how_to_reg</i>
+          <i class="material-icons" (click)="bannirUtilisateur(utilisateur.utilisateur_id)">gavel</i>
         </ng-container>
         <ng-container *ngIf="utilisateur.editionEnCours">
           <i class="material-icons" (click)="enregistrerEdition(utilisateur)">done</i>

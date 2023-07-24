@@ -28,8 +28,8 @@
       </div>
       <a [routerLink]="['/post', post.probleme_id]">Voir la publication</a>
     </figcaption>
-    <button class="delete-button" (click)="supprimerProbleme(post.probleme_id)">
+    <button class="delete-button" *ngIf="isRoleAllowedToDelete" (click)="supprimerProbleme(post.probleme_id)">
       <i class="material-icons">delete</i>
-    </button>  
+    </button>
   </figure>
 </main>

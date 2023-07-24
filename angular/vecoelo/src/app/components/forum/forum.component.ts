@@ -13,10 +13,12 @@ export class ForumComponent implements OnInit {
   searchText: string = '';
   filteredPosts: any[] = [];
   posts: any[] = [];
+  isRoleAllowedToDelete: boolean = true;
 
   ngOnInit(): void {
-
     this.loadPosts();
+    const roleId = localStorage.getItem('roleUtilisateurId'); 
+    this.isRoleAllowedToDelete = roleId === '3'; 
   }
 
   loadPosts(): void {
