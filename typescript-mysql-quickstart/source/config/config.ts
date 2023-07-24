@@ -22,9 +22,18 @@ const SERVER = {
     port: SERVER_PORT
 };
 
+const MAILADRESS = process.env.MAIL || "projetmailjulienecole@gmail.com"
+const MAILMDP = process.env.MAIL_MDP || "julienEcole"
+
+const MAILER = {
+    mail: MAILADRESS,
+    mailMdp : MAILMDP
+};
+
 const config = {
     mysql: MYSQL,
-    server: SERVER
+    server: SERVER,
+    mailer : MAILER
 };
 
 export default config;
