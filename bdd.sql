@@ -17,8 +17,18 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     role_utilisateur_id INT NOT NULL REFERENCES role_utilisateur(role_utilisateur_id),
+    token_activation TEXT UNIQUE,
+    compte_actif BOOLEAN NOT NULL,
     icon_image_id INT REFERENCES [image](image_id)
 );
+
+CREATE EVENT IF NOT EXISTS DeleteInactiveUser
+ON SCHEDULE EVERY 1 DAY -- Planifier l'événement pour s'exécuter chaque jour
+STARTS CURRENT_TIMESTAMP + INTERVAL 1 DAY -- Démarrer l'événement 1 jour après sa création
+DO
+BEGIN
+  DELETE FROM utilisateur WHERE utilisateur.compte_actif = FALSE AND utilisateur.date_de_publication < NOW() - INTERVAL 1 DAY;
+END//
 
 CREATE TABLE IF NOT EXISTS type_ticket (
     type_ticket_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
