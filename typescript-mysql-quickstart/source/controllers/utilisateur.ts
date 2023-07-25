@@ -3,6 +3,8 @@ import logging from '../config/logging';
 import { Connect, Query } from '../config/mysql';
 import { executeSQLCommand } from './shared/executeCommand';
 import { SecurityUtils } from './shared/SecurityUtils';
+import { v4 as uuidv4 } from 'uuid';
+import { sendEmailInscription } from '../config/mailer';
 
 const NAMESPACE = 'utilisateur';
 
@@ -23,16 +25,17 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     let telephone:string =req.body.telephone;
     const icon_image_id:number = parseInt(req.body.icon_image_id)
     const role_utilisateur_id:number = req.body.role_utilisateur_id || 1;
+    const token_activation:string = uuidv4()    //génération d'un tocken unique
 
-    // const isNumber: RegExp = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
+    const isTelephoneNumber: RegExp = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
     const isMail : RegExp = new RegExp(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
     const passwordRegex : RegExp = new RegExp(`^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-z])(?=.*[A-Z]).{8,}$`) ;
-    // if(telephone &&!isNumber.test(telephone)){
-    //     res.status(400);
-    //     res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
-    //     return;
-    // }
-    if(!telephone){
+    if(telephone &&!isTelephoneNumber.test(telephone)){
+        res.status(400);
+        res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
+        return;
+    }
+    else if(!telephone){
         telephone = "";
     }
     if (!isMail.test(mail)) {
@@ -52,7 +55,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
         return;
     }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone, icon_image_id) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}", ${icon_image_id})`;
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone, icon_image_id, token_activation) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}", ${icon_image_id}, "${token_activation}")`;
+    sendEmailInscription(mail,token_activation);
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 
