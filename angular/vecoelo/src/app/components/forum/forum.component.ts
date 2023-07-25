@@ -13,35 +13,49 @@ export class ForumComponent implements OnInit {
   searchText: string = '';
   filteredPosts: any[] = [];
   posts: any[] = [];
+  images: any[] = [];
   isRoleAllowedToDelete: boolean = true;
 
   ngOnInit(): void {
     this.loadPosts();
-    const roleId = localStorage.getItem('roleUtilisateurId'); 
-    this.isRoleAllowedToDelete = roleId === '3'; 
+    const roleId = localStorage.getItem('roleUtilisateurId');
+    this.isRoleAllowedToDelete = roleId === '3';
   }
-
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return binary;
+  }
+  
   loadPosts(): void {
     this.forumService.getProblems().subscribe(
       (response: any) => {
         if (Array.isArray(response.results)) {
           this.posts = response.results;
-          console.log('Chargement des publications réussi:', this.posts);
           for (const post of this.posts) {
             let id = post.utilisateur_id;
-  
+
+            if (this.arrayBufferToBase64(post.bin.data) == "undefined") {
+              console.log("Pas d'image");
+              post.image = "../../../../assets/vecoelo-logo-color.png";
+            } else {
+              post.image = this.arrayBufferToBase64(post.bin.data);
+            }
+            
             this.forumService.getOneUserById(id).subscribe(
               (userResponse: any) => {
                 const utilisateur = userResponse.results[0];
                 post.pseudo = utilisateur.pseudo;
-                console.log('Chargement des réponses du post:', post);
               },
               (error: any) => {
                 console.log('Une erreur s\'est produite lors de la récupération des informations utilisateur :', error);
               }
             );
           }
-  
+
           console.log('Chargement des publications réussi:', this.posts);
         } else {
           console.error('Erreur lors du chargement des publications: La réponse.results n\'est pas un tableau.', response);
@@ -53,7 +67,7 @@ export class ForumComponent implements OnInit {
       }
     );
   }
-  
+
   filterPosts() {
     if (this.searchText) {
       this.filteredPosts = this.posts.filter(post =>

@@ -26,7 +26,8 @@ export class UserService {
       nom,
       prenom,
       email,
-      password
+      password,
+      image: null,
     };
     console.log(user);
     return this.http.post<any>(`${this.baseUrl}/utilisateur/create/utilisateur`, user)
@@ -48,6 +49,7 @@ export class UserService {
         this.email = utilisateur.mail;
         this.id = utilisateur.utilisateur_id;
         this.roleUtilisateurId = utilisateur.role_utilisateur_id;
+  
         console.log(this.pseudo, this.email, this.id)
   
         const motDePasseHache = SHA512(password).toString(); 

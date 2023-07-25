@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
   problemes: any[] = [];
   comments: any[] = [];
   postId: string | null = null;
+  image: any;
   commentsLoadedMap: { [problemId: string]: boolean } = {};
 
   constructor(private adminService: AdminService, private router: Router) {}
@@ -42,6 +43,7 @@ export class AdminComponent implements OnInit {
           nouveauPrenom: utilisateur.prenom,
           nouveauNom: utilisateur.nom,
           nouveauPseudo: utilisateur.pseudo
+   
         }));
       },
       (error: any) => {
@@ -59,7 +61,8 @@ export class AdminComponent implements OnInit {
           nouveauTitre: probleme.titre,
           nouvelleAdresse: probleme.adresse,
           nouvelleDescription: probleme.description,
-          utilisateur_pseudo: '' // Initialize the pseudo property
+          utilisateur_pseudo: '',// Initialize the pseudo property
+          image : ''
         }));
   
         // Retrieve usernames for each user ID
@@ -95,7 +98,7 @@ export class AdminComponent implements OnInit {
   }
 
   enregistrerEdition(utilisateur: any) {
-    const { utilisateur_id, nouvelEmail, nouveauPrenom, nouveauNom, nouveauMotDePasse, nouveauPseudo } = utilisateur;
+    const { utilisateur_id, nouvelEmail, nouveauPrenom, nouveauNom, nouveauMotDePasse, nouveauPseudo, image } = utilisateur;
   
     const utilisateurModifie = {
       utilisateur_id,
@@ -103,9 +106,10 @@ export class AdminComponent implements OnInit {
       prenom: nouveauPrenom,
       nom: nouveauNom,
       password: nouveauMotDePasse,
-      pseudo: nouveauPseudo
+      pseudo: nouveauPseudo,
+      image: {data : ""}
     };
-  
+     // Affichage de la requête de modification dans la console
     this.adminService.updateUtilisateur(utilisateur_id.toString(), utilisateurModifie).subscribe(
       (response: any) => {
         console.log('Mise à jour de l\'utilisateur réussie');
@@ -146,8 +150,9 @@ export class AdminComponent implements OnInit {
       titre: probleme.nouveauTitre,
       adresse: probleme.nouvelleAdresse,
       description: probleme.nouvelleDescription,
+      image: {data : ""}
       // utilisateur_id = probleme.utilisateur_id
-    };
+    }; 
     console.log('Requête de modification (édit) :', updatedProbleme); // Affichage de la requête de modification dans la console
 
     this.adminService.updateProbleme(probleme.probleme_id, updatedProbleme).subscribe(
@@ -254,6 +259,7 @@ export class AdminComponent implements OnInit {
       const utilisateur = this.utilisateurs.find(u => u.utilisateur_id === utilisateurId);
       const nouveauRole = utilisateur.role_utilisateur_id === 2 ? 1 : 2;
       const utilisateurModifie = { ...utilisateur, role_utilisateur_id: nouveauRole };
+      utilisateurModifie.image += {data : ""};
       this.adminService.updateUtilisateur(utilisateurId.toString(), utilisateurModifie).subscribe(
         (response: any) => {
           console.log('Statut de l\'utilisateur mis à jour avec succès');
@@ -270,6 +276,7 @@ export class AdminComponent implements OnInit {
       const utilisateur = this.utilisateurs.find(u => u.utilisateur_id === utilisateurId);
       const nouveauRole = utilisateur.role_utilisateur_id === 3 ? 1 : 3;
       const utilisateurModifie = { ...utilisateur, role_utilisateur_id: nouveauRole };
+      utilisateurModifie.image += {data : ""};
       this.adminService.updateUtilisateur(utilisateurId.toString(), utilisateurModifie).subscribe(
         (response: any) => {
           console.log('Statut de l\'utilisateur mis à jour avec succès');

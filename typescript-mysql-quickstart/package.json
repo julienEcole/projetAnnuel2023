@@ -5,6 +5,7 @@
   "main": "source/server.ts",
   "scripts": {
     "start": "npx tsc && node ./build/server.js",
+    "start2": "npx tsc && nodemon ./build/server.js",
     "build": "rm -rf build && prettier --write source/ && npx tsc"
   },
   "author": "",

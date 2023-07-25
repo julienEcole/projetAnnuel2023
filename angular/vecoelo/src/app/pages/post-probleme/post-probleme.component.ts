@@ -31,15 +31,15 @@ export class PostProblemeComponent {
   }
 
   submitProblem() {
-    // this.forumService.addProblem(this.problem);
-    // console.log(this.problem);
     let id = localStorage.getItem('id');
     this.problem.utilisateur_id = id;
-    // console.log(this.problem);
+    console.log(this.problem.image);
+    console.log(this.problem);
+    this.submitImage(this.problem.image)
     return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, this.problem)
       .subscribe(
         response => {
-          // console.log("Résultat de la requête :", response);
+          console.log("Résultat de la requête :", response);
           this.router.navigate(['/forum']);
         },
         error => {
@@ -49,17 +49,61 @@ export class PostProblemeComponent {
       );
 
   }
-  ngOnInit(): void{
-  }
-  onChangeFile(event: any) {
-    debugger
-    if(event.target.files.length > 0) {
-      const file = event.target.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
-      this.http.post('http://localhost:3999/images/post/image',formData).subscribe((res: any) => {
-        debugger
-      });
+  submitImage(image: any = this.problem.image) {
+    if (image) {
+      const Images = {
+        data: image.data,
+        nom: image.name,
+        taille: image.size,
+        type: image.type,
+      };
+      console.log(Images.data)
+      console.log("dataToSend = ", Images);
+      // return this.http.post<any>(`${this.baseUrl}/probleme/post/probleme`, Images)
+      //   .subscribe(
+      //     response => {
+      //       console.log("Résultat de la requête :", response);
+      //     },
+      //     error => {
+      //       console.error("Erreur lors de la requête :", `${this.baseUrl}/probleme/post/probleme`, Images);
+      //       console.error("Erreur lors de la requête :", error);
+      //     }
+      //   );
+    }
+    else {
+      console.log("Pas d'image à envoyer");
+      return;
     }
   }
+
+  onChangeFile(event: any) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [imageFile] = event.target.files;
+      console.log(imageFile);
+      console.log(imageFile.data);
+      if (imageFile.size > 2 * 1024 * 1024) {
+        console.error('Image too large. Maximum size allowed is 2MB.');
+        return;
+      }
+      reader.readAsDataURL(imageFile);
+
+      reader.onload = () => {
+        const imageDataURL = reader.result as string;
+        console.log(imageDataURL);
+        this.problem.image = {
+          name: imageFile.name,
+          type: imageFile.type,
+          size: imageFile.size,
+          data: imageDataURL,
+        };
+      };
+
+    } else {
+      this.problem.image = null;
+    }
+  }
+
 }
+
+

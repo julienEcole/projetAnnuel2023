@@ -7,7 +7,8 @@
   </section>
 
   <figure *ngFor="let post of (filteredPosts.length > 0 ? filteredPosts : posts)">
-    <img src="https://www.01net.com/app/uploads/2022/06/MEA-4.jpg" alt="">
+    <img [src]="post.image " *ngIf="post.image " alt="Image du problème">    
+    
     <figcaption>
       <h2>{{ post.titre }}</h2>
       <h3>
