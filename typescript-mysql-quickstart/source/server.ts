@@ -24,6 +24,7 @@ import commentaireRoute from './routes/vecoleo/probleme/commentaire';
 import critiqueRoute from './routes/vecoleo/critique/critique';
 import critique_atelierRoute from './routes/vecoleo/critique/critique_atelier';
 import critique_utilisateurRoute from './routes/vecoleo/critique/critique_utilisateur';
+import { executeSQLCommand } from './controllers/shared/executeCommand';
 
 const NAMESPACE = 'Server';
 const router = express();
@@ -56,6 +57,15 @@ router.use((req, res, next) => {
     }
 
     next();
+});
+
+// Route pour le lien de confirmation
+router.get('/confirm/:confirmationCode', (req, res, next) => {
+    const confirmationCode = req.params.confirmationCode;
+    const query = `UPDATE utilisateur SET compte_actif = true WHERE token_activation = "${confirmationCode}"`
+    executeSQLCommand(req,res,next,"CONFIRMATION",query,"activation du compte : ")
+    // Ici, vous pouvez enregistrer le code de confirmation dans votre base de données ou système
+    res.send('Confirmation réussie ! Votre compte ne seras pas supprimer après 24h.');
 });
 
 /** Routes go here */

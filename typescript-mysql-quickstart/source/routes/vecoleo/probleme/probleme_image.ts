@@ -5,7 +5,7 @@ const router = express.Router();
 
 // router.get("/get/atelier",controller.getAllAtelier);
 router.get("/get/probleme_image/problemeId/:probleme_id", controller.getAllImageFromProbleme);
-router.get("/get/probleme_image/imageId/:image_id", controller.getAllImageFromProbleme);
+router.get("/get/probleme_image/imageId/:image_id", controller.getAllProblemeFromImage);
 router.post("/post/probleme_image",express.json(), controller.createProbleme_Image);
 router.patch("/patch/probleme_image", controller.updateOneProbleme_ImageById); //produit toujours erreur 403 fichier json ou non
 router.delete("/delete/probleme_image",express.json(), controller.DeleteOneProbleme_ImageById) //envoyer JSON car contiens une clef composé

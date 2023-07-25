@@ -23,13 +23,13 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const nom:string = req.body.nom;
     const pseudo:string = req.body.pseudo;
     let telephone:string =req.body.telephone;
-    const icon_image_id:number = parseInt(req.body.icon_image_id)
+    const icon_image_id:number = parseInt(req.body.icon_image_id) || 1;
     const role_utilisateur_id:number = req.body.role_utilisateur_id || 1;
     const token_activation:string = uuidv4()    //génération d'un tocken unique
 
     const isTelephoneNumber: RegExp = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
     const isMail : RegExp = new RegExp(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
-    const passwordRegex : RegExp = new RegExp(`^(?=.*\d)(?=.*[!@#$%^&*()])(?=.*[a-z])(?=.*[A-Z]).{8,}$`) ;
+    const passwordRegex : RegExp = new RegExp(`^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$`) ;
     if(telephone &&!isTelephoneNumber.test(telephone)){
         res.status(400);
         res.send("le numero de telephone n'est pas correct, veuillez en choisir un correct.");
@@ -56,8 +56,9 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         return;
     }
     let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone, icon_image_id, token_activation) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}", ${icon_image_id}, "${token_activation}")`;
-    sendEmailInscription(mail,token_activation);
-    return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
+    
+    await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
+    await sendEmailInscription(mail,token_activation);
 };
 
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
@@ -200,7 +201,7 @@ const deleteOneUserByMail = async (req: Request<{ mailUser: string}>, res: Respo
         res.send("erreur, les arguments doivent être le mail de l'utilisateur");
         return;
     }
-    const query = `DELETE * FROM utilisateur WHERE utilisateur.mail = '${req.params.mailUser}'`;
+    const query = `DELETE FROM utilisateur WHERE utilisateur.mail = '${req.params.mailUser}'`;
     logging.info(NAMESPACE,"ma query = ", query);
 
     
