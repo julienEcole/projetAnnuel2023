@@ -17,25 +17,31 @@ const getAllImage = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Getting all image.');
 
     let query = 'SELECT * FROM image';
-
+    console.log(res)
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'Retrieved image: ');
+    
 };
 
 const createImage = async (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Inserting image');
+    console.log("req.body:", req.body); // Log pour afficher le contenu de req.body
 
-    if(!req.body || !req.body.url_image || !req.body.nom){
+    if (!req.body || !req.body.nom || !req.body.taille || !req.body.type || !req.body.data) {
         res.status(400);
-        res.send("le body ne contiens pas d'information pour le create, veuillez ajouter le json contenant les donnés dans le body.");
+        res.send("Le body ne contient pas d'information pour la création, veuillez ajouter le JSON contenant les données dans le body.");
         return;
     }
-    //const image_id : number = req.body.image_id;
-    const url_image:string = req.body.url_image;
-    const nom : string = req.body.nom;
-    const description : string = req.body.description;
 
-    let query = `INSERT INTO image (url_image, nom, description) VALUES ("${url_image}", "${nom}", "${description}")`;
-    
+    const url_image: string = ""; 
+    const nom: string = req.body.nom;
+    const description: string = "";
+    const taille: number = req.body.taille; 
+    const type: string = req.body.type; 
+    const bin: string = req.body.data; 
+
+    let query = `INSERT INTO image (url_image, nom, description, taille, type, bin) VALUES ("${url_image}", "${nom}", "${description}", ${taille}, "${type}", "${bin}")`;
+    console.log("SQL query:", query); // Log pour afficher la requête SQL
+
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'image created: ');
 };
 

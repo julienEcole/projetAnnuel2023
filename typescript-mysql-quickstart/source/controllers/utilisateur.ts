@@ -112,7 +112,7 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const nom:string = req.body.nom;
     const telephone:string = req.body.telephone;
     const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
-    const image_id:number = parseInt(req.body.image_id);
+    const icon_image_id:number = parseInt(req.body.image_id);
 
     const isNumber = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
     const isMail : RegExp = new RegExp(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`);

@@ -3,7 +3,8 @@
   <div class="post" *ngIf="post">
     <button class="btn-forum" routerLink="/forum"> Retour à la liste des posts</button>
     <figure>
-      <img src="../../../../assets/star_full.png" alt="">
+      <img [src]="post.image" *ngIf="post.image" alt="Image du problème">  
+      
       <figcaption>
         <h2> {{ post.titre }}</h2>
         <h3><span>à</span> {{ post.adresse }}</h3>

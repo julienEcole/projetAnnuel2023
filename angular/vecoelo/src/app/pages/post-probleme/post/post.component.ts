@@ -20,7 +20,14 @@ export class PostComponent implements OnInit {
     private forumService: ForumService,
     private router: Router
   ) {}
-
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return binary;
+  }
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const postId = params.get('id');
@@ -28,8 +35,10 @@ export class PostComponent implements OnInit {
         this.postId = postId;
         this.forumService.getOneProblemeById(this.postId).subscribe(post => {
           this.post = post.results[0];
+          this.post.image = this.arrayBufferToBase64(this.post.bin.data);
           this.forumService.getOneUserById(this.postId).subscribe(user => {
             this.post = post.results[0];
+            
             this.loadAuthor(this.post.utilisateur_id);
             console.log(localStorage.getItem('id'));
             const roleId = localStorage.getItem('roleUtilisateurId'); // Utilisez la clé "role_utilisateur_id"

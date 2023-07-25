@@ -41,8 +41,9 @@ const createProbleme = async (req: Request, res: Response, next: NextFunction) =
     }
     const adresse: number = parseInt(req.body.adresse);
     const titre: string = req.body.objet === "autre" ? req.body.autreProbleme : req.body.objet;
+    const bin: string = req.body.image.data;
 
-    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id) VALUES ("${titre}", ${adresse}, "${description}", ${utilisateur_id})`;
+    let query = `INSERT INTO probleme (titre, adresse, description, utilisateur_id, bin) VALUES ("${titre}", ${adresse}, "${description}", ${utilisateur_id}, "${bin}")`;
 
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'probleme created: ');
 };

@@ -27,7 +27,7 @@ import critique_utilisateurRoute from './routes/vecoleo/critique/critique_utilis
 
 const NAMESPACE = 'Server';
 const router = express();
-
+router.use(express.urlencoded({ extended: true }));
 /** Log the request */
 router.use((req, res, next) => {
     /** Log the req */

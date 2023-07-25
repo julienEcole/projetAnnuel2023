@@ -51,8 +51,11 @@ CREATE TABLE IF NOT EXISTS ticket (
 CREATE TABLE IF NOT EXISTS image (
     image_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     url_image TEXT NOT NULL,
+    nom VARCHAR(255) NOT NULL UNIQUE,
+    `taille` int(11) NOT NULL,
     `description` TEXT,
-    nom VARCHAR(255) NOT NULL UNIQUE
+    `type` varchar(20) NOT NULL,
+    `bin` longblob NOT NULL  
 );
 
 CREATE TABLE IF NOT EXISTS ticket_image (
@@ -88,6 +91,7 @@ CREATE TABLE IF NOT EXISTS probleme (
     date_de_publication DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_mise_a_jour DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     utilisateur_id INT NOT NULL REFERENCES utilisateur(utilisateur_id)
+    `bin` longblob NOT NULL  
 );
 
 CREATE TABLE IF NOT EXISTS probleme_image (

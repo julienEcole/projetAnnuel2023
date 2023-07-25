@@ -4,7 +4,7 @@
     <hr>
   </section>
   <figure class="form" role="form">
-    <form (ngSubmit)="submitProblem()">
+    <form (ngSubmit)="submitProblem()" enctype="multipart/form-data">
       <fieldset>
         <label for="objet">Quel est le problème rencontré sur votre vélo ?</label>
         <select name="objet" id="objet" [(ngModel)]="problem.objet" required>
@@ -20,7 +20,7 @@
         <input *ngIf="problem.objet === 'autre'" type="text" name="autreProbleme" id="autreProbleme" [(ngModel)]="problem.autreProbleme">
         
         <label for="image">Photo du problème :</label>
-        <input type="file" (change)="onChangeFile($event)" name="image" id="image" [(ngModel)]="problem.image">
+        <input type="file" (change)="onChangeFile($event)" name="image" id="image">
                 
         <label for="probleme">Résumé du problème :</label>
         <textarea name="probleme" id="probleme" cols="20" rows="10" [(ngModel)]="problem.resume"></textarea>
