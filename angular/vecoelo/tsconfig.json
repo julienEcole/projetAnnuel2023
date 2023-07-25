@@ -13,7 +13,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "types": ["node"],
+    "types": ["node", "jasmine", "jest"],
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,

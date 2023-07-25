@@ -37,7 +37,14 @@ export class ForumComponent implements OnInit {
           this.posts = response.results;
           for (const post of this.posts) {
             let id = post.utilisateur_id;
-            post.image = this.arrayBufferToBase64(post.bin.data);
+
+            if (this.arrayBufferToBase64(post.bin.data) == "undefined") {
+              console.log("Pas d'image");
+              post.image = "../../../../assets/vecoelo-logo-color.png";
+            } else {
+              post.image = this.arrayBufferToBase64(post.bin.data);
+            }
+            
             this.forumService.getOneUserById(id).subscribe(
               (userResponse: any) => {
                 const utilisateur = userResponse.results[0];

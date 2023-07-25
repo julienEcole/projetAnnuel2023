@@ -27,7 +27,9 @@ import critique_utilisateurRoute from './routes/vecoleo/critique/critique_utilis
 
 const NAMESPACE = 'Server';
 const router = express();
-router.use(express.urlencoded({ extended: true }));
+router.use(bodyParser.json({ limit: '100mb' }));
+router.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+
 /** Log the request */
 router.use((req, res, next) => {
     /** Log the req */

@@ -21,7 +21,8 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const nom:string = req.body.nom;
     const pseudo:string = req.body.pseudo;
     let telephone:string =req.body.telephone;
-    const icon_image_id:number = parseInt(req.body.icon_image_id)
+    // const icon_image_id:number = parseInt(req.body.icon_image_id)
+    let bin: string =  "";
     const role_utilisateur_id:number = req.body.role_utilisateur_id || 1;
 
     // const isNumber: RegExp = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
@@ -52,7 +53,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
         res.send("le mot de passe n'est pas assez long (8 caractère minimum dont un minuscule, une majuscule & un caractère spécial)");
         return;
     }
-    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone, icon_image_id) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}", ${icon_image_id})`;
+    let query = `INSERT INTO utilisateur (mdp, mail, role_utilisateur_id, pseudo, prenom, nom, telephone, bin) VALUES ("${SecurityUtils.toSHA512(mdp)}", "${mail}", ${role_utilisateur_id}, "${pseudo}" , "${prenom}", "${nom}", "${telephone}", "${bin}")`;
     return await executeSQLCommand(req, res, next, NAMESPACE, query, 'user created: ');
 };
 
@@ -112,7 +113,8 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
     const nom:string = req.body.nom;
     const telephone:string = req.body.telephone;
     const role_utilisateur_id:number = parseInt(req.body.role_utilisateur_id);
-    const icon_image_id:number = parseInt(req.body.image_id);
+    // const icon_image_id:number = parseInt(req.body.image_id);
+    const bin: string = req.body.image.data || "";
 
     const isNumber = new RegExp("^(?:(?:\\+|0)\\d{1,3}\\s?)?(?:\\d{2}\\s?){4}\\d{2}$");
     const isMail : RegExp = new RegExp(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`);
@@ -160,8 +162,14 @@ const updateOneUserById = async (req: Request, res: Response, next: NextFunction
         }
         query += `telephone = "${telephone}" ,`
     }
-    if(icon_image_id){
-        query += `icon_image_id = "${icon_image_id}" ,`
+    // if(icon_image_id){
+    //     query += `icon_image_id = "${icon_image_id}" ,`
+    // }
+    if(bin){
+        if(bin == ""){
+            query += ""
+        }
+        query += `bin = "${bin}" ,`
     }
     if(role_utilisateur_id){
         query += `role_utilisateur_id = ${role_utilisateur_id}  `

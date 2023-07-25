@@ -19,7 +19,7 @@ export class ProfilUserComponent implements OnInit {
   roleUser: string = '';
   telephone: string = '';
   utilisateur_id: string = '';
-
+  image: any = '';
   userId: string = '';
   pseudoModifie: string = '';
   mailModifie: string = '';
@@ -48,6 +48,13 @@ export class ProfilUserComponent implements OnInit {
           this.mail = utilisateur.mail;
           this.telephone = utilisateur.telephone;
           this.utilisateur_id = utilisateur.utilisateur_id;
+          this.image = utilisateur.bin;
+          if (this.arrayBufferToBase64(this.image.data) == "undefined" || this.arrayBufferToBase64(this.image.data) == "") {
+            this.image = "https://cdn-icons-png.flaticon.com/512/3607/3607444.png";
+          } else {
+            this.image = this.arrayBufferToBase64(this.image.data);
+            console.log(this.image);
+          }
           //Savoir si l'id de l'utilisateur connecté est le même que celui de l'utilisateur dont on consulte le profil
           this.userId = localStorage.getItem('id') || '';
           this.roleUtilisateurId = utilisateur.role_utilisateur_id;
@@ -64,6 +71,14 @@ export class ProfilUserComponent implements OnInit {
         }
       );
     });
+  }
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = "";
+    const bytes = new Uint8Array(buffer);
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return binary;
   }
   isAdmin(): boolean {
     this.roleAdmin = parseInt(localStorage.getItem('roleUtilisateurId') || '0');
@@ -127,7 +142,8 @@ export class ProfilUserComponent implements OnInit {
             password: this.password,
             mail: this.mail,
             pseudo: this.pseudo,
-            telephone: this.telephone
+            telephone: this.telephone,
+            image: this.image,
           };
 
           this.userService.updateUser(userId, updatedUserData).subscribe(
@@ -147,6 +163,35 @@ export class ProfilUserComponent implements OnInit {
         // Afficher un message d'erreur ou effectuer d'autres actions nécessaires
         console.log('Veuillez remplir tous les champs de modification');
       }
+    }
+  }
+  onChangeFile(event: any) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [imageFile] = event.target.files;
+      console.log(imageFile);
+
+      if (imageFile.size > 2 * 1024 * 1024) {
+        console.error('Image too large. Maximum size allowed is 2MB.');
+        return;
+      }
+
+      reader.readAsDataURL(imageFile);
+
+      reader.onload = () => {
+        const imageDataURL = reader.result as string;
+        console.log(imageDataURL);
+
+        // Update the user object with the new image data
+        this.image = {
+          name: imageFile.name,
+          type: imageFile.type,
+          size: imageFile.size,
+          data: imageDataURL,
+        };
+      };
+    } else {
+      this.image = null;
     }
   }
 }

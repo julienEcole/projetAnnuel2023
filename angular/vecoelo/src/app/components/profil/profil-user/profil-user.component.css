@@ -10,8 +10,8 @@ figure{
     align-items: flex-start;
 }
 figure img{
-    width: 15rem;
-    height: 15rem;
+    width: 20rem;
+    height: 20rem;
     vertical-align: middle;
     display: inline-block;
     object-fit: cover;

@@ -35,7 +35,13 @@ export class PostComponent implements OnInit {
         this.postId = postId;
         this.forumService.getOneProblemeById(this.postId).subscribe(post => {
           this.post = post.results[0];
-          this.post.image = this.arrayBufferToBase64(this.post.bin.data);
+          // this.post.image = this.arrayBufferToBase64(this.post.bin.data);
+          if (this.arrayBufferToBase64(this.post.bin.data) == "undefined") {
+            console.log("Pas d'image");
+            this.post.image = "../../../../assets/vecoelo-logo-color.png";
+          } else {
+            this.post.image = this.arrayBufferToBase64(this.post.bin.data);
+          }
           this.forumService.getOneUserById(this.postId).subscribe(user => {
             this.post = post.results[0];
             

@@ -1,6 +1,10 @@
 <main>
   <figure>
-    <img src="../../../../assets/vecoelo-logo-color.png" alt="">
+    <!-- <img src="../../../../assets/vecoelo-logo-color.png" alt=""> -->
+    <img [src]="image" *ngIf="image" alt="Image avatar">  
+    
+    
+
     <figcaption>
       <h2>{{ pseudo }}</h2>
       <section>
@@ -37,6 +41,10 @@
     <div>
       <label for="password">Nouveau mot de passe :</label>
       <input type="password" id="password" [(ngModel)]="password">
+    </div>
+    <div>
+      <label for="image">Votre avatar :</label>
+      <input type="file" (change)="onChangeFile($event)" name="image" id="image">
     </div>
     <button (click)="changerProfil()">Valider les modifications</button>
   </ng-template>
