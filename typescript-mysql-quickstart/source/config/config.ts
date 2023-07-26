@@ -22,8 +22,8 @@ const SERVER = {
     port: SERVER_PORT
 };
 
-const MAILADRESS = process.env.MAIL || "projetmailjulienecole@gmail.com"
-const MAILMDP = process.env.MAIL_MDP || "julienEcole"
+const MAILADRESS = process.env.MAIL
+const MAILMDP = process.env.MAIL_MDP
 
 const MAILER = {
     mail: MAILADRESS,
